@@ -9,6 +9,7 @@ import PostWrite from './views/posts/PostWrite.vue'
 import PortfoliosPage from './views/PortfoliosPage.vue'
 import PortfolioWrite from './views/portfolios/PortfolioWrite.vue'
 import PortfolioDetail from './views/portfolios/PortfolioDetail.vue'
+import PortfolioUpdate from './views/portfolios/PortfolioUpdate.vue'
 
 
 Vue.use(Router)
@@ -59,6 +60,11 @@ export default new Router({
       name: 'portfolioDetail',
       component: PortfolioDetail,
     },
+
+    {
+      path: '/portfolios/update',
+      name: 'portfolioUpdate',
+      component: PortfolioUpdate,
+    },
   ]
 })
-

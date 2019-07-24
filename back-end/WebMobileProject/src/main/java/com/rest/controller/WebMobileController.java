@@ -152,6 +152,7 @@ public class WebMobileController {
 			logger.info("포트폴리오 저장");
 			map.put("success", "true");
 		}catch(Exception e){
+			System.out.println(e.getMessage());
 			logger.info("포트폴리오 저장 실패");
 			map.put("success", "fail");
 		}
@@ -164,7 +165,7 @@ public class WebMobileController {
 		logger.info("포트폴리오 리스트 불러옴");
 		return pService.selectAll();
 	}
-	@RequestMapping(value="/portfolio/{pfId}", method = RequestMethod.GET, produces= {"application/json;"})
+	@RequestMapping(value="/portfolio/{pfId}", method = RequestMethod.GET, produces= {"application/json;charset=UTF-8"})
 	public Portfolio getPortfolio(@PathVariable("pfId") String id) {
 		return pService.selectOne(id);
 	}

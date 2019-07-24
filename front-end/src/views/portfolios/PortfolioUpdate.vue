@@ -7,56 +7,42 @@
           <v-text-field
           :value="title"
           color="#FAFAFA"
-          dark outline single-line readonly
+          dark outline single-line
           height="50" style="font-size: 30px">
           </v-text-field>
-        </v-flex>
-        <v-flex xs2>
-          <div style="float: right">{{date}}</div>
-        </v-flex>
-        <v-flex xs2>
-          <div style="float: right">{{count}}</div>
         </v-flex>
       </v-layout>
 
       <v-layout>
         <!-- image view area -->
         <v-flex xs6 class="mr-3">
-          <img id="image" v-bind:src="img" style="max-width: 100%">
+          <img id="image" v-bind:src="imageSource" style="max-width: 100%">
         </v-flex>
 
         <!-- text view area -->
         <v-flex xs6>
+          <imageUploader @passUploadImage="setImageSource" />
+
           <v-textarea
             class="my-3" color="#FAFAFA"
             :value="body"
-            outline dark auto-grow flat readonly>
+            outline dark auto-grow flat>
           </v-textarea>
 
-          <!-- Update button -->
           <v-btn
             :class="{'red-color': this.updateButtonPicked}" color="#FAFAFA"
-            flat outline :to="{ name: 'portfolioUpdate', query: { 'pf_id': this.pf_id }}">
+            flat outline @click="updatePortfolio">
             <div @mouseover="updateButtonPick" @mouseleave="updateButtonPick">
-              Update
-            </div>
-          </v-btn>
-
-          <!-- Delete button -->
-          <v-btn
-            :class="{'red-color': this.deleteButtonPicked}" color="#FAFAFA"
-            flat outline @click="deletePortfolio">
-            <div @mouseover="deleteButtonPick" @mouseleave="deleteButtonPick">
-              Delete
+              Update Complete
             </div>
           </v-btn>
 
           <!-- 뒤로가기 button -->
           <v-btn
-            :class="{'red-color': this.listButtonPicked}" color="#FAFAFA"
+            :class="{'red-color': this.cancleButtonPicked}" color="#FAFAFA"
             flat outline :to="{ name: 'portfolios'}">
-            <div @mouseover="listButtonPick" @mouseleave="listButtonPick">
-              List
+            <div @mouseover="cancleButtonPick" @mouseleave="cancleButtonPick">
+              Cancel
             </div>
           </v-btn>
 
@@ -74,28 +60,26 @@
  */
 import Portfolio from './Portfolio'
 import PortfolioService from '../../service/PortfolioService'
+import imageUploader from '../../components/image/ImageUploader'
 
 export default {
 	name: 'PortfolioDetail',
   components: {
     PortfolioService,
+    imageUploader,
   },
 
   data () {
     return {
       title : '',
       body : '',
-      img : '',
+      imageSource : '',
       index: 0,
-      count: 0,
-      date: '',
       msg: 'Hey Nic Raboy',
       // portfolios: {},
       portfolio: [],
-      listButtonPicked: false,
       updateButtonPicked: false,
-      deleteButtonPicked: false,
-
+      cancleButtonPicked: false,
     }
 
   },
@@ -111,24 +95,24 @@ export default {
       this.portfolio= await PortfolioService.getPortfolio(this.pf_id);
     },
 
-    async deletePortfolio(){
-      alert("deletePortfolio")
-      await PortfolioService.deletePortfolio(this.pf_id);
-    },
-
     setPortfolio() {
       this.title = this.portfolio.title
       this.body = this.portfolio.content
-      this.img = this.portfolio.pfImg
-      this.count = this.portfolio.count
-      this.date = this.portfolio.date
+      this.imageSource = this.portfolio.pfImg
     },
 
-    listButtonPick() { this.listButtonPicked = !this.listButtonPicked },
+    async updatePortfolio(){
+      alert("updatePortfolio")
+      await PortfolioService.updatePortfolio(this.portfolio)
+    },
 
     updateButtonPick() { this.updateButtonPicked = !this.updateButtonPicked },
 
-    deleteButtonPick() { this.deleteButtonPicked = !this.deleteButtonPicked },
+    cancleButtonPick() { this.cancleButtonPicked = !this.cancleButtonPicked },
+
+    setImageSource(resultLink) {
+      this.imageSource = resultLink
+    },
 
   },
 

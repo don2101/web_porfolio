@@ -14,11 +14,11 @@
   		location 변수로 내부 , 외부 판별
   	 -->
  	<insert id="insertMemberInfo" parameterType="Member">
- 		insert into member values(null,#{email},#{pw},#{name},1)
+ 		insert into member values(null,#{email},#{pw},#{name},1,0) <!-- grade는 일단 0으로 임의값넣어둠 -->
  	</insert>
  	
  	<insert id="insertMemberInfoSns" parameterType="String">
- 		insert into member values(null,#{param1},null,#{param2},2)
+ 		insert into member values(null,#{param1},null,#{param2},2,0)
  	</insert>
  	
  	<!-- 로그인 체크  -->
