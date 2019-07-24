@@ -3,32 +3,33 @@ package com.ssafy.vo;
 import java.util.ArrayList;
 
 public class Post {
-	private String id;
+	private String postId;
 	private String title;
 	private String content;
 	private String count;
 	private String date;
-	private ArrayList<String> postImg;
-	
-	
+	private String img;
+	private String name;
 	
 	public Post() {}
 
-	public Post(String id, String title, String content, String count, String date, ArrayList<String> postImg) {
-		this.id = id;
+	public Post(String postId, String title, String content, String count, String date, String img, String name) {
+		super();
+		this.postId = postId;
 		this.title = title;
 		this.content = content;
 		this.count = count;
 		this.date = date;
-		this.postImg = postImg;
+		this.img = img;
+		this.name = name;
 	}
 
-	public String getId() {
-		return id;
+	public String getPostId() {
+		return postId;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setPostId(String postId) {
+		this.postId = postId;
 	}
 
 	public String getTitle() {
@@ -63,20 +64,28 @@ public class Post {
 		this.date = date;
 	}
 
-	public ArrayList<String> getPostImg() {
-		return postImg;
+	public String getImg() {
+		return img;
 	}
 
-	public void setPostImg(ArrayList<String> postImg) {
-		this.postImg = postImg;
+	public void setImg(String img) {
+		this.img = img;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	@Override
 	public String toString() {
-		return "Post [id=" + id + ", title=" + title + ", content=" + content + ", count=" + count + ", date=" + date
-				+ ", postImg=" + postImg + "]";
+		return "Post [postId=" + postId + ", title=" + title + ", content=" + content + ", count=" + count + ", date="
+				+ date + ", img=" + img + ", name=" + name + "]";
 	}
-	
+
 	
 	
 }

@@ -6,9 +6,9 @@ import com.ssafy.vo.Member;
 
 public interface MemberDAO {
 
-	//User °ü¸® 
+	//User ï¿½ï¿½ï¿½ï¿½ 
 	public void insertMemberInfo(Member member);
-	public void insertMemberInfoSns(String email, String name, String location);
+	public void insertMemberInfoSns(String email, String name, String grade);
 	public Member checkLogin(String email, String pw);
 	public List<Member> getMemberList();
 	public Member getDetailMember(String email);

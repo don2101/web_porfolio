@@ -47,7 +47,7 @@ public class WebMobileController {
 		if (m != null) {
 			map.put("success", "true");
 			map.put("mid", m.getMid());
-			map.put("loc", m.getLocation());
+			map.put("loc", m.getGrade());
 			logger.info(m.getEmail()+ " 로그인");
 			return map;
 		} else { // 蹂댁셿 �긽 �븘�씠�뵒, �뙣�뒪�썙�뱶 �븯�굹�씪�룄 ��由� �떆 false 諛섑솚
@@ -121,15 +121,15 @@ public class WebMobileController {
 	public Map insertMemberInfo(@RequestBody Member member, HttpSession session) {
 		HashMap<String, String> map = new HashMap<String, String>();
 		try {
-			if (member.getLocation().equals("2")) { // 외부 로그인
-				mService.insertMemberInfoSns(member.getEmail(), member.getName(), member.getLocation());
+			if (member.getGrade().equals("2")) { // 외부 로그인
+				mService.insertMemberInfoSns(member.getEmail(), member.getName(), member.getGrade());
 				map.put("success", "true");
 
-			} else if (member.getLocation().equals("3")) {
-				mService.insertMemberInfoSns(member.getEmail(), member.getName(), member.getLocation());
+			} else if (member.getGrade().equals("3")) {
+				mService.insertMemberInfoSns(member.getEmail(), member.getName(), member.getGrade());
 				map.put("success", "true");
 
-			} else if (member.getLocation().equals("1")) { // 회원가입
+			} else if (member.getGrade().equals("1")) { // 회원가입
 				mService.insertMemberInfo(member);
 				session.setAttribute("sessionId", member.getEmail());
 				map.put("success", "true");

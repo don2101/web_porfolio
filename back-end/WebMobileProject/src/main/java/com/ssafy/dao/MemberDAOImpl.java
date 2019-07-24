@@ -21,8 +21,8 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public void insertMemberInfoSns(String email, String name, String location) {
-		mapper.insertMemberInfoSns(email, name, location);
+	public void insertMemberInfoSns(String email, String name, String grade) {
+		mapper.insertMemberInfoSns(email, name, grade);
 	}
 
 	@Override
