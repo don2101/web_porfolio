@@ -79,7 +79,7 @@ export default {
     // .then(response=>{
       // 성공신호 확인하면
       // alert으로 삭제 성공 띄워주고 포트폴리오리스트로 이동
-    });
+    // });
   },
 
 }
