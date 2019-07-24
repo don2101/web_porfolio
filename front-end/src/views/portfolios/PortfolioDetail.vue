@@ -12,7 +12,7 @@
           </v-text-field>
         </v-flex>
       </v-layout>
-      
+
       <v-layout>
         <!-- image view area -->
         <v-flex xs6 class="mr-3">
@@ -50,7 +50,6 @@
  */
 import Portfolio from './Portfolio'
 import PortfolioService from '../../service/PortfolioService'
-import { get } from 'http';
 
 export default {
 	name: 'PortfolioDetail',
@@ -65,7 +64,8 @@ export default {
       img : '',
       index: 0,
       msg: 'Hey Nic Raboy',
-      portfolios: {},
+      // portfolios: {},
+      portfolio: [],
       buttonPicked: false,
     }
 
@@ -77,21 +77,25 @@ export default {
   },
 
   methods: {
-    async getPortfolio() {this.portfolios = await PortfolioService.getPortfolios()},
-    
-    setPortfolio() { 
-      this.title = this.portfolios[this.idx-1].title
-      this.body = this.portfolios[this.idx-1].content
-      this.img = this.portfolios[this.idx-1].pfImg
+    async getPortfolio() {
+      // this.portfolios = await PortfolioService.getPortfolios()
+      this.portfolio= await PortfolioService.getPortfolio(this.pf_id);
+    },
+
+    setPortfolio() {
+      this.title = this.portfolio.title
+      this.body = this.portfolio.content
+      alert(this.body)
+      this.img = this.portfolio.pfImg
     },
 
     buttonPick() { this.buttonPicked = !this.buttonPicked },
 
   },
-  
+
   computed: {
-    idx() {
-      return this.$route.query.idx
+    pf_id() {
+      return this.$route.query.pf_id
     },
   },
 

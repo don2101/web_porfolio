@@ -9,6 +9,7 @@ const BASE_URL = "http://localhost:9090"
 export default {
   async postPortfolio(postData) {
     let response = [];
+
     response = await axios.post(BASE_URL + '/portfolio', postData)
     .then(response=>{
       if(response.data.success==='true'){
@@ -18,17 +19,30 @@ export default {
         alert("에러 발생")
       }
     })
+
     return response
   },
 
   async getPortfolios() {
     let response = [];
+
     response =  await axios.get(BASE_URL + '/portfolio')
     .then(response=>{
       return response.data
     });
 
     return response
+  },
+
+  async getPortfolio(pfId){
+    let response = [];
+
+    response = await axios.get(BASE_URL + '/portfolio/'+pfId)
+    .then(res=>{
+      return res.data
+    });
+
+    return response;
   }
 
 }

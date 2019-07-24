@@ -21,7 +21,7 @@
 	</select>
   
 	<select id="selectOne" resultType="Portfolio">
-		select * from portfolio where pfId = #{pfId}
+		select * from member where pfId = #{id}
 	</select>
   
  	<insert id="insert" parameterType="Portfolio">

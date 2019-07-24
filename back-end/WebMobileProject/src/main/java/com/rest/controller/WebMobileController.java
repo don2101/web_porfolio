@@ -164,6 +164,10 @@ public class WebMobileController {
 		logger.info("포트폴리오 리스트 불러옴");
 		return pService.selectAll();
 	}
+	@RequestMapping(value="/portfolio/{pfId}", method = RequestMethod.GET, produces= {"application/json;"})
+	public Portfolio getPortfolio(@PathVariable("pfId") String id) {
+		return pService.selectOne(id);
+	}
 	
 
 }
