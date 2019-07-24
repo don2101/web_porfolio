@@ -14,18 +14,29 @@ public class PortfolioDAOImpl implements PortfolioDAO {
 	PortfolioMapper mapper;
 	
 	@Override
-	public List<Portfolio> selectAll() {
-		return mapper.selectAll();
+	public List<Portfolio> getPortfolioList() {
+		return mapper.getPortfolioList();
 	}
 
 	@Override
-	public Portfolio selectOne(String id) {
-		return mapper.selectOne(id);
+	public Portfolio getDetailPortfolio(String id) {
+		return mapper.getDetailPortfolio(id);
 	}
 
 	@Override
-	public void insert(Portfolio p) {
-		mapper.insert(p);
+	public void insertPortfolioInfo(Portfolio portfolio) {
+		mapper.insertPortfolioInfo(portfolio);
 	}
+
+	@Override
+	public void deletePortfolioList(String pfId) {
+		mapper.deletePortfolioList(pfId);
+	}
+
+	@Override
+	public void updatePortfolioInfo(String pfId, Portfolio portfolio) {
+		mapper.updatePortfolioInfo(pfId, portfolio);
+	}
+
 
 }

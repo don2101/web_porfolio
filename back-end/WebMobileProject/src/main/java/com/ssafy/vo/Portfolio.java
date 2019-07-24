@@ -14,6 +14,25 @@ public class Portfolio {
 	
 	
 
+	public Portfolio(String title, String content, String pfImg) {
+		super();
+		this.title = title;
+		this.content = content;
+		this.pfImg = pfImg;
+	}
+
+
+
+	public Portfolio(String title, String content, String count, String pfImg) {
+		super();
+		this.title = title;
+		this.content = content;
+		this.count = count;
+		this.pfImg = pfImg;
+	}
+
+
+
 	public Portfolio(String title, String content, String count, String date, String pfImg) {
 		super();
 		this.title = title;

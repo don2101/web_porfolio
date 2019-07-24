@@ -5,7 +5,9 @@ import java.util.List;
 import com.ssafy.vo.Portfolio;
 
 public interface PortfolioService {
-	public List<Portfolio> selectAll();
-	public Portfolio selectOne(String id);
-	public void insert(Portfolio p);
+	public List<Portfolio> getPortfolioList();
+	public Portfolio getDetailPortfolio(String pfId);
+	public void insertPortfolioInfo(Portfolio portfolio);
+	public void deletePortfolioList(String pfId);
+	public void updatePortfolioInfo(String pfId, Portfolio portfolio);
 }

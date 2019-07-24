@@ -3,19 +3,20 @@ package com.ssafy.vo;
 import java.util.ArrayList;
 
 public class Post {
-	private String id;
+	private String postId;
 	private String title;
 	private String content;
 	private String count;
 	private String date;
 	private ArrayList<String> postImg;
 	
-	
-	
-	public Post() {}
+	public Post() {
+		super();
+	}
 
-	public Post(String id, String title, String content, String count, String date, ArrayList<String> postImg) {
-		this.id = id;
+	public Post(String postId, String title, String content, String count, String date, ArrayList<String> postImg) {
+		super();
+		this.postId = postId;
 		this.title = title;
 		this.content = content;
 		this.count = count;
@@ -23,12 +24,12 @@ public class Post {
 		this.postImg = postImg;
 	}
 
-	public String getId() {
-		return id;
+	public String getPostId() {
+		return postId;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setPostId(String postId) {
+		this.postId = postId;
 	}
 
 	public String getTitle() {
@@ -70,12 +71,9 @@ public class Post {
 	public void setPostImg(ArrayList<String> postImg) {
 		this.postImg = postImg;
 	}
-
-	@Override
-	public String toString() {
-		return "Post [id=" + id + ", title=" + title + ", content=" + content + ", count=" + count + ", date=" + date
-				+ ", postImg=" + postImg + "]";
-	}
+	
+	
+	
 	
 	
 	
