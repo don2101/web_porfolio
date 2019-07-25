@@ -6,34 +6,34 @@
 <!-- xml mapper와 짝이 될 java mapper의 패키지명(경로명)과 파일명을 적어줌 -->
 <mapper namespace="com.ssafy.mapper.PortfolioMapper">
 
-<!--
-	myBatis가 이용하는 query문장이 들어 있는 파일
-	java Mapper에 의해 이용됨.
-	java Mapper - xml Mapper  - myBatis
-	java Mapper안에 있는 메소드 이름과 xml Mapper 안의 query id가 일치해야 함.
--->
-
-	<!-- resultMap 정의. primary key 컬럼은 id 태그로 표시해줌 -->
 	
 
-	<select id="selectAll" resultType="Portfolio">
+	<select id="getPortfolioList" resultType="Portfolio">
 		select * from portfolio order by pfId
 	</select>
-  
-	<select id="selectOne" resultType="Portfolio">
-		select * from member where pfId = #{id}
+	
+	<select id="getDetailPortfolio" resultType="Portfolio" parameterType="String">
+		select * from portfolio where pfId=#{param1}
 	</select>
   
- 	<insert id="insert" parameterType="Portfolio">
- 		insert into portfolio values(null,#{pfImg},#{title},sysdate(),#{content},#{count})
+ 	<insert id="insertPortfolioInfo" parameterType="Portfolio">
+ 		insert into portfolio values(null,#{title},#{content},0,sysdate(),#{img},#{mid})
  	</insert>
+ 	
+ 	<delete id="deletePortfolioList" parameterType="String">
+ 		delete from portfolio where pfId = #{param1}
+ 	</delete>
+ 	
+ 	<update id="updatePortfolioInfo">
+ 		update portfolio 
+ 		set img =#{portfolio.img},
+ 		title = #{portfolio.title},  
+ 		date = sysdate(), 
+ 		content =#{portfolio.content} 
+ 		where pfId =#{pfId}
+ 	</update>
+ 	
 
-  	
-<!--   	<update id="modify" parameterType="Member"> -->
-<!--   		update member -->
-<!--   		set answer = #{answer} -->
-<!--   		where mid = #{mid} -->
-<!--   	</update> -->
   	
 </mapper>
 

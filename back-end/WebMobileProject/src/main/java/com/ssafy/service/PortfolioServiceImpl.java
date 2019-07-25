@@ -16,17 +16,30 @@ public class PortfolioServiceImpl implements PortfolioService{
 
 	@Transactional
 	@Override
-	public List<Portfolio> selectAll() {
-		return dao.selectAll();
+	public List<Portfolio> getPortfolioList() {
+		return dao.getPortfolioList();
 	}
 
 	@Override
-	public Portfolio selectOne(String id) {
-		return dao.selectOne(id);
+	public Portfolio getDetailPortfolio(String id) {
+		return dao.getDetailPortfolio(id);
 	}
 
 	@Override
-	public void insert(Portfolio p) {
-		dao.insert(p);
+	public void insertPortfolioInfo(Portfolio portfolio) {
+		dao.insertPortfolioInfo(portfolio);
 	}
+
+	@Override
+	public void deletePortfolioList(String pfId) {
+		dao.deletePortfolioList(pfId);
+	}
+
+	@Override
+	public void updatePortfolioInfo(String pfId, Portfolio portfolio) {
+		dao.updatePortfolioInfo(pfId, portfolio);
+	}
+
+
 }
+ 

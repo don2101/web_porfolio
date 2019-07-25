@@ -3,7 +3,6 @@ package com.ssafy.dao;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import com.ssafy.mapper.MemberMapper;
@@ -20,10 +19,6 @@ public class MemberDAOImpl implements MemberDAO {
 		mapper.insertMemberInfo(member);
 	}
 
-	@Override
-	public void insertMemberInfoSns(String email, String name, String grade) {
-		mapper.insertMemberInfoSns(email, name, grade);
-	}
 
 	@Override
 	public Member checkLogin(String email, String pw) {

@@ -13,5 +13,5 @@ public class Post {
 	private String count;
 	private String date;
 	private String img;
-	private String name;
+	private String mid;
 }

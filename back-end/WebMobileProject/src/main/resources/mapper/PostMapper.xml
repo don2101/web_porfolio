@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- xml mapper와 짝이 될 java mapper의 패키지명(경로명)과 파일명을 적어줌 -->
+<mapper namespace="com.ssafy.mapper.PostMapper">
+
+	
+
+	<select id="getPostList" resultType="Post">
+		select * from post order by postId
+	</select>
+	
+	<select id="getDetailPost" resultType="Post" parameterType="String">
+		select * from post where postId=#{param1}
+	</select>
+  
+ 	<insert id="insertPostInfo" parameterType="Post">
+ 		insert into post values(null,#{title},#{content},0,sysdate(),#{img},#{mid})
+ 	</insert>
+ 	
+ 	<delete id="deletePostList" parameterType="String">
+ 		delete from post where postId= #{param1}
+ 	</delete>
+ 	
+ 	<update id="updatePostInfo">
+ 		update post 
+ 		set img =#{post.img},
+ 		title = #{post.title},  
+ 		date = sysdate(), 
+ 		content =#{post.content} 
+ 		where postId =#{postId}
+ 	</update>
+ 	
+
+  	
+</mapper>
+
+
+
+
+
+
+
+

@@ -8,7 +8,6 @@ public interface MemberDAO {
 
 	//User ���� 
 	public void insertMemberInfo(Member member);
-	public void insertMemberInfoSns(String email, String name, String grade);
 	public Member checkLogin(String email, String pw);
 	public List<Member> getMemberList();
 	public Member getDetailMember(String email);
