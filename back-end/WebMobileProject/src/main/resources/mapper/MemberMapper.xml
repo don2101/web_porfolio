@@ -18,7 +18,7 @@
  	</insert>
  
  	
-<!--  	로그인 체크 
+<!--  	<!-- 로그인 체크  -->
  	<select id="checkLogin" resultType="Member" parameterType="String">
  		select email, pw, name, grade from member where email = #{param1} and pw = #{param2}
  	</select> -->

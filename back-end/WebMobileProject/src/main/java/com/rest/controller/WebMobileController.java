@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.service.MemberService;
 import com.ssafy.service.PortfolioService;
-//import com.ssafy.service.PostService;
+import com.ssafy.service.PostService;
 import com.ssafy.vo.Member;
 import com.ssafy.vo.Portfolio;
 import com.ssafy.vo.Post;
@@ -33,8 +33,8 @@ public class WebMobileController {
 	MemberService mService;
 	@Autowired
 	PortfolioService pService;
-//	@Autowired
-//	PostService postService;
+	@Autowired
+	PostService postService;
 
 //	@RequestMapping(value = "/login", method = RequestMethod.POST, produces = { "application/json;charset=euc-kr" })
 //	public Map login(@RequestBody Member member, HttpSession session) {
@@ -188,56 +188,56 @@ public class WebMobileController {
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	//POST CRUD
 	
-//	@RequestMapping(value = "/post", method = RequestMethod.GET)
-//	public List<Portfolio> getPostList() {
-//		List<Portfolio> list = postService.getPostList();
-//		logger.info("포트폴리오 리스트 불러옴");
-//		return pService.getPortfolioList();
-//	}
-//
-//	@RequestMapping(value = "/post/{postId}", method = RequestMethod.GET)
-//	public Portfolio getDetailPostList(@PathVariable String postId) {
-//		Portfolio portfolio = postService.getDetailPost(postId);
-//		return portfolio;
-//	}
-//
-//	@RequestMapping(value = "/post", method = RequestMethod.POST, produces = { "application/json;charset=euc-kr" })
-//	public Map insertPostInfo(@RequestBody Post post) {
-//		HashMap<String, String> map = new HashMap<String, String>();
-//		try {
-//			postService.insertPostInfo(post);
-//			logger.info("포트폴리오 저장");
-//			map.put("success", "true");
-//		} catch (Exception e) {
-//			logger.info("포트폴리오 저장 실패");
-//			map.put("success", "fail");
-//		}
-//		return map;
-//	}
-//
-//	@RequestMapping(value = "/post/{postId}", method = RequestMethod.DELETE, produces = {
-//			"application/json;charset=euc-kr" })
-//	public Map deletePostList(@PathVariable("postId") String postId) {
-//		HashMap<String, String> map = new HashMap<String, String>();
-//		postService.deletePostList(postId);
-//		try {
-//			postService.getDetailPost(postId);
-//			map.put("success", "false");
-//		} catch (Exception e) {
-//			map.put("success", "true");
-//		}
-//
-//		return map;
-//
-//	}
-//	
-//	@RequestMapping(value ="/post/{postId}", method =RequestMethod.PUT , produces = {
-//			"application/json;charset=euc-kr"})
-//	public Map updatePostInfo(@PathVariable String postId, @RequestBody Post post){
-//		System.out.println(postId);
-//		postService.updatePostInfo( postId, post);
-//		
-//		return null;
-//	}
+	@RequestMapping(value = "/post", method = RequestMethod.GET)
+	public List<Portfolio> getPostList() {
+		List<Portfolio> list = postService.getPostList();
+		logger.info("포트폴리오 리스트 불러옴");
+		return pService.getPortfolioList();
+	}
+
+	@RequestMapping(value = "/post/{postId}", method = RequestMethod.GET)
+	public Portfolio getDetailPostList(@PathVariable String postId) {
+		Portfolio portfolio = postService.getDetailPost(postId);
+		return portfolio;
+	}
+
+	@RequestMapping(value = "/post", method = RequestMethod.POST, produces = { "application/json;charset=euc-kr" })
+	public Map insertPostInfo(@RequestBody Post post) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		try {
+			postService.insertPostInfo(post);
+			logger.info("포트폴리오 저장");
+			map.put("success", "true");
+		} catch (Exception e) {
+			logger.info("포트폴리오 저장 실패");
+			map.put("success", "fail");
+		}
+		return map;
+	}
+
+	@RequestMapping(value = "/post/{postId}", method = RequestMethod.DELETE, produces = {
+			"application/json;charset=euc-kr" })
+	public Map deletePostList(@PathVariable("postId") String postId) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		postService.deletePostList(postId);
+		try {
+			postService.getDetailPost(postId);
+			map.put("success", "false");
+		} catch (Exception e) {
+			map.put("success", "true");
+		}
+
+		return map;
+
+	}
+	
+	@RequestMapping(value ="/post/{postId}", method =RequestMethod.PUT , produces = {
+			"application/json;charset=euc-kr"})
+	public Map updatePostInfo(@PathVariable String postId, @RequestBody Post post){
+		System.out.println(postId);
+		postService.updatePostInfo( postId, post);
+		
+		return null;
+	}
 
 }
