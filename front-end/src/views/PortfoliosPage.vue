@@ -45,9 +45,11 @@ export default {
 
   computed: {
     // 관리자인지 확인하는 isAdmin
-    isAuthorized() {
+    isAuthorized(){
       const isAdmin = this.$store.state.isAdmin;
       const isLoggedIn = this.$store.state.isLoggedIn;
+      alert(isAdmin)
+      alert(isLoggedIn)
       if (isAdmin && isLoggedIn)
         return true;
     },

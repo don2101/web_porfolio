@@ -8,6 +8,7 @@ export default new Vuex.Store({
     chartData: {},
     isLoggedIn: false,
     isAdmin: false,
+    memberId: 0,
   },
 
   mutations: {

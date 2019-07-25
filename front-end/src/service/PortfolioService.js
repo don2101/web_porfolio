@@ -61,25 +61,31 @@ export default {
     return response
   },
 
-  async updatePortfolio(postData) {
+  async updatePortfolio(pfId,postData) {
 
-    // await axios.post(BASE_URL + '/portfolio', postData)
-    // .then(response=>{
-      // if(response.data.success==='true'){
-      //   alert("정상적으로 등록 되었습니다.")
-      //   window.location.href='/portfolios'
-      // }else{
-      //   alert("에러 발생")
-      // }
+    await axios.put(BASE_URL + '/portfolio/'+pfId, postData)
+    .then(response=>{
+      if(response.data.success==='true'){
+        alert("정상적으로 수정 되었습니다.")
+        window.location.href='/portfolios'
+      }else{
+        alert("에러 발생")
+      }
+    })
   },
 
   async deletePortfolio(pfId) {
 
-    // response =  await axios.get(BASE_URL + '/portfolio')
-    // .then(response=>{
-      // 성공신호 확인하면
-      // alert으로 삭제 성공 띄워주고 포트폴리오리스트로 이동
-    // });
+    await axios.delete(BASE_URL + '/portfolio/'+pfId)
+    .then(response=>{
+      console.log(response.data)
+      if(response.data.success==='false'){
+        alert("정상적으로 삭제 되었습니다.")
+        window.location.href='/portfolios'
+      }else{
+        alert("에러 발생")
+      }
+    });
   },
 
 }

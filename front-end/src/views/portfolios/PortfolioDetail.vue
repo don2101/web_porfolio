@@ -36,7 +36,7 @@
           <!-- Update button -->
           <v-btn
             :class="{'red-color': this.updateButtonPicked}" v-if="isAuthorized" color="#FAFAFA"
-            flat outline :to="{ name: 'portfolioUpdate', query: { 'pf_id': this.pf_id }}">
+            flat outline :to="{ name: 'portfolioUpdate', query: { 'pfId': this.pfId }}">
             <div @mouseover="updateButtonPick" @mouseleave="updateButtonPick">
               Update
             </div>
@@ -108,18 +108,18 @@ export default {
   methods: {
     async getPortfolio() {
       // this.portfolios = await PortfolioService.getPortfolios()
-      this.portfolio= await PortfolioService.getPortfolio(this.pf_id);
+      this.portfolio= await PortfolioService.getPortfolio(this.pfId);
     },
 
     async deletePortfolio(){
       alert("deletePortfolio")
-      await PortfolioService.deletePortfolio(this.pf_id);
+      await PortfolioService.deletePortfolio(this.pfId);
     },
 
     setPortfolio() {
       this.title = this.portfolio.title
       this.body = this.portfolio.content
-      this.img = this.portfolio.pfImg
+      this.img = this.portfolio.img
       this.count = this.portfolio.count
       this.date = this.portfolio.date
     },
@@ -133,8 +133,8 @@ export default {
   },
 
   computed: {
-    pf_id() {
-      return this.$route.query.pf_id
+    pfId() {
+      return this.$route.query.pfId
     },
 
     isAuthorized() {

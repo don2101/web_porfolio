@@ -2,12 +2,12 @@
   <v-layout mt-5 wrap>
 
     <v-flex v-for="i in portfolios.length > limits ? limits : portfolios.length" xs4 sm4 md4>
-      <router-link :to="{ name: 'portfolioDetail', query: { 'pf_id': portfolios[i-1].pfId } }">
+      <router-link :to="{ name: 'portfolioDetail', query: { 'pfId': portfolios[i-1].pfId } }">
         <Portfolio class="ma-3"
                 :date="portfolios[i - 1].date"
                 :title="portfolios[i - 1].title"
                 :body="portfolios[i - 1].content"
-                :imgSrc="portfolios[i - 1].pfImg"
+                :imgSrc="portfolios[i - 1].img"
                 ></Portfolio>
       </router-link>
     </v-flex>

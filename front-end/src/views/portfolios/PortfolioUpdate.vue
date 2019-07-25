@@ -84,7 +84,7 @@ export default {
       title : '',
       content : '',
       imageSource : '',
-      index: 0,
+      count: 0,
       msg: 'Hey Nic Raboy',
       // portfolios: {},
       portfolio: [],
@@ -102,18 +102,27 @@ export default {
   methods: {
     async getPortfolio() {
       // this.portfolios = await PortfolioService.getPortfolios()
-      this.portfolio= await PortfolioService.getPortfolio(this.pf_id);
+      this.portfolio= await PortfolioService.getPortfolio(this.pfId);
     },
 
     setPortfolio() {
       this.title = this.portfolio.title
       this.content = this.portfolio.content
-      this.imageSource = this.portfolio.pfImg
+      this.imageSource = this.portfolio.img
+      this.count = this.portfolio.count
     },
 
-    async updatePortfolio(){
-      alert("updatePortfolio")
-      await PortfolioService.updatePortfolio(this.portfolio)
+    async updatePortfolio() {
+      let jsonData = {
+        title: this.title,
+        content: this.content,
+        count: this.count,
+        date: Date.now().toString(),
+        img: this.imageSource,
+        mid: this.$store.state.memberId,
+      };
+      console.log(jsonData)
+      await PortfolioService.updatePortfolio(this.pfId,jsonData)
     },
 
     updateButtonPick() { this.updateButtonPicked = !this.updateButtonPicked },
@@ -127,8 +136,8 @@ export default {
   },
 
   computed: {
-    pf_id() {
-      return this.$route.query.pf_id
+    pfId() {
+      return this.$route.query.pfId
     },
   },
 
