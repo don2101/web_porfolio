@@ -20,7 +20,8 @@
         <PortfoliosList :limits="6" :load-more="true"></PortfoliosList>
       </v-flex>
     </v-layout>
-
+    <PortfolioCommentWrite/>
+    <PortfolioCommentsList/>
 
   </div>
 </template>
@@ -31,12 +32,16 @@
  */
 
 import PortfoliosList from './portfolios/PortfoliosList'
+import PortfolioCommentsList from './comments/PortfolioCommentsList'
+import PortfolioCommentWrite from './comments/PortfolioCommentWrite'
 
 export default {
   name: 'PortfoliosPage',
 
 	components: {
 		PortfoliosList,
+    PortfolioCommentsList,
+    PortfolioCommentWrite,
   },
 
   methods: {
