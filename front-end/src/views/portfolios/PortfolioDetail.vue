@@ -35,7 +35,7 @@
 
           <!-- Update button -->
           <v-btn
-            :class="{'red-color': this.updateButtonPicked}" color="#FAFAFA"
+            :class="{'red-color': this.updateButtonPicked}" v-if="isAuthorized" color="#FAFAFA"
             flat outline :to="{ name: 'portfolioUpdate', query: { 'pf_id': this.pf_id }}">
             <div @mouseover="updateButtonPick" @mouseleave="updateButtonPick">
               Update
@@ -44,7 +44,7 @@
 
           <!-- Delete button -->
           <v-btn
-            :class="{'red-color': this.deleteButtonPicked}" color="#FAFAFA"
+            :class="{'red-color': this.deleteButtonPicked}" v-if="isAuthorized" color="#FAFAFA"
             flat outline @click="deletePortfolio">
             <div @mouseover="deleteButtonPick" @mouseleave="deleteButtonPick">
               Delete
@@ -135,6 +135,13 @@ export default {
   computed: {
     pf_id() {
       return this.$route.query.pf_id
+    },
+
+    isAuthorized() {
+      const isAdmin = this.$store.state.isAdmin;
+      const isLoggedIn = this.$store.state.isLoggedIn;
+      if (isAdmin && isLoggedIn)
+        return true;
     },
   },
 

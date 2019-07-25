@@ -17,6 +17,15 @@
         <!-- image view area -->
         <v-flex xs6 class="mr-3">
           <img id="image" v-bind:src="imageSource" style="max-width: 100%">
+
+          <div id="registedImages">
+            <v-textarea
+              background-color="transparent" color="#FAFAFA"
+              auto-grow dark solo readonly flat
+              v-bind:value="content">
+              {{ imageSource }}
+            </v-textarea>
+          </div>
         </v-flex>
 
         <!-- text view area -->
@@ -25,8 +34,9 @@
 
           <v-textarea
             class="my-3" color="#FAFAFA"
-            :value="body"
-            outline dark auto-grow flat>
+            outline dark auto-grow flat
+            v-model="content" name="content" required>
+
           </v-textarea>
 
           <v-btn
@@ -72,7 +82,7 @@ export default {
   data () {
     return {
       title : '',
-      body : '',
+      content : '',
       imageSource : '',
       index: 0,
       msg: 'Hey Nic Raboy',
@@ -97,7 +107,7 @@ export default {
 
     setPortfolio() {
       this.title = this.portfolio.title
-      this.body = this.portfolio.content
+      this.content = this.portfolio.content
       this.imageSource = this.portfolio.pfImg
     },
 
