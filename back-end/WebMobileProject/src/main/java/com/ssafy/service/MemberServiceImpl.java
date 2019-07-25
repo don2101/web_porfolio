@@ -20,11 +20,6 @@ public class MemberServiceImpl implements MemberService {
 		dao.insertMemberInfo(member);
 	}
 
-	@Override
-	public void insertMemberInfoSns(String email, String name, String location) {
-		dao.insertMemberInfoSns(email, name,location);
-	}
-
 
 	@Override
 	public Member checkLogin(String email, String pw) {
