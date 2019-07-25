@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ssafy.mapper.PostMapper;
-import com.ssafy.vo.Portfolio;
 import com.ssafy.vo.Post;
 
 @Repository
