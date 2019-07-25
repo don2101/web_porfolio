@@ -37,23 +37,23 @@ public class WebMobileController {
 	@Autowired(required = true)
 	PostService postService;
 
-//	@RequestMapping(value = "/login", method = RequestMethod.POST, produces = { "application/json;charset=euc-kr" })
-//	public Map login(@RequestBody Member member, HttpSession session) {
-//		HashMap<String, String> map = new HashMap<String, String>();
-//		Member m = mService.checkLogin(member.getEmail(), member.getPw());
-//		if (m != null) {
-//			map.put("success", "true");
-//			map.put("mid", m.getMid());
-//			map.put("loc", m.getLocation());
-//			logger.info(m.getEmail() + " 로그인");
-//			return map;
-//		} else {
-//			map.put("success", "false");
-//			logger.info("로그인 실패");
-//			return map;
-//		}
-//	}
-//
+	@RequestMapping(value = "/login", method = RequestMethod.POST, produces = { "application/json;charset=euc-kr" })
+	public Map login(@RequestBody Member member, HttpSession session) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		Member m = mService.checkLogin(member.getEmail(), member.getPw());
+		if (m != null) {
+			map.put("success", "true");
+			map.put("mid", m.getMid());
+			map.put("grade", m.getGrade());
+			logger.info(m.getEmail() + " 로그인");
+			return map;
+		} else {
+			map.put("success", "false");
+			logger.info("로그인 실패");
+			return map;
+		}
+	}
+
 	@RequestMapping(value = "/member", method = RequestMethod.GET, produces = { "application/json;charset=euc-kr" })
 	public List<Member> getMemberList(HttpSession session) {
 		System.out.println("리스트 진입");

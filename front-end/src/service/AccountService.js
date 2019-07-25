@@ -11,11 +11,11 @@ export default {
     const response = await axios.post(BASE_URL + '/member', signupForm)
     .then(response => {
       this.result = response.data;
-      if(this.result.success==='true'){
+      if(this.result.success==='false'){
+        alert("이미 등록되어있는 이메일 입니다.")
+      } else {
         alert("정상적으로 회원가입 되었습니다.")
         window.location.href='/'
-      } else {
-        alert("이미 등록되어있는 이메일 입니다.")
       }
     })
 
@@ -24,13 +24,13 @@ export default {
 
   async loginSubmit(loginForm) {
     var result = {};
-    const response = await axios.post(BASE_URL + '/login', loginForm)
+    await axios.post(BASE_URL + '/login', loginForm)
     .then(response => {
       if (response.data.success == "true") {
         result = {
           isLoggedIn: true,
           id: Number(response.data.mid),
-          loc: Number(response.data.loc),
+          grade: Number(response.data.grade),
         }
       }
     })
