@@ -125,6 +125,8 @@ export default {
         if (result.isLoggedIn == true) {
           this.$store.state.isLoggedIn = true;
           sessionStorage.setItem("isLoggedIn", this.uid);
+          sessionStorage.setItem("mid", result.id);
+          
           if (result.grade == 0) {
             this.$store.state.isAdmin = true;
             sessionStorage.setItem("isAdmin", this.uid);
