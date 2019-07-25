@@ -21,7 +21,7 @@ public class PostServiceImpl implements PostService{
 	}
 
 	@Override
-	public Portfolio getDetailPost(String postId) {
+	public Post getDetailPost(String postId) {
 		return dao.getDetailPost(postId);
 	}
 

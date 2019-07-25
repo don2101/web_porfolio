@@ -21,7 +21,7 @@ public class PostDAOImpl implements PostDAO{
 	}
 
 	@Override
-	public Portfolio getDetailPost(String postId) {
+	public Post getDetailPost(String postId) {
 		return mapper.getDetailPost(postId);
 	}
 

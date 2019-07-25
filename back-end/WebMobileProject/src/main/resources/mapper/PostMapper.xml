@@ -21,16 +21,16 @@
  	</insert>
  	
  	<delete id="deletePostList" parameterType="String">
- 		delete from post where pfId = #{param1}
+ 		delete from post where postId= #{param1}
  	</delete>
  	
  	<update id="updatePostInfo">
  		update post 
  		set img =#{post.img},
  		title = #{post.title},  
- 		dateq = sysdate(), 
+ 		date = sysdate(), 
  		content =#{post.content} 
- 		where pfId =#{postId}
+ 		where postId =#{postId}
  	</update>
  	
 
