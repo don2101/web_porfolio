@@ -17,7 +17,7 @@
 	</select>
   
  	<insert id="insertPortfolioInfo" parameterType="Portfolio">
- 		insert into portfolio values(null,#{pfImg},#{title},sysdate(),#{content},0)
+ 		insert into portfolio values(null,#{title},#{content},0,sysdate(),#{img},#{mid})
  	</insert>
  	
  	<delete id="deletePortfolioList" parameterType="String">
@@ -26,9 +26,9 @@
  	
  	<update id="updatePortfolioInfo">
  		update portfolio 
- 		set pfImg =#{portfolio.pfImg},
+ 		set img =#{portfolio.img},
  		title = #{portfolio.title},  
- 		dateq = sysdate(), 
+ 		date = sysdate(), 
  		content =#{portfolio.content} 
  		where pfId =#{pfId}
  	</update>

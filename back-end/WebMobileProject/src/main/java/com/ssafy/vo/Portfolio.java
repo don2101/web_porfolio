@@ -8,138 +8,80 @@ public class Portfolio {
 	private String content;
 	private String count;
 	private String date;
-	private String pfImg;
+	private String img;
+	private String mid;
 	
-	public Portfolio() {}
-	
-	
-
-	public Portfolio(String title, String content, String pfImg) {
+	public Portfolio() {
 		super();
-		this.title = title;
-		this.content = content;
-		this.pfImg = pfImg;
 	}
 
-
-
-	public Portfolio(String title, String content, String count, String pfImg) {
-		super();
-		this.title = title;
-		this.content = content;
-		this.count = count;
-		this.pfImg = pfImg;
-	}
-
-
-
-	public Portfolio(String title, String content, String count, String date, String pfImg) {
-		super();
-		this.title = title;
-		this.content = content;
-		this.count = count;
-		this.date = date;
-		this.pfImg = pfImg;
-	}
-
-
-
-	public Portfolio(String pfId, String title, String content, String count, String date, String pfImg) {
+	public Portfolio(String pfId, String title, String content, String count, String date, String img, String mid) {
 		super();
 		this.pfId = pfId;
 		this.title = title;
 		this.content = content;
 		this.count = count;
 		this.date = date;
-		this.pfImg = pfImg;
+		this.img = img;
+		this.mid = mid;
 	}
-
-
 
 	public String getPfId() {
 		return pfId;
 	}
 
-
-
 	public void setPfId(String pfId) {
 		this.pfId = pfId;
 	}
-
-
 
 	public String getTitle() {
 		return title;
 	}
 
-
-
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
-
 
 	public String getContent() {
 		return content;
 	}
 
-
-
 	public void setContent(String content) {
 		this.content = content;
 	}
-
-
 
 	public String getCount() {
 		return count;
 	}
 
-
-
 	public void setCount(String count) {
 		this.count = count;
 	}
-
-
 
 	public String getDate() {
 		return date;
 	}
 
-
-
 	public void setDate(String date) {
 		this.date = date;
 	}
 
-
-
-	public String getPfImg() {
-		return pfImg;
+	public String getImg() {
+		return img;
 	}
 
-
-
-	public void setPfImg(String pfImg) {
-		this.pfImg = pfImg;
+	public void setImg(String img) {
+		this.img = img;
 	}
 
-
-
-	@Override
-	public String toString() {
-		return "Portfolio [pfId=" + pfId + ", title=" + title + ", content=" + content + ", count=" + count + ", date="
-				+ date + ", pfImg=" + pfImg + "]";
+	public String getMid() {
+		return mid;
 	}
 
+	public void setMid(String mid) {
+		this.mid = mid;
+	}
 	
-	
-	
-
-
-
 	
 	
 	

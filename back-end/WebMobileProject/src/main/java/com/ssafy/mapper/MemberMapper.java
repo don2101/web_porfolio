@@ -6,8 +6,7 @@ import com.ssafy.vo.Member;
 
 public interface MemberMapper {	
 	//////////////////////////////////////////////////////////////////////////////////////	
-	//User °ü¸®
-	public void insertMemberInfoSns(String email, String name, String location);
+	//User ï¿½ï¿½ï¿½ï¿½
 	public void insertMemberInfo(Member member);
 	public Member checkLogin(String email, String pw);
 	public List<Member> getMemberList();

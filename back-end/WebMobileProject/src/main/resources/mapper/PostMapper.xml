@@ -17,20 +17,20 @@
 	</select>
   
  	<insert id="insertPostInfo" parameterType="Post">
- 		insert into post values(null,#{pfImg},#{title},sysdate(),#{content},0)
+ 		insert into post values(null,#{title},#{content},0,sysdate(),#{img},#{mid})
  	</insert>
  	
  	<delete id="deletePostList" parameterType="String">
  		delete from post where pfId = #{param1}
  	</delete>
  	
- 	<update id="updatePortfolioInfo">
- 		update portfolio 
- 		set pfImg =#{portfolio.pfImg},
- 		title = #{portfolio.title},  
+ 	<update id="updatePostInfo">
+ 		update post 
+ 		set img =#{post.img},
+ 		title = #{post.title},  
  		dateq = sysdate(), 
- 		content =#{portfolio.content} 
- 		where pfId =#{pfId}
+ 		content =#{post.content} 
+ 		where pfId =#{postId}
  	</update>
  	
 

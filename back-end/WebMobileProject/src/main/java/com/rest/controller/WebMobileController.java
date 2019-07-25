@@ -53,91 +53,81 @@ public class WebMobileController {
 //		}
 //	}
 //
-//	@RequestMapping(value = "/member", method = RequestMethod.GET, produces = { "application/json;charset=euc-kr" })
-//	public List<Member> getMemberList(HttpSession session) {
-//		List<Member> memberList = new ArrayList<>();
-//		if (session.getAttribute("sessionId").equals("admin")) {
-//			memberList = mService.getMemberList();
-//			logger.info("멤버리스트 접근");
-//		}
-//		return memberList;
-//	}
-//
-//	@RequestMapping(value = "/member/{id}", method = RequestMethod.GET, produces = {
-//			"application/json;charset=euc-kr" })
-//	public Member getMemberList(@PathVariable("id") String email, HttpSession session) {
-//		System.out.println(email);
-//		Member member = mService.getDetailMember(email);
-//		logger.info(email + " 정보 확인");
-//		return member;
-//	}
-//
-//	@RequestMapping(value = "/member/{id}", method = RequestMethod.PUT, produces = {
-//			"application/json;charset=euc-kr" })
-//	public Map updateMemberInfo(@PathVariable("id") String id, HttpSession session, @RequestBody Member member) {
-//	
-//		HashMap<String, String> map = new HashMap<String, String>();
-//		Member m = mService.getDetailMember(id);
-//		String beforeUpdatePassword = m.getPw();
-//		String password = member.getPw();
-//		System.out.println(id);
-//		mService.updateMemberInfo(password, id);
-//		m = mService.getDetailMember(id);
-//		String afterUpdatePassword = m.getPw();
-//
-//		if (!beforeUpdatePassword.equals(afterUpdatePassword)) {
-//			map.put("success", "true");
-//			logger.info(m.getEmail() + " 업데이트 성공");
-//		} else {
-//			map.put("success", "false");
-//			logger.info("업데이트 실패");
-//		}
-//		return map;
-//	}
-//
-//	@RequestMapping(value = "/member/{id}", method = RequestMethod.DELETE, produces = {
-//			"application/json;charset=euc-kr" })
-//	public Map deleteMemberList(@PathVariable("id") String email) {
-//		HashMap<String, String> map = new HashMap<String, String>();
-//		mService.deleteMemberList(email);
-//		Member member = mService.getDetailMember(email);
-//		if (member == null) {
-//			map.put("success", "true");
-//			logger.info(member.getEmail() + " 회원삭제");
-//		} else {
-//			map.put("success", "false");
-//			logger.info("삭제 실패");
-//		}
-//
-//		return map;
-//
-//	}
-//
-//	@RequestMapping(value = "/member", method = RequestMethod.POST, produces = { "application/json;charset=euc-kr" })
-//	public Map insertMemberInfo(@RequestBody Member member, HttpSession session) {
-//		HashMap<String, String> map = new HashMap<String, String>();
-//		try {
-//			if (member.getLocation().equals("2")) { // 외부 로그인
-//				mService.insertMemberInfoSns(member.getEmail(), member.getName(), member.getLocation());
-//				map.put("success", "true");
-//
-//			} else if (member.getLocation().equals("3")) {
-//				mService.insertMemberInfoSns(member.getEmail(), member.getName(), member.getLocation());
-//				map.put("success", "true");
-//
-//			} else if (member.getLocation().equals("1")) { // 회원가입
-//				mService.insertMemberInfo(member);
-//				session.setAttribute("sessionId", member.getEmail());
-//				map.put("success", "true");
-//			}
-//
-//		} catch (Exception e) {
-//			map.put("success", "false");
-//		}
-//		logger.info(member.getEmail() + " 회원가입");
-//		return map;
-//	}
+	@RequestMapping(value = "/member", method = RequestMethod.GET, produces = { "application/json;charset=euc-kr" })
+	public List<Member> getMemberList(HttpSession session) {
+		List<Member> memberList = new ArrayList<>();
+		if (session.getAttribute("sessionId").equals("admin")) {
+			memberList = mService.getMemberList();
+			logger.info("멤버리스트 접근");
+		}
+		return memberList;
+	}
 
+	@RequestMapping(value = "/member/{id}", method = RequestMethod.GET, produces = {
+			"application/json;charset=euc-kr" })
+	public Member getMemberList(@PathVariable("id") String email, HttpSession session) {
+		System.out.println(email);
+		Member member = mService.getDetailMember(email);
+		logger.info(email + " 정보 확인");
+		return member;
+	}
+
+	@RequestMapping(value = "/member/{id}", method = RequestMethod.PUT, produces = {
+			"application/json;charset=euc-kr" })
+	public Map updateMemberInfo(@PathVariable("id") String id, HttpSession session, @RequestBody Member member) {
+	
+		HashMap<String, String> map = new HashMap<String, String>();
+		Member m = mService.getDetailMember(id);
+		String beforeUpdatePassword = m.getPw();
+		String password = member.getPw();
+		System.out.println(id);
+		mService.updateMemberInfo(password, id);
+		m = mService.getDetailMember(id);
+		String afterUpdatePassword = m.getPw();
+
+		if (!beforeUpdatePassword.equals(afterUpdatePassword)) {
+			map.put("success", "true");
+			logger.info(m.getEmail() + " 업데이트 성공");
+		} else {
+			map.put("success", "false");
+			logger.info("업데이트 실패");
+		}
+		return map;
+	}
+
+	@RequestMapping(value = "/member/{id}", method = RequestMethod.DELETE, produces = {
+			"application/json;charset=euc-kr" })
+	public Map deleteMemberList(@PathVariable("id") String email) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		mService.deleteMemberList(email);
+		Member member = mService.getDetailMember(email);
+		if (member == null) {
+			map.put("success", "true");
+			logger.info(member.getEmail() + " 회원삭제");
+		} else {
+			map.put("success", "false");
+			logger.info("삭제 실패");
+		}
+
+		return map;
+
+	}
+
+	//Member Create if password is null => Social Member Login
+	//                 password is not null => Local Member Login
+	@RequestMapping(value = "/member", method = RequestMethod.POST, produces = { "application/json;charset=euc-kr" })
+	public Map insertMemberInfo(@RequestBody Member member, HttpSession session) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		try {
+			mService.insertMemberInfo(member);
+			session.setAttribute("sessionId", member.getEmail());
+		} catch (Exception e) {
+			map.put("success", "false");
+		}
+		logger.info(member.getEmail() + " 회원가입");
+		return map;
+	}
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Portfolio CRUD
 
 	@RequestMapping(value = "/portfolio", method = RequestMethod.GET)
@@ -174,9 +164,10 @@ public class WebMobileController {
 		pService.deletePortfolioList(pfId);
 		try {
 			pService.getDetailPortfolio(pfId);
+			map.put("success", "false");
 			
 		} catch (Exception e) {
-			// TODO: handle exception
+			map.put("success", "true");
 		}
 
 
@@ -194,8 +185,7 @@ public class WebMobileController {
 		
 		return null;
 	}
-	
-	
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	//POST CRUD
 	
 	@RequestMapping(value = "/post", method = RequestMethod.GET)
@@ -230,6 +220,12 @@ public class WebMobileController {
 	public Map deletePostList(@PathVariable("postId") String postId) {
 		HashMap<String, String> map = new HashMap<String, String>();
 		postService.deletePostList(postId);
+		try {
+			postService.getDetailPost(postId);
+			map.put("success", "false");
+		} catch (Exception e) {
+			map.put("success", "true");
+		}
 
 		return map;
 
