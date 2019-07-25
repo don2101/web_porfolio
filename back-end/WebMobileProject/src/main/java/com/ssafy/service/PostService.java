@@ -8,7 +8,7 @@ import com.ssafy.vo.Post;
 public interface PostService {
 
 
-	List<Portfolio> getPostList();
+	List<Post> getPostList();
 
 	Portfolio getDetailPost(String postId);
 

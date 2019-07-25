@@ -3,18 +3,20 @@ package com.ssafy.dao;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.ssafy.mapper.PostMapper;
 import com.ssafy.vo.Portfolio;
 import com.ssafy.vo.Post;
 
+@Repository
 public class PostDAOImpl implements PostDAO{
 	
 	@Autowired
 	PostMapper mapper;
 	
 	@Override
-	public List<Portfolio> getPostList() {
+	public List<Post> getPostList() {
 		return mapper.getPostList();
 	}
 

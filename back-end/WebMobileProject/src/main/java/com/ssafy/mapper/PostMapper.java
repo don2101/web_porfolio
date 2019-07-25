@@ -9,7 +9,7 @@ import com.ssafy.vo.Post;
 
 public interface PostMapper {
 
-	List<Portfolio> getPostList();
+	List<Post> getPostList();
 
 	Portfolio getDetailPost(String postId);
 

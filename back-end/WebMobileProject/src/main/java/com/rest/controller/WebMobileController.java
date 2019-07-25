@@ -33,7 +33,8 @@ public class WebMobileController {
 	MemberService mService;
 	@Autowired
 	PortfolioService pService;
-	@Autowired
+	
+	@Autowired(required = true)
 	PostService postService;
 
 //	@RequestMapping(value = "/login", method = RequestMethod.POST, produces = { "application/json;charset=euc-kr" })
@@ -189,10 +190,10 @@ public class WebMobileController {
 	//POST CRUD
 	
 	@RequestMapping(value = "/post", method = RequestMethod.GET)
-	public List<Portfolio> getPostList() {
-		List<Portfolio> list = postService.getPostList();
+	public List<Post> getPostList() {
+		List<Post> list = postService.getPostList();
 		logger.info("포트폴리오 리스트 불러옴");
-		return pService.getPortfolioList();
+		return list;
 	}
 
 	@RequestMapping(value = "/post/{postId}", method = RequestMethod.GET)

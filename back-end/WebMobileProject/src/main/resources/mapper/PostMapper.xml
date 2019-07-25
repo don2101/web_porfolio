@@ -4,7 +4,7 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- xml mapper와 짝이 될 java mapper의 패키지명(경로명)과 파일명을 적어줌 -->
-<mapper namespace="com.ssafy.mapper.PortfolioMapper">
+<mapper namespace="com.ssafy.mapper.PostMapper">
 
 	
 
