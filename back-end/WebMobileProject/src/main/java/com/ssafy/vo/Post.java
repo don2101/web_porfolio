@@ -25,6 +25,13 @@ public class Post {
 		this.img = img;
 		this.mid = mid;
 	}
+	
+	public Post(String mid, String title, String content) {
+		super();
+		this.mid = mid;
+		this.title = title;
+		this.content = content;
+	}
 
 	public String getPostId() {
 		return postId;

@@ -27,7 +27,7 @@
           <!-- submit button -->
           <v-btn 
             :class="{'red-color': this.buttonPicked}" color="#FAFAFA"
-            flat outline>
+            flat outline @click="writePost">
             <div @mouseover="buttonPick" @mouseleave="buttonPick">
               write
             </div>
@@ -47,6 +47,7 @@
 import MarkdownItVue from 'markdown-it-vue'
 import 'markdown-it-vue/dist/markdown-it-vue.css'
 import VueSimplemde from 'vue-simplemde'
+import PostService from '../../service/PostService'
 
 export default {
   name: 'PostWrite',
@@ -66,6 +67,22 @@ export default {
 
   methods: {
     buttonPick() { this.buttonPicked = !this.buttonPicked },
+    
+    writePost() {
+      const postBody = {
+        mid: sessionStorage.getItem("mid"),
+        title: this.title,
+        content: this.content
+      }
+      
+      const result = PostService.postPost(postBody);
+      if(result) {
+        alert("작성되었습니다.");
+        window.location.href='/posts';
+      } else {
+        alert("작성이 거부되었습니다.")
+      }
+    }
   }
 
 }

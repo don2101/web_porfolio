@@ -2,7 +2,6 @@ package com.ssafy.service;
 
 import java.util.List;
 
-import com.ssafy.vo.Portfolio;
 import com.ssafy.vo.Post;
 
 public interface PostService {
