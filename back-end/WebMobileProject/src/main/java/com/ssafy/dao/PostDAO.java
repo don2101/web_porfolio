@@ -7,9 +7,9 @@ import com.ssafy.vo.Post;
 
 public interface PostDAO {
 
-	List<Portfolio> getPostList();
+	List<Post> getPostList();
 
-	Portfolio getDetailPost(String postId);
+	Post getDetailPost(String postId);
 
 	void insertPostInfo(Post post);
 

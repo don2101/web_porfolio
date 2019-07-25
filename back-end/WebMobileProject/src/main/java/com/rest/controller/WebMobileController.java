@@ -189,16 +189,16 @@ public class WebMobileController {
 	//POST CRUD
 	
 	@RequestMapping(value = "/post", method = RequestMethod.GET)
-	public List<Portfolio> getPostList() {
-		List<Portfolio> list = postService.getPostList();
+	public List<Post> getPostList() {
+		List<Post> list = postService.getPostList();
 		logger.info("포트폴리오 리스트 불러옴");
-		return pService.getPortfolioList();
+		return list;
 	}
 
 	@RequestMapping(value = "/post/{postId}", method = RequestMethod.GET)
-	public Portfolio getDetailPostList(@PathVariable String postId) {
-		Portfolio portfolio = postService.getDetailPost(postId);
-		return portfolio;
+	public Post getDetailPostList(@PathVariable String postId) {
+		Post post = postService.getDetailPost(postId);
+		return post;
 	}
 
 	@RequestMapping(value = "/post", method = RequestMethod.POST, produces = { "application/json;charset=euc-kr" })
