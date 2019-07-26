@@ -1,10 +1,10 @@
 package com.ssafy.vo;
 
-import lombok.Builder;
+import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-@Builder
+@NoArgsConstructor
 @Getter @Setter
 public class Member {
 	private String mid;
