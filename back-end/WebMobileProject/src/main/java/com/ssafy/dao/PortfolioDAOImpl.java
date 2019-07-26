@@ -10,6 +10,7 @@ import com.ssafy.vo.Portfolio;
 
 @Repository
 public class PortfolioDAOImpl implements PortfolioDAO {
+	
 	@Autowired
 	PortfolioMapper mapper;
 	

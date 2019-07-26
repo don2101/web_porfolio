@@ -94,7 +94,6 @@ export default {
         mid: this.getMemberId,
       };
       let response = [];
-      alert(this.getMemberId)
       response = await PortfolioService.postPortfolio(jsonData)
     },
 

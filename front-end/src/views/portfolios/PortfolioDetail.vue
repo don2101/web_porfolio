@@ -112,7 +112,6 @@ export default {
     },
 
     async deletePortfolio(){
-      alert("deletePortfolio")
       await PortfolioService.deletePortfolio(this.pfId);
     },
 

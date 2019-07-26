@@ -48,8 +48,6 @@ export default {
     isAuthorized(){
       const isAdmin = this.$store.state.isAdmin;
       const isLoggedIn = this.$store.state.isLoggedIn;
-      alert(isAdmin)
-      alert(isLoggedIn)
       if (isAdmin && isLoggedIn)
         return true;
     },

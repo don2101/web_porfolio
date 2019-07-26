@@ -11,7 +11,7 @@ public interface PostMapper {
 
 	List<Post> getPostList();
 
-	Post getDetailPost(String postId);
+	Portfolio getDetailPost(String postId);
 
 	void insertPostInfo(Post post);
 
