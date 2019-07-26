@@ -52,7 +52,6 @@ public class WebMobileController {
 			return map;
 		}
 	}
-
 	@RequestMapping(value = "/member", method = RequestMethod.GET, produces = { "application/json;charset=euc-kr" })
 	public List<Member> getMemberList(HttpSession session) {
 		List<Member> memberList = new ArrayList<>();
