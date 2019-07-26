@@ -25,7 +25,6 @@ export default {
   async putPost(postId, postBody) {
     const response = await axios.put(BASE_URL + "/" + postId, postBody);
 
-    console.log(postBody)
     return response.data
   },
 
