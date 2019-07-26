@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.service.MemberService;
+import com.ssafy.service.PfCommentService;
 import com.ssafy.service.PortfolioService;
 import com.ssafy.service.PostService;
 import com.ssafy.vo.Member;
+import com.ssafy.vo.PfComment;
 import com.ssafy.vo.Portfolio;
 import com.ssafy.vo.Post;
 
@@ -37,6 +39,9 @@ public class WebMobileController {
 	@Autowired(required = true)
 	PostService postService;
 
+	@Autowired
+	PfCommentService pfComService;
+	
 	@RequestMapping(value = "/login", method = RequestMethod.POST, produces = { "application/json;charset=euc-kr" })
 	public Map login(@RequestBody Member member, HttpSession session) {
 		HashMap<String, String> map = new HashMap<String, String>();
@@ -247,6 +252,28 @@ public class WebMobileController {
 		postService.updatePostInfo(postId, post);
 
 		return null;
+	}
+
+	// Portfolio comment 불러오기 (GET)
+	@RequestMapping(value="/portfolio/comments", method = RequestMethod.GET)
+	public List<PfComment> getPfCommentList(){
+		System.out.println(pfComService.getPfCommentList());
+		return pfComService.getPfCommentList();
+	}
+	
+	// Portfolio comment 추가 (POST)
+	@RequestMapping(value="/portfolio/comments", method = RequestMethod.POST)
+	public Map insertPfComment(@RequestBody PfComment pfComment) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		try {
+			pfComService.insert(pfComment);
+			logger.info("포트폴리오 댓글 저장");
+			map.put("success", "true");
+		}catch(Exception e){
+			logger.info("포트폴리오 댓글 저장 실패");
+			map.put("success", "fail");
+		}
+		return map;
 	}
 
 }
