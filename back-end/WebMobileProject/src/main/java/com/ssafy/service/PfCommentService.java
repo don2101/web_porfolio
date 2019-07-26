@@ -7,5 +7,7 @@ import com.ssafy.vo.PfComment;
 public interface PfCommentService {
 	List<PfComment> getPfCommentList();
 	void insert(PfComment pc);
+	void deletePfComment(String pfcomId);
+	void updatePfComment(PfComment pc);
 }
 

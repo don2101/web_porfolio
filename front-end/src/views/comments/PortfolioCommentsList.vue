@@ -4,7 +4,11 @@
       v-for="i in portfolioComments.length"
     >
       <PortfolioComment
+        :pfcomId="portfolioComments[i - 1].pfcomId"
         :content="portfolioComments[i - 1].content"
+        :date="portfolioComments[i - 1].date"
+        :pfId="portfolioComments[i - 1].pfId"
+        :mid="portfolioComments[i - 1].mid"
       >
       </PortfolioComment>
     </v-flex>

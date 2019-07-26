@@ -23,4 +23,15 @@ public class PfCommentDAOImpl implements PfCommentDAO{
 		mapper.insert(pc);
 	}
 
+	@Override
+	public void deletePfComment(String pfcomId) {
+		int pfcomIdInt = Integer.parseInt(pfcomId);
+		mapper.delete(pfcomIdInt);
+	}
+
+	@Override
+	public void updatePfComment(PfComment pc) {
+		mapper.update(pc);
+	}
+
 }

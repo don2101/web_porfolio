@@ -12,7 +12,7 @@
           </v-text-field>
         </v-flex>
       </v-layout>
-      
+
       <v-layout>
         <!-- image view area -->
         <v-flex xs6 class="mr-3">
@@ -40,6 +40,8 @@
       </v-layout>
 
     </div>
+    <PortfolioCommentWrite/>
+    <PortfolioCommentsList/>
   </div>
 </template>
 
@@ -50,12 +52,17 @@
  */
 import Portfolio from './Portfolio'
 import PortfolioService from '../../service/PortfolioService'
+import PortfolioCommentsList from '../comments/PortfolioCommentsList'
+import PortfolioCommentWrite from '../comments/PortfolioCommentWrite'
 import { get } from 'http';
 
 export default {
 	name: 'PortfolioDetail',
+
   components: {
     PortfolioService,
+    PortfolioCommentsList,
+    PortfolioCommentWrite,
   },
 
   data () {
@@ -78,8 +85,8 @@ export default {
 
   methods: {
     async getPortfolio() {this.portfolios = await PortfolioService.getPortfolios()},
-    
-    setPortfolio() { 
+
+    setPortfolio() {
       this.title = this.portfolios[this.idx-1].title
       this.body = this.portfolios[this.idx-1].content
       this.img = this.portfolios[this.idx-1].pfImg
@@ -88,7 +95,7 @@ export default {
     buttonPick() { this.buttonPicked = !this.buttonPicked },
 
   },
-  
+
   computed: {
     idx() {
       return this.$route.query.idx

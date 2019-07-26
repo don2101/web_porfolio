@@ -13,6 +13,15 @@
  		insert into portfoliocomment values (null, #{content}, sysdate(), #{pfId}, #{mid})
  	</insert>
 
-
+	<insert id="delete" parameterType="int">
+ 		delete from portfoliocomment where pfcomId = #{param1}
+ 	</insert>
+ 	
+ 	<update id="update" parameterType="PfComment">
+ 		update portfoliocomment
+ 		set content = #{content},
+ 		date = sysdate()
+ 		where pfcomId = #{pfcomId}
+ 	</update>
 
 </mapper>

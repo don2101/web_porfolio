@@ -22,4 +22,14 @@ public class PfCommentServiceImpl implements PfCommentService {
 		dao.insert(pc);
 	}
 
+	@Override
+	public void deletePfComment(String pfcomId) {
+		dao.deletePfComment(pfcomId);
+	}
+
+	@Override
+	public void updatePfComment(PfComment pc) {
+		dao.updatePfComment(pc);
+	}
+
 }

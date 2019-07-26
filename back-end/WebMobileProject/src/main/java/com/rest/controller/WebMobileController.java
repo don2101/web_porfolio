@@ -248,7 +248,6 @@ public class WebMobileController {
 	@RequestMapping(value = "/post/{postId}", method = RequestMethod.PUT, produces = {
 			"application/json;charset=euc-kr" })
 	public Map updatePostInfo(@PathVariable String postId, @RequestBody Post post) {
-		System.out.println(postId);
 		postService.updatePostInfo(postId, post);
 
 		return null;
@@ -257,7 +256,6 @@ public class WebMobileController {
 	// Portfolio comment 불러오기 (GET)
 	@RequestMapping(value="/portfolio/comments", method = RequestMethod.GET)
 	public List<PfComment> getPfCommentList(){
-		System.out.println(pfComService.getPfCommentList());
 		return pfComService.getPfCommentList();
 	}
 	
@@ -272,6 +270,36 @@ public class WebMobileController {
 		}catch(Exception e){
 			logger.info("포트폴리오 댓글 저장 실패");
 			map.put("success", "fail");
+		}
+		return map;
+	}
+	
+	@RequestMapping(value = "/portfolio/comments/{pfcomId}", method = RequestMethod.DELETE, produces = {
+			"application/json;charset=euc-kr" })
+	public Map deletePfComment(@PathVariable("pfcomId") String pfcomId) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		try {
+			pfComService.deletePfComment(pfcomId);
+			map.put("success", "true");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			map.put("success", "false");
+		}
+		return map;
+
+	}
+	
+	@RequestMapping(value = "/portfolio/comments/{pfcomId}", method = RequestMethod.PUT, produces = {
+			"application/json;charset=euc-kr" })
+	public Map updatePfComment(@PathVariable String pfcomId, @RequestBody PfComment pfComment) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		System.out.println(pfComment.getPfcomId() + "and" + pfComment.getContent());
+		try {
+			pfComService.updatePfComment(pfComment);
+			map.put("success", "true");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			map.put("success", "false");
 		}
 		return map;
 	}

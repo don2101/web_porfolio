@@ -7,4 +7,6 @@ import com.ssafy.vo.PfComment;
 public interface PfCommentMapper {
 	List<PfComment> selectAll();
 	void insert(PfComment pc);
+	void delete(int pfcomId);
+	void update(PfComment pc);
 }
