@@ -7,56 +7,52 @@
           <v-text-field
           :value="title"
           color="#FAFAFA"
-          dark outline single-line readonly
+          dark outline single-line
           height="50" style="font-size: 30px">
           </v-text-field>
-        </v-flex>
-        <v-flex xs2>
-          <div style="float: right">{{date}}</div>
-        </v-flex>
-        <v-flex xs2>
-          <div style="float: right">{{count}}</div>
         </v-flex>
       </v-layout>
 
       <v-layout>
         <!-- image view area -->
         <v-flex xs6 class="mr-3">
-          <img id="image" v-bind:src="img" style="max-width: 100%">
+          <img id="image" v-bind:src="imageSource" style="max-width: 100%">
+
+          <div id="registedImages">
+            <v-textarea
+              background-color="transparent" color="#FAFAFA"
+              auto-grow dark solo readonly flat
+              v-bind:value="content">
+              {{ imageSource }}
+            </v-textarea>
+          </div>
         </v-flex>
 
         <!-- text view area -->
         <v-flex xs6>
+          <imageUploader @passUploadImage="setImageSource" />
+
           <v-textarea
             class="my-3" color="#FAFAFA"
-            :value="body"
-            outline dark auto-grow flat readonly>
+            outline dark auto-grow flat
+            v-model="content" name="content" required>
+
           </v-textarea>
 
-          <!-- Update button -->
           <v-btn
-            :class="{'red-color': this.updateButtonPicked}" v-if="isAuthorized" color="#FAFAFA"
-            flat outline :to="{ name: 'portfolioUpdate', query: { 'pfId': this.pfId }}">
+            :class="{'red-color': this.updateButtonPicked}" color="#FAFAFA"
+            flat outline @click="updatePortfolio">
             <div @mouseover="updateButtonPick" @mouseleave="updateButtonPick">
-              Update
-            </div>
-          </v-btn>
-
-          <!-- Delete button -->
-          <v-btn
-            :class="{'red-color': this.deleteButtonPicked}" v-if="isAuthorized" color="#FAFAFA"
-            flat outline @click="deletePortfolio">
-            <div @mouseover="deleteButtonPick" @mouseleave="deleteButtonPick">
-              Delete
+              Update Complete
             </div>
           </v-btn>
 
           <!-- 뒤로가기 button -->
           <v-btn
-            :class="{'red-color': this.listButtonPicked}" color="#FAFAFA"
+            :class="{'red-color': this.cancleButtonPicked}" color="#FAFAFA"
             flat outline :to="{ name: 'portfolios'}">
-            <div @mouseover="listButtonPick" @mouseleave="listButtonPick">
-              List
+            <div @mouseover="cancleButtonPick" @mouseleave="cancleButtonPick">
+              Cancel
             </div>
           </v-btn>
 
@@ -74,28 +70,26 @@
  */
 import Portfolio from './Portfolio'
 import PortfolioService from '../../service/PortfolioService'
+import imageUploader from '../../components/image/ImageUploader'
 
 export default {
 	name: 'PortfolioDetail',
   components: {
     PortfolioService,
+    imageUploader,
   },
 
   data () {
     return {
       title : '',
-      body : '',
-      img : '',
-      index: 0,
+      content : '',
+      imageSource : '',
       count: 0,
-      date: '',
       msg: 'Hey Nic Raboy',
       // portfolios: {},
       portfolio: [],
-      listButtonPicked: false,
       updateButtonPicked: false,
-      deleteButtonPicked: false,
-
+      cancleButtonPicked: false,
     }
 
   },
@@ -111,36 +105,39 @@ export default {
       this.portfolio= await PortfolioService.getPortfolio(this.pfId);
     },
 
-    async deletePortfolio(){
-      await PortfolioService.deletePortfolio(this.pfId);
-    },
-
     setPortfolio() {
       this.title = this.portfolio.title
-      this.body = this.portfolio.content
-      this.img = this.portfolio.img
+      this.content = this.portfolio.content
+      this.imageSource = this.portfolio.img
       this.count = this.portfolio.count
-      this.date = this.portfolio.date
     },
 
-    listButtonPick() { this.listButtonPicked = !this.listButtonPicked },
+    async updatePortfolio() {
+      let jsonData = {
+        title: this.title,
+        content: this.content,
+        count: this.count,
+        date: Date.now().toString(),
+        img: this.imageSource,
+        mid: this.$store.state.memberId,
+      };
+      console.log(jsonData)
+      await PortfolioService.updatePortfolio(this.pfId,jsonData)
+    },
 
     updateButtonPick() { this.updateButtonPicked = !this.updateButtonPicked },
 
-    deleteButtonPick() { this.deleteButtonPicked = !this.deleteButtonPicked },
+    cancleButtonPick() { this.cancleButtonPicked = !this.cancleButtonPicked },
+
+    setImageSource(resultLink) {
+      this.imageSource = resultLink
+    },
 
   },
 
   computed: {
     pfId() {
       return this.$route.query.pfId
-    },
-
-    isAuthorized() {
-      const isAdmin = this.$store.state.isAdmin;
-      const isLoggedIn = this.$store.state.isLoggedIn;
-      if (isAdmin && isLoggedIn)
-        return true;
     },
   },
 

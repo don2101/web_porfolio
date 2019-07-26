@@ -33,7 +33,6 @@ public class WebMobileController {
 	MemberService mService;
 	@Autowired
 	PortfolioService pService;
-
 	@Autowired(required = true)
 	PostService postService;
 
@@ -56,7 +55,6 @@ public class WebMobileController {
 
 	@RequestMapping(value = "/member", method = RequestMethod.GET, produces = { "application/json;charset=euc-kr" })
 	public List<Member> getMemberList(HttpSession session) {
-		System.out.println("리스트 진입");
 		List<Member> memberList = new ArrayList<>();
 		if (session.getAttribute("sessionId").equals("admin")) {
 			memberList = mService.getMemberList();
@@ -77,7 +75,6 @@ public class WebMobileController {
 	@RequestMapping(value = "/member/{id}", method = RequestMethod.PUT, produces = {
 			"application/json;charset=euc-kr" })
 	public Map updateMemberInfo(@PathVariable("id") String id, HttpSession session, @RequestBody Member member) {
-
 		HashMap<String, String> map = new HashMap<String, String>();
 		Member m = mService.getDetailMember(id);
 		String beforeUpdatePassword = m.getPw();
@@ -165,9 +162,7 @@ public class WebMobileController {
 		HashMap<String, String> map = new HashMap<String, String>();
 		pService.deletePortfolioList(pfId);
 		try {
-			System.out.println("삭제하고 들어옴");
 			Portfolio portfolio = pService.getDetailPortfolio(pfId);
-			System.out.println("여기까지");
 			if (portfolio == null) {
 				map.put("success", "true");
 			} else {
@@ -175,7 +170,7 @@ public class WebMobileController {
 			}
 		} catch (Exception e) {
 		}
-
+		logger.info(member.getEmail() + " 회원가입");
 		return map;
 
 	}
@@ -190,13 +185,76 @@ public class WebMobileController {
 
 		return null;
 	}
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// POST CRUD
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// Portfolio CRUD
 
+	@RequestMapping(value = "/portfolio", method = RequestMethod.GET)
+	public List<Portfolio> getPortfolioList() {
+		List<Portfolio> list = pService.getPortfolioList();
+		logger.info("포트폴리오 리스트 불러옴");
+		return pService.getPortfolioList();
+	}
+
+	@RequestMapping(value = "/portfolio/{pfId}", method = RequestMethod.GET)
+	public Portfolio getDetailPortfolioList(@PathVariable String pfId) {
+		Portfolio portfolio = pService.getDetailPortfolio(pfId);
+		return portfolio;
+	}
+
+	@RequestMapping(value = "/portfolio", method = RequestMethod.POST, produces = { "application/json;charset=euc-kr" })
+	public Map insertPortfolioInfo(@RequestBody Portfolio portfolio) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		try {
+			pService.insertPortfolioInfo(portfolio);
+			logger.info("포트폴리오 저장");
+			map.put("success", "true");
+		} catch (Exception e) {
+			logger.info("포트폴리오 저장 실패");
+			System.out.println(e.getMessage());
+			map.put("success", "false"); //fail을 false로 수정(민재)
+		}
+		return map;
+	}
+
+	@RequestMapping(value = "/portfolio/{pfId}", method = RequestMethod.DELETE, produces = {
+			"application/json;charset=euc-kr" })
+	public Map deletePortfolioList(@PathVariable("pfId") String pfId) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		pService.deletePortfolioList(pfId);
+		try {
+			pService.getDetailPortfolio(pfId);
+			map.put("success", "false");
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			map.put("success", "true");
+		}
+
+
+		return map;
+
+	}
+	
+	@RequestMapping(value ="/portfolio/{pfId}", method =RequestMethod.PUT , produces = {
+			"application/json;charset=euc-kr"})
+	public Map updatePortfolioInfo(@PathVariable("pfId") String pfId, @RequestBody Portfolio portfolio){
+		HashMap<String, String> map = new HashMap<String, String>(); // 업데이트 성공 여부확인하기위한 map추가 (민재)
+		try { // try catch추가 (민재)
+			pService.updatePortfolioInfo( pfId, portfolio);
+			map.put("success", "true");
+		}catch (Exception e) {
+			map.put("success", "false");
+		}
+		
+		return map;
+	}
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+	//POST CRUD
+	
 	@RequestMapping(value = "/post", method = RequestMethod.GET)
 	public List<Post> getPostList() {
 		List<Post> list = postService.getPostList();
-		logger.info("포스트 리스트 불러옴");
+		logger.info("포트폴리오 리스트 불러옴");
 		return list;
 	}
 
@@ -210,12 +268,11 @@ public class WebMobileController {
 	public Map insertPostInfo(@RequestBody Post post) {
 		HashMap<String, String> map = new HashMap<String, String>();
 		try {
-			System.out.println(post.getContent());
 			postService.insertPostInfo(post);
-			logger.info("포스트 저장");
+			logger.info("포트폴리오 저장");
 			map.put("success", "true");
 		} catch (Exception e) {
-			logger.info("포스트 저장 실패");
+			logger.info("포트폴리오 저장 실패");
 			map.put("success", "fail");
 		}
 		return map;
