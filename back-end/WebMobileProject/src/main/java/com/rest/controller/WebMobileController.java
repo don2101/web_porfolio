@@ -175,15 +175,18 @@ public class WebMobileController {
 
 	}
 
-	@RequestMapping(value = "/portfolio/{pfId}", method = RequestMethod.PUT, produces = {
-			"application/json;charset=euc-kr" })
-	public Map updatePortfolioInfo(@PathVariable String pfId, @RequestBody Portfolio portfolio) {
-//		System.out.println(portfolio.getContent());
-//		System.out.println(portfolio.getTitle());
-//		System.out.println(pfId);
-		pService.updatePortfolioInfo(pfId, portfolio);
-
-		return null;
+	@RequestMapping(value ="/portfolio/{pfId}", method =RequestMethod.PUT , produces = {
+			"application/json;charset=euc-kr"})
+	public Map updatePortfolioInfo(@PathVariable("pfId") String pfId, @RequestBody Portfolio portfolio){
+		HashMap<String, String> map = new HashMap<String, String>(); // 업데이트 성공 여부확인하기위한 map추가 (민재)
+		try { // try catch추가 (민재)
+			pService.updatePortfolioInfo( pfId, portfolio);
+			map.put("success", "true");
+		}catch (Exception e) {
+			map.put("success", "false");
+		}
+		
+		return map;
 	}
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Portfolio CRUD
