@@ -170,7 +170,7 @@ public class WebMobileController {
 			}
 		} catch (Exception e) {
 		}
-//		logger.info(member.getEmail() + " 회원삭제");
+		logger.info("포트폴리오 삭제");
 		return map;
 
 	}
@@ -188,69 +188,7 @@ public class WebMobileController {
 		
 		return map;
 	}
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// Portfolio CRUD
 
-//	@RequestMapping(value = "/portfolio", method = RequestMethod.GET)
-//	public List<Portfolio> getPortfolioList() {
-//		List<Portfolio> list = pService.getPortfolioList();
-//		logger.info("포트폴리오 리스트 불러옴");
-//		return pService.getPortfolioList();
-//	}
-//
-//	@RequestMapping(value = "/portfolio/{pfId}", method = RequestMethod.GET)
-//	public Portfolio getDetailPortfolioList(@PathVariable String pfId) {
-//		Portfolio portfolio = pService.getDetailPortfolio(pfId);
-//		return portfolio;
-//	}
-//
-//	@RequestMapping(value = "/portfolio", method = RequestMethod.POST, produces = { "application/json;charset=euc-kr" })
-//	public Map insertPortfolioInfo(@RequestBody Portfolio portfolio) {
-//		HashMap<String, String> map = new HashMap<String, String>();
-//		try {
-//			pService.insertPortfolioInfo(portfolio);
-//			logger.info("포트폴리오 저장");
-//			map.put("success", "true");
-//		} catch (Exception e) {
-//			logger.info("포트폴리오 저장 실패");
-//			System.out.println(e.getMessage());
-//			map.put("success", "false"); //fail을 false로 수정(민재)
-//		}
-//		return map;
-//	}
-//
-//	@RequestMapping(value = "/portfolio/{pfId}", method = RequestMethod.DELETE, produces = {
-//			"application/json;charset=euc-kr" })
-//	public Map deletePortfolioList(@PathVariable("pfId") String pfId) {
-//		HashMap<String, String> map = new HashMap<String, String>();
-//		pService.deletePortfolioList(pfId);
-//		try {
-//			pService.getDetailPortfolio(pfId);
-//			map.put("success", "false");
-//			
-//		} catch (Exception e) {
-//			System.out.println(e.getMessage());
-//			map.put("success", "true");
-//		}
-//
-//
-//		return map;
-//
-//	}
-//	
-//	@RequestMapping(value ="/portfolio/{pfId}", method =RequestMethod.PUT , produces = {
-//			"application/json;charset=euc-kr"})
-//	public Map updatePortfolioInfo(@PathVariable("pfId") String pfId, @RequestBody Portfolio portfolio){
-//		HashMap<String, String> map = new HashMap<String, String>(); // 업데이트 성공 여부확인하기위한 map추가 (민재)
-//		try { // try catch추가 (민재)
-//			pService.updatePortfolioInfo( pfId, portfolio);
-//			map.put("success", "true");
-//		}catch (Exception e) {
-//			map.put("success", "false");
-//		}
-//		
-//		return map;
-//	}
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	//POST CRUD
 	
