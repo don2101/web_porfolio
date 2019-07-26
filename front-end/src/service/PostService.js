@@ -18,13 +18,15 @@ export default {
 
   async getPost(postId) {
     const response = await axios.get(BASE_URL + "/" + postId);
-    console.log(response.data)
+    
     return response.data
   },
 
   async putPost(postId, postBody) {
     const response = await axios.put(BASE_URL + "/" + postId, postBody);
 
+    console.log(postBody)
+    return response.data
   },
 
   async deletePost(postId) {

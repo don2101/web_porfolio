@@ -89,8 +89,8 @@ export default {
       }
     },
 
-    async editPost() {
-      
+    editPost() {
+      this.$router.push({ name: 'postUpdate', query: { 'idx': this.idx} })
     },
   },
 

@@ -6,6 +6,7 @@ import AboutUs from './views/AboutUs.vue'
 import PostsPage from './views/PostsPage.vue'
 import PostWrite from './views/posts/PostWrite.vue'
 import PostDetail from './views/posts/PostDetail.vue'
+import PostUpdate from './views/posts/PostUpdate.vue'
 
 import PortfoliosPage from './views/PortfoliosPage.vue'
 import PortfolioWrite from './views/portfolios/PortfolioWrite.vue'
@@ -47,6 +48,12 @@ export default new Router({
       path: '/posts/detail',
       name: 'postDetail',
       component: PostDetail,
+    },
+
+    {
+      path: '/posts/update',
+      name: 'postUpdate',
+      component: PostUpdate,
     },
 
     {
