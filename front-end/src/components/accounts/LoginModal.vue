@@ -22,17 +22,17 @@
               <v-layout wrap>
 
                 <v-flex xs12>
-                  <v-text-field 
-                    color="#E53935" :rules="emailRules" 
+                  <v-text-field
+                    color="#E53935" :rules="emailRules"
                     label="Email" type="email"
                     required v-model="uid">
                   </v-text-field>
                 </v-flex>
 
                 <v-flex xs12>
-                  <v-text-field 
-                    color="#E53935" :rules="passwordRules" 
-                    label="Password" type="password" 
+                  <v-text-field
+                    color="#E53935" :rules="passwordRules"
+                    label="Password" type="password"
                     required v-model="password">
                   </v-text-field>
                 </v-flex>
@@ -51,8 +51,8 @@
             <v-spacer></v-spacer>
 
             <!-- save button -->
-            <v-btn 
-              :class="{'red-color': savePicked}" color="#1a1c33" 
+            <v-btn
+              :class="{'red-color': savePicked}" color="#1a1c33"
               depressed flat outline @click="loginSubmit">
               <div @mouseleave="savePick" @mouseover="savePick">
                 save
@@ -60,9 +60,9 @@
             </v-btn>
 
             <!-- cancle button -->
-            <v-btn 
-              :class="{'red-color': canclePicked}" color="#1a1c33" 
-              depressed flat outline 
+            <v-btn
+              :class="{'red-color': canclePicked}" color="#1a1c33"
+              depressed flat outline
               @keyup.esc="this.dialog=false" @click="dialog=false">
               <div @mouseleave="canclePick" @mouseover="canclePick">
                 cancel
@@ -119,13 +119,13 @@ export default {
         email: this.uid,
         pw: this.password,
       }
-      
+
       const response = AccountService.loginSubmit(loginForm);
       response.then(result => {
         if (result.isLoggedIn == true) {
           this.$store.state.isLoggedIn = true;
           sessionStorage.setItem("isLoggedIn", this.uid);
-          if (result.loc == 0) {
+          if (result.grade == 0) {
             this.$store.state.isAdmin = true;
             sessionStorage.setItem("isAdmin", this.uid);
           }

@@ -127,7 +127,7 @@ export default {
           email: this.email,
           pw: this.password,
           name: this.name,
-          location: '1',
+          grade: '2',
         }
 
         await AccountService.signUpSubmit(signupForm)
