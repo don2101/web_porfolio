@@ -44,9 +44,11 @@ export default {
   mounted() {
     if (sessionStorage.getItem("isLoggedIn") != null) {
       this.$store.state.isLoggedIn = true;
-      this.$store.state.memberId = sessionStorage.getItem("isLoggedIn");
-      if (sessionStorage.getItem("isAdmin") != null)
+      this.$store.state.memberId = sessionStorage.getItem("mid");
+      if (sessionStorage.getItem("isAdmin") != null){
         this.$store.state.isAdmin = true;
+      }
+
     }
   },
 

@@ -28,8 +28,10 @@ export default {
     logout: function (event) {
       sessionStorage.removeItem("isLoggedIn");
       sessionStorage.removeItem("isAdmin");
+      sessionStorage.removeItem("mid");
       this.$store.state.isLoggedIn = false;
       this.$store.state.isAdmin = false;
+      this.$stroe.state.memberId = 0;
     },
 
     loginPick() {

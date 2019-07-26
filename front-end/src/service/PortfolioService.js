@@ -78,8 +78,7 @@ export default {
 
     await axios.delete(BASE_URL + '/portfolio/'+pfId)
     .then(response=>{
-      console.log(response.data)
-      if(response.data.success==='false'){
+      if(response.data.success==='true'){
         alert("정상적으로 삭제 되었습니다.")
         window.location.href='/portfolios'
       }else{
