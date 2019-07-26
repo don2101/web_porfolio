@@ -89,7 +89,6 @@ export default {
         title: this.title,
         content: this.content,
         count: 0,
-        date: Date.now().toString(),
         pfImg: this.imageSource,
       };
 
