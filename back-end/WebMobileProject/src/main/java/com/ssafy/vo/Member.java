@@ -1,6 +1,6 @@
 package com.ssafy.vo;
 
-import lombok.Builder;
+import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

@@ -241,10 +241,16 @@ public class WebMobileController {
 	@RequestMapping(value = "/post/{postId}", method = RequestMethod.PUT, produces = {
 			"application/json;charset=euc-kr" })
 	public Map updatePostInfo(@PathVariable String postId, @RequestBody Post post) {
-		System.out.println(postId);
-		postService.updatePostInfo(postId, post);
+		HashMap<String, String> map = new HashMap<String, String>();
 
-		return null;
+		try {
+			postService.updatePostInfo(postId, post);	
+			map.put("success", "true");
+		} catch (Exception e) {
+			map.put("success", "false");
+		}
+
+		return map;
 	}
 
 }
