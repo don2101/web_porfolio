@@ -5,6 +5,7 @@ import HomePage from './views/HomePage.vue'
 import AboutUs from './views/AboutUs.vue'
 import PostsPage from './views/PostsPage.vue'
 import PostWrite from './views/posts/PostWrite.vue'
+import PostDetail from './views/posts/PostDetail.vue'
 
 import PortfoliosPage from './views/PortfoliosPage.vue'
 import PortfolioWrite from './views/portfolios/PortfolioWrite.vue'
@@ -40,6 +41,12 @@ export default new Router({
       path: '/posts/write',
       name: 'postWrite',
       component: PostWrite,
+    },
+
+    {
+      path: '/posts/detail',
+      name: 'postDetail',
+      component: PostDetail,
     },
 
     {

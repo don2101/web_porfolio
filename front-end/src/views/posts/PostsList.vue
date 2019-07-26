@@ -3,7 +3,7 @@
     <v-card>
       <v-list two-line dark>
         <v-list-tile v-for="i in posts.length" xs12>
-          <router-link to="/">
+          <router-link :to="{ name: 'postDetail', query: { 'idx': posts[i-1].postId } }">
             <v-list-tile-content>
               <Post
                 :title="posts[i-1].title"

@@ -5,7 +5,6 @@ const BASE_URL = "http://localhost:9090/post"
 export default {
   async getPostList() {
     const response = await axios.get(BASE_URL);
-    console.log(response.data);
 
     return response.data
   },
@@ -19,7 +18,8 @@ export default {
 
   async getPost(postId) {
     const response = await axios.get(BASE_URL + "/" + postId);
-
+    console.log(response.data)
+    return response.data
   },
 
   async putPost(postId, postBody) {
@@ -29,6 +29,8 @@ export default {
 
   async deletePost(postId) {
     const response = await axios.delete(BASE_URL + "/" + postId);
+    
+    return response.data
   }
 
 }
