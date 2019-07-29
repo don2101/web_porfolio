@@ -55,11 +55,17 @@ public class WebMobileController {
 	@RequestMapping(value = "/member", method = RequestMethod.GET, produces = { "application/json;charset=euc-kr" })
 	public List<Member> getMemberList(HttpSession session) {
 		List<Member> memberList = new ArrayList<>();
+		memberList = mService.getMemberList();
 		if (session.getAttribute("sessionId").equals("admin")) {
-			memberList = mService.getMemberList();
 			logger.info("멤버리스트 접근");
 		}
 		return memberList;
+//		return mService.getMemberList();
+	}
+	
+	@RequestMapping(value = "/test", method = RequestMethod.GET, produces = { "application/json;charset=utf-8" })
+	public List<Member> getMemberList() {
+		return mService.getMemberList();
 	}
 
 	@RequestMapping(value = "/member/{id}", method = RequestMethod.GET, produces = {

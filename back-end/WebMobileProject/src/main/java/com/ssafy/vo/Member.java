@@ -13,4 +13,9 @@ public class Member {
 	private String pw;
 	private String name;
 	private String grade;
+	private int postCount;
+	private int pfCount;
+	private int postCommentCount;
+	private int pfCommentCount;
+	
 }

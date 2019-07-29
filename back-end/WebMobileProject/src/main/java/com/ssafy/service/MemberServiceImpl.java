@@ -47,6 +47,12 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 
+	@Override
+	public void updateMemberGrade(String id, String grade) {
+		dao.updateMemberGrade(id, grade);
+	}
+
+
 
 
 }
