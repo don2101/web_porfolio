@@ -2,7 +2,7 @@
   <div id="app">
     <v-app>
       <v-content>
-        <v-container>
+        <v-container fill-height d-inline-flex>
           <Header></Header>
           <router-view></router-view>
         </v-container>
@@ -71,7 +71,6 @@ export default {
 #app {
   font-family: 'Lato', sans-serif;
   background: #1a1c33;
-  padding-bottom: 30px;
 }
 
 .red-color {
