@@ -17,7 +17,7 @@
     <div v-else>
       <form @submit.prevent="postPortfolioComment">
         <v-text-field
-          v-model="content"
+          v-model="contentInput"
         >
         </v-text-field>
         <v-btn
@@ -40,7 +40,7 @@ export default {
 
   data() {
     return {
-      content: "",
+      contentInput: "",
       buttonPicked: false,
     }
   },
@@ -55,8 +55,9 @@ export default {
   methods: {
     async postPortfolioComment() {
       let jsonData = {
-        content: this.content,
+        content: this.contentInput,
         pfId: this.pfId,
+        mid: this.$store.state.mid,
       };
       let response = [];
       response = await CommentService.postPortfolioComment(jsonData)
@@ -64,6 +65,7 @@ export default {
     },
 
     async updatePortfolioComment() {
+      alert(this.pfId)
       let jsonData = {
         pfcomId: this.pfcomId,
         content: this.content,
@@ -71,6 +73,8 @@ export default {
       };
       let response = [];
       response = await CommentService.updatePortfolioComment(jsonData)
+      window.location.href = "detail?idx=" + this.pfId;
+      // this.$router.push({path: 'detail', query: {idx: this.pfId}})
     },
 
     buttonPick() { this.buttonPicked = !this.buttonPicked },

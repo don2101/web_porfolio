@@ -40,8 +40,14 @@
       </v-layout>
 
     </div>
-    <PortfolioCommentWrite/>
-    <PortfolioCommentsList/>
+    <PortfolioCommentWrite
+      :pfId="this.$route.query.idx"
+    >
+    </PortfolioCommentWrite>
+    <PortfolioCommentsList
+      :pfId="this.$route.query.idx"
+    >
+    </PortfolioCommentsList>
   </div>
 </template>
 
@@ -87,9 +93,13 @@ export default {
     async getPortfolio() {this.portfolios = await PortfolioService.getPortfolios()},
 
     setPortfolio() {
-      this.title = this.portfolios[this.idx-1].title
-      this.body = this.portfolios[this.idx-1].content
-      this.img = this.portfolios[this.idx-1].pfImg
+      for (var i = 0; i < this.portfolios.length; i++) {
+        if (this.idx == this.portfolios[i].pfId) {
+          this.title = this.portfolios[i].title
+          this.body = this.portfolios[i].content
+          this.img = this.portfolios[i].pfImg
+        }
+      }
     },
 
     buttonPick() { this.buttonPicked = !this.buttonPicked },

@@ -6,7 +6,7 @@
           <Header></Header>
           <router-view></router-view>
         </v-container>
-        
+
         <Footer></Footer>
       </v-content>
     </v-app>
@@ -42,8 +42,10 @@ export default {
   },
 
   mounted() {
-    if (sessionStorage.getItem("isLoggedIn") != null) {
+    var mid = sessionStorage.getItem("isLoggedIn");
+    if (mid != null) {
       this.$store.state.isLoggedIn = true;
+      this.$store.state.mid = mid;
       if (sessionStorage.getItem("isAdmin") != null)
         this.$store.state.isAdmin = true;
     }

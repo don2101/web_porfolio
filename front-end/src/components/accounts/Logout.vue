@@ -30,6 +30,7 @@ export default {
       sessionStorage.removeItem("isAdmin");
       this.$store.state.isLoggedIn = false;
       this.$store.state.isAdmin = false;
+      this.$store.state.mid = "";
     },
 
     loginPick() {

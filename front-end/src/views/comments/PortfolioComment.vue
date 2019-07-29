@@ -1,19 +1,6 @@
 <template>
   <div>
-    <p>{{ content }} {{ mid }}</p>
-    <v-btn
-      @click="update()"
-    >
-      수정
-    </v-btn>
-    <v-btn
-      @click="deletePortfolioComment(pfcomId)"
-    >
-      삭제
-    </v-btn>
-    <div
-      v-if="isUpdated"
-    >
+    <div v-if="isUpdated">
       <PortfolioCommentWrite
         :pfcomId="pfcomId"
         :content="content"
@@ -21,6 +8,27 @@
         :isUpdated=true
       >
       </PortfolioCommentWrite>
+      <v-btn
+        @click="update()"
+      >
+        수정취소
+      </v-btn>
+    </div>
+
+    <div v-else>
+      <p>{{ content }} {{ mid }}</p>
+      <div v-if="isUpdatable()">
+        <v-btn
+          @click="update()"
+        >
+          수정
+        </v-btn>
+        <v-btn
+          @click="deletePortfolioComment(pfcomId)"
+        >
+          삭제
+        </v-btn>
+      </div>
     </div>
   </div>
 </template>
@@ -59,6 +67,10 @@ export default {
 
     update() {
       this.isUpdated = !this.isUpdated;
+    },
+
+    isUpdatable() {
+      return this.mid == this.$store.state.mid
     },
   },
 }

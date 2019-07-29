@@ -90,6 +90,7 @@ export default {
         content: this.content,
         count: 0,
         pfImg: this.imageSource,
+        mid: this.$store.state.mid,
       };
 
       let response = [];

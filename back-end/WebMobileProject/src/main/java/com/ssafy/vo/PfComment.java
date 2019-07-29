@@ -42,12 +42,15 @@ public class PfComment {
 	public void setPfId(int pfId) {
 		this.pfId = pfId;
 	}
-	public int getmId() {
+	
+	public int getMid() {
 		return mid;
 	}
-	public void setmId(int mid) {
+
+	public void setMid(int mid) {
 		this.mid = mid;
 	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();

@@ -153,6 +153,7 @@ public class WebMobileController {
 	@RequestMapping(value = "/portfolio", method = RequestMethod.POST, produces = { "application/json;charset=euc-kr" })
 	public Map insertPortfolioInfo(@RequestBody Portfolio portfolio) {
 		HashMap<String, String> map = new HashMap<String, String>();
+		System.out.println(portfolio);
 		try {
 			pService.insertPortfolioInfo(portfolio);
 			logger.info("포트폴리오 저장");
@@ -256,6 +257,7 @@ public class WebMobileController {
 	// Portfolio comment 불러오기 (GET)
 	@RequestMapping(value="/portfolio/comments", method = RequestMethod.GET)
 	public List<PfComment> getPfCommentList(){
+		System.out.println(pfComService.getPfCommentList());
 		return pfComService.getPfCommentList();
 	}
 	
@@ -293,7 +295,7 @@ public class WebMobileController {
 			"application/json;charset=euc-kr" })
 	public Map updatePfComment(@PathVariable String pfcomId, @RequestBody PfComment pfComment) {
 		HashMap<String, String> map = new HashMap<String, String>();
-		System.out.println(pfComment.getPfcomId() + "and" + pfComment.getContent());
+		System.out.println(pfComment.getPfcomId() + " and " + pfComment.getContent());
 		try {
 			pfComService.updatePfComment(pfComment);
 			map.put("success", "true");

@@ -15,11 +15,11 @@ export default {
 
   async postPortfolioComment(pfComData) {
     let response = [];
-    response = await axios.post(BASE_URL + '/portfolio/comments', pfCommentData)
+    response = await axios.post(BASE_URL + '/portfolio/comments', pfComData)
     .then(response=>{
       if(response.data.success==='true'){
         alert("정상적으로 등록 되었습니다.")
-        window.location.href = '/portfolios/detail?idx=' + pfcomData.pfId  // ?idx=
+        window.location.href = '/portfolios/detail?idx=' + pfComData.pfId  // ?idx=
       }else{
         alert("에러 발생")
       }
@@ -47,7 +47,6 @@ export default {
     .then(response=>{
       if(response.data.success==='true'){
         alert("정상적으로 등록 되었습니다.")
-        window.location.href = '/portfolios/detail?idx=' + pfcomData.pfcomId
       }else{
         alert("에러 발생")
       }
