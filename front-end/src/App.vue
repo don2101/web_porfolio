@@ -6,8 +6,8 @@
           <Header></Header>
           <router-view></router-view>
         </v-container>
-
-        <Footer></Footer>
+        <ChatBot></ChatBot>
+        
       </v-content>
     </v-app>
   </div>
@@ -19,7 +19,7 @@
 import Footer from './components/commons/Footer'
 import Header from './components/commons/Header'
 import GitlabApiService from './service/GitlabApiService'
-
+import ChatBot from './components/commons/ChatBot'
 
 export default {
   name: 'App',
@@ -27,6 +27,7 @@ export default {
   components: {
     Footer,
     Header,
+    ChatBot,
   },
 
   created() {
