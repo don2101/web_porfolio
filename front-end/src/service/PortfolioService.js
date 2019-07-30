@@ -14,6 +14,7 @@ export default {
     .then(response=>{
       if(response.data.success==='true'){
         alert("정상적으로 등록 되었습니다.")
+        // var notification = new Notification("안녕",{body: "안녕"});        
         window.location.href='/portfolios'
       }else{
         alert("에러 발생")
@@ -43,22 +44,6 @@ export default {
     });
 
     return response;
-  },
-
-  async postPortfolio(postData) {
-    let response = [];
-
-    response = await axios.post(BASE_URL + '/portfolio', postData)
-    .then(response=>{
-      if(response.data.success==='true'){
-        alert("정상적으로 등록 되었습니다.")
-        window.location.href='/portfolios'
-      }else{
-        alert("에러 발생")
-      }
-    })
-
-    return response
   },
 
   async updatePortfolio(pfId,postData) {

@@ -7,7 +7,7 @@
           <router-view></router-view>
         </v-container>
         <ChatBot></ChatBot>
-        
+
       </v-content>
     </v-app>
   </div>
@@ -31,7 +31,8 @@ export default {
   },
 
   created() {
-    this.getGraphdata()
+  
+
   },
 
   data() {
@@ -43,6 +44,7 @@ export default {
   },
 
   mounted() {
+
     if (sessionStorage.getItem("isLoggedIn") != null) {
       this.$store.state.isLoggedIn = true;
       this.$store.state.memberId = sessionStorage.getItem("mid");

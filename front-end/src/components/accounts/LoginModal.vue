@@ -120,23 +120,41 @@ export default {
         pw: this.password,
       }
 
+
       const response = AccountService.loginSubmit(loginForm);
       response.then(result => {
-        if (result.isLoggedIn == true) {
-          this.$store.state.isLoggedIn = true;
-          sessionStorage.setItem("isLoggedIn", this.uid);
-          sessionStorage.setItem("mid", result.id);
-          
+          if (result.isLoggedIn == true) {
+            this.$store.state.isLoggedIn = true;
+            sessionStorage.setItem("isLoggedIn", this.uid);
+            sessionStorage.setItem("mid", result.id);
+
+
           if (result.grade == 0) {
             this.$store.state.isAdmin = true;
             sessionStorage.setItem("isAdmin", this.uid);
           }
+          this.notification();
+
+
         } else {
           alert(`등록되지 않은 아이디이거나, 아이디 또는 비밀번호를 잘못입력하셨습니다.`)
         }
       })
     },
 
+    notification(){
+      console.log('로그인 완성');
+      Notification.requestPermission(result=>{
+        if(result === 'denied') {
+          console.log('Permission denied');
+          return;
+        }else if(result ==='defalut'){
+          console.log('the permission request was dismissed');
+          retrun;
+        }
+        console.log('Permission was granted')
+      });
+    },
     loginPick() {
       document.body.style.cursor = 'pointer';
       this.loginPicked = !this.loginPicked
