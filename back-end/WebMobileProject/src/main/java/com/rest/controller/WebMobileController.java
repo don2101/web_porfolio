@@ -52,34 +52,34 @@ public class WebMobileController {
 			return map;
 		}
 	}
-	@RequestMapping(value = "/member", method = RequestMethod.GET, produces = { "application/json;charset=euc-kr" })
-	public List<Member> getMemberList(HttpSession session) {
-		List<Member> memberList = new ArrayList<>();
-		memberList = mService.getMemberList();
-		if (session.getAttribute("sessionId").equals("admin")) {
-			logger.info("멤버리스트 접근");
-		}
-		return memberList;
-//		return mService.getMemberList();
-	}
+//	@RequestMapping(value = "/member", method = RequestMethod.GET, produces = { "application/json;charset=euc-kr" })
+//	public List<Member> getMemberList(HttpSession session) {
+//		List<Member> memberList = new ArrayList<>();
+//		memberList = mService.getMemberList();
+//		if (session.getAttribute("sessionId").equals("admin")) {
+//			logger.info("멤버리스트 접근");
+//		}
+//		return memberList;
+////		return mService.getMemberList();
+//	}
 	
-	@RequestMapping(value = "/test", method = RequestMethod.GET, produces = { "application/json;charset=utf-8" })
+	@RequestMapping(value = "/member", method = RequestMethod.GET, produces = { "application/json;charset=utf-8" })
 	public List<Member> getMemberList() {
+		logger.info("멤버리스트 접근");
 		return mService.getMemberList();
 	}
 
-	@RequestMapping(value = "/member/{id}", method = RequestMethod.GET, produces = {
-			"application/json;charset=euc-kr" })
-	public Member getMemberList(@PathVariable("id") String email, HttpSession session) {
-		System.out.println(email);
-		Member member = mService.getDetailMember(email);
-		logger.info(email + " 정보 확인");
-		return member;
+	@RequestMapping(value = "/member/{mid}", method = RequestMethod.GET, produces = {
+			"application/json;charset=utf-8" })
+	public Member getDetailMember(@PathVariable("mid") String mid) {
+		System.out.println(mid);
+		logger.info(mid + " 정보 확인");
+		return mService.getDetailMember(mid);
 	}
 
 	@RequestMapping(value = "/member/{id}", method = RequestMethod.PUT, produces = {
 			"application/json;charset=euc-kr" })
-	public Map updateMemberInfo(@PathVariable("id") String id, HttpSession session, @RequestBody Member member) {
+	public Map updateMemberInfo(@PathVariable("id") String id, @RequestBody Member member) {
 		HashMap<String, String> map = new HashMap<String, String>();
 		Member m = mService.getDetailMember(id);
 		String beforeUpdatePassword = m.getPw();
@@ -99,12 +99,12 @@ public class WebMobileController {
 		return map;
 	}
 
-	@RequestMapping(value = "/member/{id}", method = RequestMethod.DELETE, produces = {
-			"application/json;charset=euc-kr" })
-	public Map deleteMemberList(@PathVariable("id") String email) {
+	@RequestMapping(value = "/member/{mid}", method = RequestMethod.DELETE, produces = {
+			"application/json;charset=utf-8" })
+	public Map deleteMemberList(@PathVariable("mid") String mid) {
 		HashMap<String, String> map = new HashMap<String, String>();
-		mService.deleteMemberList(email);
-		Member member = mService.getDetailMember(email);
+		mService.deleteMemberList(mid);
+		Member member = mService.getDetailMember(mid);
 		if (member == null) {
 			map.put("success", "true");
 			logger.info(member.getEmail() + " 회원삭제");

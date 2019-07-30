@@ -37,7 +37,7 @@
 </select>
  	
  	<select id="getDetailMember" resultType="Member" parameterType="String">
- 		select email, pw, name, grade from member where email =#{param1}
+ 		select email, pw, name, grade from member where mid =#{param1}
  	</select>
   	
  	<update id="updateMemberInfo" parameterType="String">
@@ -45,7 +45,7 @@
  	</update>
  	
  	<delete id="deleteMemberList" parameterType="String">
- 		delete from member where id=#{param1}
+ 		delete from member where mid=#{param1}
  	</delete>
 
 	<update id="updateMemberGrade" parameterType="String">
