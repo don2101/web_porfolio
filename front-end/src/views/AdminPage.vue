@@ -1,57 +1,39 @@
 <template>
   <div>
-    <h1 class="main-title my-2">Posts</h1>
-    <v-btn
-    depressed large flat outline
-      :class="{'red-color': buttonPicked}"
-      color="#FAFAFA"
-      to="/posts/write"
-      v-if="isAuthorized">
-
-      <div @mouseover="buttonPick" @mouseleave="buttonPick">
-        Write Post
-      </div>
-    </v-btn>
-
-    <PostsList />
-
+    <h1 style="color: white;">TABLE PAGINATION</h1>
+    <MemberList :listArray="memberArray" />
   </div>
 </template>
 
-
 <script>
-/**
- * 전체 post list를 가져와 출력하는 페이지
- */
-
-import PostsList from './posts/PostsList'
-
+import axios from 'axios'
+import MemberList from './admin/MemberList.vue'
 export default {
-  name: 'PostPage',
-
+  name: 'simple-pagination',
   components: {
-    PostsList,
+    MemberList
   },
-
-  methods: {
-    buttonPick() { this.buttonPicked = !this.buttonPicked },
-  },
-
-  computed: {
-    // 관리자인지 확인하는 isAdmin
-    isAuthorized() {
-      const isAdmin = this.$store.state.isAdmin;
-      const isLoggedIn = this.$store.state.isLoggedIn;
-      if (isAdmin && isLoggedIn) return true;
-      return false;
-    }
-  },
-
-  data() {
+  data () {
     return {
-      buttonPicked: false
+      memberArray: []
     }
+  },
+  created () {
+    axios.get('http://localhost:9090/test')
+    .then(response => {
+      console.log(response);
+      this.memberArray = response.data;
+    })
+    .catch(err => {
+      console.log(err);
+    });
   }
-
 }
 </script>
+
+<style>
+h1 {
+  color: #454545;
+  text-align: center;
+}
+</style>

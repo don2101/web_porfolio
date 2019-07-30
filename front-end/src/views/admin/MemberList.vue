@@ -1,78 +1,139 @@
 <template>
-  <v-layout mt-5 wrap>
-
-    <v-flex v-for="i in portfolios.length > limits ? limits : portfolios.length" xs4 sm4 md4>
-      <router-link :to="{ name: 'portfolioDetail', query: { 'pfId': portfolios[i-1].pfId } }">
-        <Portfolio class="ma-3"
-                :date="portfolios[i - 1].date"
-                :title="portfolios[i - 1].title"
-                :body="portfolios[i - 1].content"
-                :imgSrc="portfolios[i - 1].img"
-                ></Portfolio>
-      </router-link>
-    </v-flex>
-
-    <v-flex xs12 text-xs-center round my-5 v-if="loadMore">
-      <v-btn depressed large flat outline
-        :class="{'red-color': buttonPicked}"
-        color="#FAFAFA"
-        v-on:click="loadMorePortfolios">
-        <v-icon size="25" class="mr-2">fa-plus</v-icon>
-          <div @mouseover="buttonPick" @mouseleave="buttonPick">
-          더 보기
-          </div>
-      </v-btn>
-    </v-flex>
-
-  </v-layout>
+  <div style="color:white;">
+    <table>
+      <tr>
+        <th>Email</th>
+        <th>name</th>
+        <th>PortfolioCommentCount</th>
+        <th>PortfolioCount</th>
+        <th>PostCommentCount</th>
+        <th>PostCount</th>
+        <th>Grade</th>
+      </tr>
+      <tr v-for="p in memberListData" :key="p.name">
+        <td>{{ p.email }}</td>
+        <td>{{ p.name }}</td>
+        <td>{{ p.pfCommentCount }}</td>
+        <td>{{ p.pfCount }}</td>
+        <td>{{ p.postCommentCount}}</td>
+        <td>{{ p.postCount}}</td>
+        <td>
+          <select v-model="p.grade">
+            <option style="color: black;">0</option>
+            <option style="color: black;">1</option>
+            <option style="color: black;">2</option>
+          </select>
+        </td>
+      </tr>
+    </table>
+    <div class="btn-cover">
+      <button :disabled="pageNum === 0" @click="prevPage" class="page-btn">
+        이전
+      </button>
+      <span class="page-count">{{ pageNum + 1 }} / {{ pageCount }} 페이지</span>
+      <button :disabled="pageNum >= pageCount - 1" @click="nextPage" class="page-btn">
+        다음
+      </button>
+    </div>
+    <div class="btn-cover">
+      <v-btn class="page-btn" @click="updateMemberList">수 정</v-btn>
+      <v-btn class="page-btn">메인으로</v-btn>
+    </div>
+  </div>
 </template>
 
-
 <script>
-/**
- * portfolio list를 가져와 Portfolio.vue로 넘기는 component
- */
-import Portfolio from './Portfolio'
-import PortfolioService from '../../service/PortfolioService'
-
+import AdminService from '../../service/AdminService.js'
 
 export default {
-  name: 'PortfoliosList',
-
-  components: {
-		Portfolio
+  name: 'MemberList',
+  data () {
+    return {
+      pageNum: 0
+    }
   },
 
-	props: {
-		limits: {type: Number},
-    loadMore: {type: Boolean, default: true}
-  },
+  props: {
+    listArray: {
+      type: Array,
+      required: true
+    },
 
-	data() {
-		return {
-      portfolios: [],
-      buttonPicked: false
-		}
+    pageSize: {
+      type: Number,
+      required: false,
+      default: 10
+    }
   },
 
   methods: {
-    buttonPick() { this.buttonPicked = !this.buttonPicked },
-
-		async getPortfolios() {
-      this.portfolios = await PortfolioService.getPortfolios()
+    nextPage () {
+      this.pageNum += 1;
     },
 
-		loadMorePortfolios() {
-      this.limits+=3;
-
-      if(this.limits >= this.portfolios.length){
-        this.loadMore = false;
-      }
+    prevPage () {
+      this.pageNum -= 1;
     },
-	},
 
-	mounted() {
-		this.getPortfolios()
+    async updateMemberList(){
+      console.log(this.listArray);
+      await AdminService.updateMemberList(this.listArray);
+    },
   },
+
+  computed: {
+    pageCount () {
+      let listLeng = this.listArray.length,
+          listSize = this.pageSize,
+          page = Math.floor(listLeng / listSize);
+      if (listLeng % listSize > 0) page += 1;
+
+      /*
+      아니면 page = Math.floor((listLeng - 1) / listSize) + 1;
+      이런식으로 if 문 없이 고칠 수도 있다!
+      */
+      return page;
+    },
+
+    memberListData () {
+      const start = this.pageNum * this.pageSize,
+            end = start + this.pageSize;
+      return this.listArray.slice(start, end);
+    }
+  }
 }
 </script>
+
+<style>
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+table th {
+  font-size: 1.2rem;
+}
+table tr {
+  height: 2rem;
+  text-align: center;
+  border-bottom: 1px solid #505050;
+}
+table tr:first-of-type {
+  border-top: 2px solid #404040;
+}
+table tr td {
+  padding: 1rem 0;
+  font-size: 1.1rem;
+}
+.btn-cover {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+.btn-cover .page-btn {
+  width: 5rem;
+  height: 2rem;
+  letter-spacing: 0.5px;
+}
+.btn-cover .page-count {
+  padding: 0 1rem;
+}
+</style>

@@ -14,6 +14,7 @@ export default {
     .then(response=>{
       if(response.data.success==='true'){
         const test = new Notification("포트폴리오", {body:'새 포트폴리오가 등록되었습니다.'});
+        Notification.requestPermission();
         // const test1 = new Notification("타이틀", {body:'메세지내용222'});
         alert("정상적으로 등록 되었습니다.")
         window.location.href='/portfolios'

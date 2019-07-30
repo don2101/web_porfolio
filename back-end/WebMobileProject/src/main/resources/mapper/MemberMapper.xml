@@ -49,7 +49,7 @@
  	</delete>
 
 	<update id="updateMemberGrade" parameterType="String">
- 		update member set grade =#{param2} where id =#{param1}
+ 		update member set grade =#{param2} where email =#{param1}
  	</update>
   	
 

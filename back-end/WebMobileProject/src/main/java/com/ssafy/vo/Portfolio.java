@@ -3,9 +3,10 @@ package com.ssafy.vo;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Builder
-@Getter @Setter
+@Getter @Setter @ToString
 public class Portfolio {
 	private String pfId;
 	private String title;

@@ -67,6 +67,18 @@ public class WebMobileController {
 	public List<Member> getMemberList() {
 		return mService.getMemberList();
 	}
+	
+	@RequestMapping(value = "/updatetest", method = RequestMethod.PUT, produces = { "application/json;charset=utf-8" })
+	public Map updateMemberList(@RequestBody List<Member> m) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		for(int i=0;i<m.size();i++) {
+			Member tmp=m.get(i);
+//			System.out.println(tmp.getEmail()+" "+tmp.getGrade());
+			mService.updateMemberGrade(tmp.getEmail(), tmp.getGrade());
+		}
+		map.put("success", "true");
+		return map;
+	}
 
 	@RequestMapping(value = "/member/{id}", method = RequestMethod.GET, produces = {
 			"application/json;charset=euc-kr" })
@@ -156,6 +168,8 @@ public class WebMobileController {
 			map.put("success", "true");
 		} catch (Exception e) {
 			logger.info("포트폴리오 저장 실패");
+			System.out.println(portfolio);
+			System.out.println(e.getMessage());
 			map.put("success", "fail");
 		}
 		return map;
