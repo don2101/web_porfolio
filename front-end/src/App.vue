@@ -2,7 +2,7 @@
   <div id="app">
     <v-app>
       <v-content>
-        <v-container fill-height d-inline-flex>
+        <v-container>
           <Header></Header>
           <router-view></router-view>
         </v-container>

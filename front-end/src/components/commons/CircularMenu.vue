@@ -1,5 +1,6 @@
 <template>
-  <div>   
+  <div>
+    <v-layout justify-center>
     <radial-menu
       style="background-color: #FAFAFA"
       :itemSize="80"
@@ -15,7 +16,7 @@
         <span>{{item}}</span>
       </radial-menu-item>
     </radial-menu>
-    
+    </v-layout>
   </div>
 </template>
 

@@ -1,9 +1,7 @@
 <template>
-  <div>
-    <v-layout align-center justify-center>
-      <CircularMenu></CircularMenu>
-    </v-layout>
-  </div>
+  <v-container fill-height style="height: 100vh" d-flex>
+    <CircularMenu></CircularMenu>
+  </v-container>
 </template>
 
 

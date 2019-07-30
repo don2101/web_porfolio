@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <h1 class="main-title my-2">Portfolios</h1>
+    <h1 class="main-title my-5">Portfolios</h1>
     <v-btn
       depressed large flat outline
       :class="{'red-color': buttonPicked}"
