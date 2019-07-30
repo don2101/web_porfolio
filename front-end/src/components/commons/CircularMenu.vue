@@ -14,6 +14,7 @@
         style="background-color: white" 
         @click="goToPage(item)">
         <span>{{item}}</span>
+
       </radial-menu-item>
     </radial-menu>
     </v-layout>
@@ -35,10 +36,22 @@ export default {
 
   methods: {
     goToPage(item) {
-      if(item === "About Us") this.$router.push({ name: 'aboutus' })
-      else if(item === "Portfolios") this.$router.push({ name: 'portfolios' })
-      else if(item === "Posts") this.$router.push({ name: 'posts' })
-      else if(item === "Home") this.$router.push({ name: 'home' })
+      if(item === "About Us") {
+        this.$store.commit('setPageDirection', 'slide-right')
+        this.$router.push({ name: 'aboutus' })
+      }
+      else if(item === "Portfolios") {
+        this.$store.commit('setPageDirection', 'slide-up')
+        this.$router.push({ name: 'portfolios' })
+      }
+      else if(item === "Posts") {
+        this.$store.commit('setPageDirection', 'slide-left')
+        this.$router.push({ name: 'posts' })
+      }
+      else if(item === "Home") {
+        this.$store.commit('setPageDirection', 'slide-down')
+        this.$router.push({ name: 'home' })
+      }
     }
   },
 
@@ -51,3 +64,7 @@ export default {
     
 }
 </script>
+
+<style>
+
+</style>

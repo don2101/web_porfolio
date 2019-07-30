@@ -4,7 +4,9 @@
       <v-content>
         <v-container>
           <Header></Header>
-          <router-view></router-view>
+          <transition :name="this.pageDirection" mode="out-in">
+            <router-view></router-view>
+          </transition>
         </v-container>
         <ChatBot></ChatBot>
         
@@ -42,6 +44,12 @@ export default {
     }
   },
 
+  computed: {
+    pageDirection() {
+      return this.$store.state.direction
+    } 
+  },
+
   mounted() {
     if (sessionStorage.getItem("isLoggedIn") != null) {
       this.$store.state.isLoggedIn = true;
@@ -67,42 +75,7 @@ export default {
 
 <style>
 @import url('https://fonts.googleapis.com/css?family=Lato:400,700&display=swap');
+@import './assets/style.css';
 
-#app {
-  font-family: 'Lato', sans-serif;
-  background: #1a1c33;
-}
-
-.red-color {
-  color: #E53935!important;
-}
-
-.menu-title {
-  font-size: 8.0rem;
-  color: #FAFAFA;
-  text-decoration: none !important;
-}
-
-.main-title {
-  font-size: 5.0rem;
-  color: #FAFAFA;
-}
-
-.small-menu-title {
-  font-size: 2.0rem;
-  color: #FAFAFA;
-  text-decoration: none !important;
-}
-
-.main-text {
-  font-size: 2.0em;
-  line-height: 2.0em;
-  color: #FAFAFA;
-}
-
-.highlight-text {
-  line-height: 2.0em;
-  color: #E53935;
-}
 
 </style>

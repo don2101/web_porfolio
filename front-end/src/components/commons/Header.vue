@@ -2,7 +2,7 @@
   <div>
     <v-toolbar class="mt-2 ml-2" color="transparent" flat fixed>
 
-      <v-btn icon dark to="/"><v-icon dark x-large>home</v-icon></v-btn>
+      <v-btn icon dark @click="goTo" ><v-icon dark x-large>home</v-icon></v-btn>
       
       <div v-if="isLoggedIn">
         <v-layout class="ml-3">
@@ -35,6 +35,13 @@ export default {
   data () {
     return {
       //
+    }
+  },
+
+  methods: {
+    goTo() {
+      this.$store.commit('setPageDirection', 'slide-down')
+      this.$router.push({ name: 'home' })
     }
   },
 
