@@ -69,7 +69,7 @@ public class WebMobileController {
 		return mService.getMemberList();
 	}
 	
-	@RequestMapping(value = "/updatetest", method = RequestMethod.PUT, produces = { "application/json;charset=utf-8" })
+	@RequestMapping(value = "/member", method = RequestMethod.PUT, produces = { "application/json;charset=utf-8" })
 	public Map updateMemberList(@RequestBody List<Member> m) {
 		HashMap<String, String> map = new HashMap<String, String>();
 		for(int i=0;i<m.size();i++) {
