@@ -10,7 +10,7 @@ export default {
   async updateMemberList(postData) {
     let response = [];
 
-    response = await axios.put(BASE_URL + '/updatetest', postData)
+    response = await axios.put(BASE_URL + '/member', postData)
     .then(response=>{
       if(response.data.success==='true'){
         alert("정상적으로 등록 되었습니다.")

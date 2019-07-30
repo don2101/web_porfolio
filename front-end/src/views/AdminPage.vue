@@ -19,7 +19,7 @@ export default {
     }
   },
   created () {
-    axios.get('http://localhost:9090/test')
+    axios.get('http://localhost:9090/member')
     .then(response => {
       console.log(response);
       this.memberArray = response.data;
