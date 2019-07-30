@@ -22,3 +22,26 @@ new Vue({
   store,
   render: h => h(App),
 }).$mount('#app')
+
+
+window.addEventListener("keyup", keyboardGo)
+
+
+function keyboardGo(item) {
+  if(item.key === "ArrowRight") {
+    store.commit('setPageDirection', 'slide-right')
+    router.push({ name: 'aboutus' })
+  }
+  else if(item.key === "ArrowUp") {
+    store.commit('setPageDirection', 'slide-up')
+    router.push({ name: 'portfolios' })
+  }
+  else if(item.key === "ArrowLeft") {
+    store.commit('setPageDirection', 'slide-left')
+    router.push({ name: 'posts' })
+  }
+  else if(item.key === "ArrowDown") {
+    store.commit('setPageDirection', 'slide-down')
+    router.push({ name: 'home' })
+  }
+}

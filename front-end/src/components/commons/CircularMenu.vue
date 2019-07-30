@@ -25,7 +25,6 @@
 <script>
 import { RadialMenu,  RadialMenuItem } from 'vue-radial-menu'
 
-
 export default {
   name: "CircularMenu",
 
@@ -58,7 +57,6 @@ export default {
   data() {
     return {
       items: ['About Us', 'Portfolios', 'Posts', 'Home'],
-      lastClicked: 'click on something!'
     }
   },
     
