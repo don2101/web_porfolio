@@ -9,12 +9,17 @@ export default new Vuex.Store({
     isLoggedIn: false,
     isAdmin: false,
     memberId: 0,
+    direction: '',
   },
 
   mutations: {
     setChartData(state, dataList) {
       state.chartData = dataList
     },
+
+    setPageDirection(state, direction) {
+      state.direction = direction
+    }
   }
 
 })

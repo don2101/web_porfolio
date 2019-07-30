@@ -72,7 +72,6 @@
 /**
  * portfolio의 상세 내용을 출력하는 component
  */
-import Portfolio from './Portfolio'
 import PortfolioService from '../../service/PortfolioService'
 
 export default {
