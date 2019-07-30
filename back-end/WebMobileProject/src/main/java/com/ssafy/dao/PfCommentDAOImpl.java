@@ -14,8 +14,8 @@ public class PfCommentDAOImpl implements PfCommentDAO{
 	PfCommentMapper mapper;
 
 	@Override
-	public List<PfComment> getPfCommentList() {
-		return mapper.selectAll();
+	public List<PfComment> getPfCommentList(String pfId) {
+		return mapper.selectOne(pfId);
 	}
 
 	@Override

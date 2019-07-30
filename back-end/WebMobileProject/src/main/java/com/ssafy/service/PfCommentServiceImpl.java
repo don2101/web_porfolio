@@ -13,8 +13,8 @@ public class PfCommentServiceImpl implements PfCommentService {
 	PfCommentDAO dao;
 
 	@Override
-	public List<PfComment> getPfCommentList() {
-		return dao.getPfCommentList();
+	public List<PfComment> getPfCommentList(String pfId) {
+		return dao.getPfCommentList(pfId);
 	}
 
 	@Override

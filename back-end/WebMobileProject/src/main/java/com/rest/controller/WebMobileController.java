@@ -255,10 +255,10 @@ public class WebMobileController {
 	}
 
 	// Portfolio comment 불러오기 (GET)
-	@RequestMapping(value="/portfolio/comments", method = RequestMethod.GET)
-	public List<PfComment> getPfCommentList(){
-		System.out.println(pfComService.getPfCommentList());
-		return pfComService.getPfCommentList();
+	@RequestMapping(value="/portfolio/comments/{pfId}", method = RequestMethod.GET)
+	public List<PfComment> getPfCommentList(@PathVariable("pfId") String pfId){
+		System.out.println(pfComService.getPfCommentList(pfId));
+		return pfComService.getPfCommentList(pfId);
 	}
 	
 	// Portfolio comment 추가 (POST)

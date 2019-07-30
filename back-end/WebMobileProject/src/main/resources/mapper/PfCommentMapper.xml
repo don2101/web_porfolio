@@ -5,8 +5,8 @@
 
 <mapper namespace="com.ssafy.mapper.PfCommentMapper">
 
-	<select id="selectAll" resultType="PfComment">
-		select * from portfoliocomment
+	<select id="selectOne" parameterType="String" resultType="PfComment">
+		select * from portfoliocomment where pfId = #{param1}
 	</select>
 	
  	<insert id="insert" parameterType="PfComment">

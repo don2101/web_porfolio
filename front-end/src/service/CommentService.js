@@ -3,9 +3,9 @@ import axios from 'axios'
 const BASE_URL = "http://localhost:9090"
 
 export default {
-  async getPortfolioComments() {
+  async getPortfolioComments(pfId) {
     let response = [];
-    response = await axios.get(BASE_URL + '/portfolio/comments')
+    response = await axios.get(BASE_URL + '/portfolio/comments/' + pfId)
     .then(response=>{
       return response.data
     })

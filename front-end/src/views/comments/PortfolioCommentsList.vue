@@ -2,7 +2,6 @@
   <v-list>
     <v-flex
       v-for="i in portfolioComments.length"
-      v-if="pfId == portfolioComments[i - 1].pfId"
     >
         <PortfolioComment
           :pfcomId="portfolioComments[i - 1].pfcomId"
@@ -38,14 +37,14 @@ export default {
   },
 
   methods: {
-    async getPortfolioComments() {
-      this.portfolioComments = await CommentService.getPortfolioComments()
+    async getPortfolioComments(pfId) {
+      this.portfolioComments = await CommentService.getPortfolioComments(pfId)
     },
 
   },
 
   mounted() {
-    this.getPortfolioComments()
+    this.getPortfolioComments(this.pfId)
   },
 }
 </script>
