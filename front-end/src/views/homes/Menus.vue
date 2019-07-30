@@ -26,6 +26,7 @@
     <div v-if="isLoggedIn">
       <v-layout class="mt-3 ml-2">
       <Logout></Logout>
+      <v-btn :to="{ name: 'adminPage'}" v-if="isAuthorized">관리자 페이지</v-btn>
       </v-layout>
     </div>
 
@@ -35,7 +36,7 @@
       <SignupModal></SignupModal>
       </v-layout>
     </div>
-  
+
   </div>
 </template>
 
@@ -78,8 +79,15 @@ export default {
   computed: {
     isLoggedIn () {
       return this.$store.state.isLoggedIn;
-    }
-  }
+    },
+    // 관리자인지 확인하는 isAdmin
+    isAuthorized(){
+      const isAdmin = this.$store.state.isAdmin;
+      const isLoggedIn = this.$store.state.isLoggedIn;
+      if (isAdmin && isLoggedIn)
+        return true;
+    },
+  },
 }
 </script>
 
