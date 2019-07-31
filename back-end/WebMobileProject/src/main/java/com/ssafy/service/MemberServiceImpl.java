@@ -53,6 +53,12 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 
+	@Override
+	public String getMemberGrade(String mid) {
+		return dao.getMemberGrade(mid);
+	}
+
+
 
 
 }

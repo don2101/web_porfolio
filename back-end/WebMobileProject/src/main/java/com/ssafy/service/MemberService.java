@@ -15,4 +15,5 @@ public interface MemberService {
 	/////////////////////////////////////////////////////////////////////////////////////////
 	//admin method
 	public void updateMemberGrade(String id, String grade);
+	public String getMemberGrade(String mid);
 }

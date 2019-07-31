@@ -91,14 +91,23 @@ public class WebMobileController {
 		}
 		return map;
 	}
-
+	
 	@RequestMapping(value = "/member/{mid}", method = RequestMethod.GET, produces = {
 			"application/json;charset=utf-8" })
-	public Member getDetailMember(@PathVariable("mid") String mid) {
-		System.out.println(mid);
-		logger.info(mid + " 정보 확인");
-		return mService.getDetailMember(mid);
-	}
+	public Map getMemberGrade(@PathVariable("mid") String mid) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("grade", mService.getMemberGrade(mid) );
+		return map;
+}	
+	
+
+//	@RequestMapping(value = "/member/{mid}", method = RequestMethod.GET, produces = {
+//			"application/json;charset=utf-8" })
+//	public Member getDetailMember(@PathVariable("mid") String mid) {
+//		System.out.println(mid);
+//		logger.info(mid + " 정보 확인");
+//		return mService.getDetailMember(mid);
+//	}
 
 	@RequestMapping(value = "/member/{id}", method = RequestMethod.PUT, produces = {
 			"application/json;charset=euc-kr" })
@@ -127,15 +136,7 @@ public class WebMobileController {
 	public Map deleteMemberList(@PathVariable("mid") String mid) {
 		HashMap<String, String> map = new HashMap<String, String>();
 		mService.deleteMemberList(mid);
-		Member member = mService.getDetailMember(mid);
-		if (member == null) {
-			map.put("success", "true");
-			logger.info(member.getEmail() + " 회원삭제");
-		} else {
-			map.put("success", "false");
-			logger.info("삭제 실패");
-		}
-
+		map.put("success", "true");
 		return map;
 
 	}

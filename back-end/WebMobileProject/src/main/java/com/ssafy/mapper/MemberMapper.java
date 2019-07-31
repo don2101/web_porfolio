@@ -16,4 +16,5 @@ public interface MemberMapper {
 	/////////////////////////////////////////////////////////////////////////////////////////
 	//admin method
 	public void updateMemberGrade(String id, String grade);
+	public String getMemberGrade(String mid);
 }

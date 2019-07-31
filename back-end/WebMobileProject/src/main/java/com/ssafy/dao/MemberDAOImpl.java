@@ -52,4 +52,10 @@ public class MemberDAOImpl implements MemberDAO {
 		mapper.updateMemberGrade(id, grade);
 	}
 
+
+	@Override
+	public String getMemberGrade(String mid) {
+		return mapper.getMemberGrade(mid);
+	}
+
 }
