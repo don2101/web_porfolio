@@ -11,7 +11,7 @@
         </div>
       </template>
 
-      <v-card @keyup.esc="dialog=false">
+      <v-card @keyup.esc="dialog=false" @keyup.enter="loginSubmit">
         <v-card-title>
           <span class="headline">Signup</span>
         </v-card-title>
