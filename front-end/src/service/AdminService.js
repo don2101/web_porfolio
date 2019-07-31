@@ -14,7 +14,7 @@ export default {
     .then(response=>{
       if(response.data.success==='true'){
         alert("정상적으로 등록 되었습니다.")
-        window.location.href='/portfolios'
+        window.location.href='/admin'
       }else{
         alert("에러 발생")
       }
