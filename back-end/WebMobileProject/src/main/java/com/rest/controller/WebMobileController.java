@@ -72,12 +72,23 @@ public class WebMobileController {
 	@RequestMapping(value = "/member", method = RequestMethod.PUT, produces = { "application/json;charset=utf-8" })
 	public Map updateMemberList(@RequestBody List<Member> m) {
 		HashMap<String, String> map = new HashMap<String, String>();
-		for(int i=0;i<m.size();i++) {
-			Member tmp=m.get(i);
-//			System.out.println(tmp.getEmail()+" "+tmp.getGrade());
-			mService.updateMemberGrade(tmp.getEmail(), tmp.getGrade());
+		int adminCount=0;
+		for(Member ma:m) {
+			if(ma.getGrade().equals("0")) {
+				adminCount++;
+			}
 		}
-		map.put("success", "true");
+		if(adminCount==0) {
+			map.put("success", "false");
+			map.put("error", "관리자는 무조건 1명 이상이여야 합니다.");
+		}else {
+			for(int i=0;i<m.size();i++) {
+				Member tmp=m.get(i);
+//			System.out.println(tmp.getEmail()+" "+tmp.getGrade());
+				mService.updateMemberGrade(tmp.getEmail(), tmp.getGrade());
+			}
+			map.put("success", "true");
+		}
 		return map;
 	}
 
