@@ -116,15 +116,7 @@ public class WebMobileController {
 	public Map deleteMemberList(@PathVariable("mid") String mid) {
 		HashMap<String, String> map = new HashMap<String, String>();
 		mService.deleteMemberList(mid);
-		Member member = mService.getDetailMember(mid);
-		if (member == null) {
-			map.put("success", "true");
-			logger.info(member.getEmail() + " 회원삭제");
-		} else {
-			map.put("success", "false");
-			logger.info("삭제 실패");
-		}
-
+		map.put("success", "true");
 		return map;
 
 	}
