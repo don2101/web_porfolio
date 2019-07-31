@@ -2,7 +2,7 @@
   <div>
     <v-layout row justify-center>
       <v-dialog v-model="dialog" persistent max-width="600px">
-
+        
         <template v-slot:activator="{ on }">
           <div v-on="on" :class="{ 'red-color': loginPicked }" class="small-menu-title mr-5">
             <div @mouseleave="loginUnPick" @mouseover="loginPick">
@@ -10,8 +10,8 @@
             </div>
           </div>
         </template>
-
-        <v-card>
+        
+        <v-card @keyup.esc="dialog=false">
           <v-card-title>
             <span class="headline">Login</span>
           </v-card-title>
@@ -25,6 +25,7 @@
                   <v-text-field
                     color="#E53935" :rules="emailRules"
                     label="Email" type="email"
+                    v-if="dialog" autofocus
                     required v-model="uid">
                   </v-text-field>
                 </v-flex>
@@ -63,7 +64,7 @@
             <v-btn
               :class="{'red-color': canclePicked}" color="#1a1c33"
               depressed flat outline
-              @keyup.esc="this.dialog=false" @click="dialog=false">
+              @click="dialog=false">
               <div @mouseleave="canclePick" @mouseover="canclePick">
                 cancel
               </div>
@@ -102,7 +103,7 @@ export default {
       loginPicked: false,
       savePicked: false,
       canclePicked: false,
-
+      
       emailRules: [
         v => !!v || 'E-mail is required',
         v => /.+@.+/.test(v) || 'E-mail must be valid'
@@ -166,7 +167,8 @@ export default {
     },
 
     savePick() { this.savePicked = !this.savePicked },
-    canclePick() { this.canclePicked = !this.canclePicked }
+    canclePick() { this.canclePicked = !this.canclePicked },
+
   },
 }
 </script>

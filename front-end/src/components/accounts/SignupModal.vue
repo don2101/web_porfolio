@@ -11,7 +11,7 @@
         </div>
       </template>
 
-      <v-card>
+      <v-card @keyup.esc="dialog=false">
         <v-card-title>
           <span class="headline">Signup</span>
         </v-card-title>
@@ -24,6 +24,7 @@
               <v-flex xs12>
                 <v-text-field color="#E53935"
                   :rules="nameRules" label="Name" name="name" type="text"
+                  v-if="dialog" autofocus
                   required v-model="name">
                 </v-text-field>
               </v-flex>
@@ -65,7 +66,7 @@
 
           <!-- cancle button -->
           <v-btn :class="{'red-color': canclePicked}" color="#1a1c33"
-            depressed flat outline @keyup.esc="dialog=false" @click="dialog=false">
+            depressed flat outline @click="dialog=false">
             <div @mouseleave="canclePick" @mouseover="canclePick">
               cancel
             </div>
