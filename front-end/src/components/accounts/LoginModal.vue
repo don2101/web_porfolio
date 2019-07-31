@@ -85,6 +85,7 @@
 import AccountService from '../../service/AccountService'
 import KakaoLogin from './KakaoLogin'
 import FacebookLogin from './FacebookLogin'
+import cookieService from '../../service/CookieService'
 
 export default {
   name: 'LoginModal',
@@ -150,9 +151,15 @@ export default {
           return;
         }else if(result ==='defalut'){
           console.log('the permission request was dismissed');
-          retrun;
+          return;
+        }else if(result ==='granted'){
+          console.log('Permission was granted');
+          cookieService.addCookie(sessionStorage.getItem("mid"));
+          var info = cookieService.getCookie('alarm_granted');
+
+          console.log(info + "정보");
+
         }
-        console.log('Permission was granted')
       });
     },
     loginPick() {

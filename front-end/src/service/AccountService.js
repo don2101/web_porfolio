@@ -4,7 +4,7 @@
 
 import axios from 'axios'
 
-const BASE_URL = "http://localhost:9090"
+const BASE_URL = "http://70.12.246.110:9090"
 
 export default {
   async signUpSubmit(signupForm) {
