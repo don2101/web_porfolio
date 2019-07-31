@@ -29,9 +29,11 @@ export default {
       sessionStorage.removeItem("isLoggedIn");
       sessionStorage.removeItem("isAdmin");
       sessionStorage.removeItem("mid");
+      sessionStorage.removeItem("grade");
       this.$store.state.isLoggedIn = false;
       this.$store.state.isAdmin = false;
-      this.$stroe.state.memberId = 0;
+      this.$store.state.memberId = 0;
+      this.$store.state.grade = 2;
     },
 
     loginPick() {

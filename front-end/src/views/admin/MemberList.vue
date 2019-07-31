@@ -14,7 +14,6 @@
         <td>{{ p.pfCount }}</td>
         <td>{{ p.postCount}}</td>
         <td>
-          <v
           <select v-model="p.grade">
             <option style="color: black;" value="0">관리자</option>
             <option style="color: black;" value="1">팀원</option>
@@ -47,7 +46,6 @@ export default {
   data () {
     return {
       pageNum: 0,
-      adminCount: 0,
     }
   },
 
@@ -77,6 +75,7 @@ export default {
       console.log(this.listArray);
       await AdminService.updateMemberList(this.listArray);
     },
+
   },
 
   computed: {

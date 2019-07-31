@@ -30,7 +30,6 @@ export default {
         result = {
           isLoggedIn: true,
           id: Number(response.data.mid),
-          grade: Number(response.data.grade),
         }
       }
     })

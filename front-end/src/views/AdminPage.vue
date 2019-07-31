@@ -19,14 +19,20 @@ export default {
     }
   },
   created () {
-    axios.get('http://localhost:9090/member')
-    .then(response => {
-      console.log(response);
-      this.memberArray = response.data;
-    })
-    .catch(err => {
-      console.log(err);
-    });
+    if(sessionStorage.getItem("grade")=='0'){
+      axios.get('http://localhost:9090/member')
+      .then(response => {
+        console.log(response);
+        this.memberArray = response.data;
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    }else{
+      alert("권한이 없습니다.")
+      window.location.href='/'
+    }
+
   }
 }
 </script>
