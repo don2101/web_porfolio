@@ -4,24 +4,21 @@
       <tr>
         <th>Email</th>
         <th>name</th>
-        <th>PortfolioCommentCount</th>
         <th>PortfolioCount</th>
-        <th>PostCommentCount</th>
         <th>PostCount</th>
         <th>Grade</th>
       </tr>
       <tr v-for="p in memberListData" :key="p.name">
         <td>{{ p.email }}</td>
         <td>{{ p.name }}</td>
-        <td>{{ p.pfCommentCount }}</td>
         <td>{{ p.pfCount }}</td>
-        <td>{{ p.postCommentCount}}</td>
         <td>{{ p.postCount}}</td>
         <td>
+          <v
           <select v-model="p.grade">
-            <option style="color: black;">0</option>
-            <option style="color: black;">1</option>
-            <option style="color: black;">2</option>
+            <option style="color: black;" value="0">관리자</option>
+            <option style="color: black;" value="1">팀원</option>
+            <option style="color: black;" value="2">방문자</option>
           </select>
         </td>
       </tr>
@@ -37,7 +34,7 @@
     </div>
     <div class="btn-cover">
       <v-btn class="page-btn" @click="updateMemberList">수 정</v-btn>
-      <v-btn class="page-btn">메인으로</v-btn>
+      <v-btn class="page-btn" :to='{name:"home"}'>메인으로</v-btn>
     </div>
   </div>
 </template>
@@ -49,7 +46,8 @@ export default {
   name: 'MemberList',
   data () {
     return {
-      pageNum: 0
+      pageNum: 0,
+      adminCount: 0,
     }
   },
 

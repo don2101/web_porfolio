@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 style="color: white;">TABLE PAGINATION</h1>
+    <h1 style="color: white;">회원 관리 페이지</h1>
     <MemberList :listArray="memberArray" />
   </div>
 </template>

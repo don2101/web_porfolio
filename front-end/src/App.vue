@@ -7,7 +7,7 @@
           <router-view></router-view>
         </v-container>
 
-        <Footer></Footer>
+        <!-- <Footer></Footer> -->
       </v-content>
     </v-app>
   </div>
