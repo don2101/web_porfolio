@@ -52,6 +52,9 @@
  		update member set grade =#{param2} where email =#{param1}
  	</update>
   	
+	<select id="getMemberGrade" resultType="String" parameterType="String">
+ 		select grade from member where mid =#{param1}
+ 	</select>
 
  
   	
