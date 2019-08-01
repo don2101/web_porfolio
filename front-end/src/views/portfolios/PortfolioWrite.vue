@@ -89,10 +89,10 @@ export default {
         title: this.title,
         content: this.content,
         count: 0,
-        pfImg: this.imageSource,
-        mid: this.$store.state.mid,
+        date: Date.now().toString(),
+        img: this.imageSource,
+        mid: this.getMemberId,
       };
-
       let response = [];
       response = await PortfolioService.postPortfolio(jsonData)
     },
@@ -102,6 +102,12 @@ export default {
     },
 
     buttonPick() { this.buttonPicked = !this.buttonPicked },
+  },
+
+  computed: {
+    getMemberId(){
+      return this.$store.state.memberId;
+    }
   }
 }
 </script>

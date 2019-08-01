@@ -11,7 +11,7 @@
           </div>
         </template>
 
-        <v-card>
+        <v-card @keyup.esc="dialog=false" @keyup.enter="loginSubmit">
           <v-card-title>
             <span class="headline">Login</span>
           </v-card-title>
@@ -25,6 +25,7 @@
                   <v-text-field
                     color="#E53935" :rules="emailRules"
                     label="Email" type="email"
+                    v-if="dialog" autofocus
                     required v-model="uid">
                   </v-text-field>
                 </v-flex>
@@ -63,7 +64,7 @@
             <v-btn
               :class="{'red-color': canclePicked}" color="#1a1c33"
               depressed flat outline
-              @keyup.esc="this.dialog=false" @click="dialog=false">
+              @click="dialog=false">
               <div @mouseleave="canclePick" @mouseover="canclePick">
                 cancel
               </div>
@@ -85,6 +86,7 @@
 import AccountService from '../../service/AccountService'
 import KakaoLogin from './KakaoLogin'
 import FacebookLogin from './FacebookLogin'
+import cookieService from '../../service/CookieService'
 
 export default {
   name: 'LoginModal',
@@ -120,22 +122,51 @@ export default {
         pw: this.password,
       }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> bef11c6b7392391631d23aec0e12faed88835c80
       const response = AccountService.loginSubmit(loginForm);
       response.then(result => {
         if (result.isLoggedIn == true) {
           this.$store.state.isLoggedIn = true;
+<<<<<<< HEAD
           sessionStorage.setItem("isLoggedIn", result.id);
           this.$store.state.mid = result.id;
           if (result.grade == 0) {
             this.$store.state.isAdmin = true;
             sessionStorage.setItem("isAdmin", this.uid);
           }
+=======
+          sessionStorage.setItem("isLoggedIn", this.uid);
+          sessionStorage.setItem("mid", result.id);
+          window.location.href='/'
+>>>>>>> bef11c6b7392391631d23aec0e12faed88835c80
         } else {
           alert(`등록되지 않은 아이디이거나, 아이디 또는 비밀번호를 잘못입력하셨습니다.`)
         }
       })
     },
 
+    notification(){
+      console.log('로그인 완성');
+      Notification.requestPermission(result=>{
+        if(result === 'denied') {
+          console.log('Permission denied');
+          return;
+        }else if(result ==='defalut'){
+          console.log('the permission request was dismissed');
+          return;
+        }else if(result ==='granted'){
+          console.log('Permission was granted');
+          cookieService.addCookie(sessionStorage.getItem("mid"));
+          var info = cookieService.getCookie('alarm_granted');
+
+          console.log(info + "정보");
+
+        }
+      });
+    },
     loginPick() {
       document.body.style.cursor = 'pointer';
       this.loginPicked = !this.loginPicked
@@ -147,7 +178,8 @@ export default {
     },
 
     savePick() { this.savePicked = !this.savePicked },
-    canclePick() { this.canclePicked = !this.canclePicked }
+    canclePick() { this.canclePicked = !this.canclePicked },
+
   },
 }
 </script>

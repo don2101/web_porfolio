@@ -12,6 +12,12 @@
           height="50" style="font-size: 30px">
           </v-text-field>
         </v-flex>
+        <v-flex xs2>
+          <div style="float: right">{{date}}</div>
+        </v-flex>
+        <v-flex xs2>
+          <div style="float: right">{{count}}</div>
+        </v-flex>
       </v-layout>
 
       <v-layout>
@@ -25,14 +31,32 @@
           <v-textarea
             class="my-3" color="#FAFAFA"
             :value="body"
-            outline dark auto-grow flat>
+            outline dark auto-grow flat readonly>
           </v-textarea>
+
+          <!-- Update button -->
+          <v-btn
+            :class="{'red-color': this.updateButtonPicked}" v-if="isAuthorized" color="#FAFAFA"
+            flat outline :to="{ name: 'portfolioUpdate', query: { 'pfId': this.pfId }}">
+            <div @mouseover="updateButtonPick" @mouseleave="updateButtonPick">
+              Update
+            </div>
+          </v-btn>
+
+          <!-- Delete button -->
+          <v-btn
+            :class="{'red-color': this.deleteButtonPicked}" v-if="isAuthorized" color="#FAFAFA"
+            flat outline @click="deletePortfolio">
+            <div @mouseover="deleteButtonPick" @mouseleave="deleteButtonPick">
+              Delete
+            </div>
+          </v-btn>
 
           <!-- 뒤로가기 button -->
           <v-btn
-            :class="{'red-color': this.buttonPicked}" color="#FAFAFA"
-            flat outline to="/portfolios">
-            <div @mouseover="buttonPick" @mouseleave="buttonPick">
+            :class="{'red-color': this.listButtonPicked}" color="#FAFAFA"
+            flat outline :to="{ name: 'portfolios'}">
+            <div @mouseover="listButtonPick" @mouseleave="listButtonPick">
               List
             </div>
           </v-btn>
@@ -57,7 +81,6 @@
 /**
  * portfolio의 상세 내용을 출력하는 component
  */
-import Portfolio from './Portfolio'
 import PortfolioService from '../../service/PortfolioService'
 import PortfolioCommentWrite from '../comments/PortfolioCommentWrite'
 import PortfolioCommentsList from '../comments/PortfolioCommentsList'
@@ -78,9 +101,15 @@ export default {
       body: '',
       img: '',
       index: 0,
+      count: 0,
+      date: '',
       msg: 'Hey Nic Raboy',
-      portfolios: {},
-      buttonPicked: false,
+      // portfolios: {},
+      portfolio: [],
+      listButtonPicked: false,
+      updateButtonPicked: false,
+      deleteButtonPicked: false,
+
     }
 
   },
@@ -91,28 +120,41 @@ export default {
   },
 
   methods: {
-    async getPortfolio() {this.portfolios = await PortfolioService.getPortfolios()},
+    async getPortfolio() {
+      // this.portfolios = await PortfolioService.getPortfolios()
+      this.portfolio= await PortfolioService.getPortfolio(this.pfId);
+    },
+
+    async deletePortfolio(){
+      await PortfolioService.deletePortfolio(this.pfId);
+    },
 
     setPortfolio() {
-      for (var i = 0; i < this.portfolios.length; i++) {
-        if (this.idx == this.portfolios[i].pfId) {
-          this.title = this.portfolios[i].title
-          this.body = this.portfolios[i].content
-          this.img = this.portfolios[i].pfImg
-        }
-      }
-
+      this.title = this.portfolio.title
+      this.body = this.portfolio.content
+      this.img = this.portfolio.img
+      this.count = this.portfolio.count
+      this.date = this.portfolio.date
     },
 
-    buttonPick() {
-      this.buttonPicked = !this.buttonPicked
-    },
+    listButtonPick() { this.listButtonPicked = !this.listButtonPicked },
+
+    updateButtonPick() { this.updateButtonPicked = !this.updateButtonPicked },
+
+    deleteButtonPick() { this.deleteButtonPicked = !this.deleteButtonPicked },
 
   },
 
   computed: {
-    idx() {
-      return this.$route.query.idx
+    pfId() {
+      return this.$route.query.pfId
+    },
+
+    isAuthorized() {
+      const isAdmin = this.$store.state.isAdmin;
+      const isLoggedIn = this.$store.state.isLoggedIn;
+      if (isAdmin && isLoggedIn)
+        return true;
     },
   },
 

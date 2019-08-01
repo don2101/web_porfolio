@@ -4,10 +4,11 @@
       <v-content>
         <v-container>
           <Header></Header>
-          <router-view></router-view>
+          <transition :name="this.pageDirection" mode="out-in">
+            <router-view></router-view>
+          </transition>
         </v-container>
-
-        <Footer></Footer>
+        <ChatBot></ChatBot>
       </v-content>
     </v-app>
   </div>
@@ -19,7 +20,7 @@
 import Footer from './components/commons/Footer'
 import Header from './components/commons/Header'
 import GitlabApiService from './service/GitlabApiService'
-
+import ChatBot from './components/commons/ChatBot'
 
 export default {
   name: 'App',
@@ -27,10 +28,12 @@ export default {
   components: {
     Footer,
     Header,
+    ChatBot,
   },
 
   created() {
-    this.getGraphdata()
+
+
   },
 
   data() {
@@ -41,13 +44,26 @@ export default {
     }
   },
 
+  computed: {
+    pageDirection() {
+      return this.$store.state.direction
+    }
+  },
+
   mounted() {
+<<<<<<< HEAD
     var mid = sessionStorage.getItem("isLoggedIn");
     if (mid != null) {
       this.$store.state.isLoggedIn = true;
       this.$store.state.mid = mid;
       if (sessionStorage.getItem("isAdmin") != null)
         this.$store.state.isAdmin = true;
+=======
+
+    if (sessionStorage.getItem("isLoggedIn") != null) {
+      this.$store.state.isLoggedIn = true;
+      this.$store.state.memberId = sessionStorage.getItem("mid");
+>>>>>>> bef11c6b7392391631d23aec0e12faed88835c80
     }
   },
 
@@ -65,43 +81,7 @@ export default {
 
 <style>
 @import url('https://fonts.googleapis.com/css?family=Lato:400,700&display=swap');
+@import './assets/style.css';
 
-#app {
-  font-family: 'Lato', sans-serif;
-  background: #1a1c33;
-  padding-bottom: 30px;
-}
-
-.red-color {
-  color: #E53935!important;
-}
-
-.menu-title {
-  font-size: 8.0rem;
-  color: #FAFAFA;
-  text-decoration: none !important;
-}
-
-.main-title {
-  font-size: 5.0rem;
-  color: #FAFAFA;
-}
-
-.small-menu-title {
-  font-size: 2.0rem;
-  color: #FAFAFA;
-  text-decoration: none !important;
-}
-
-.main-text {
-  font-size: 2.0em;
-  line-height: 2.0em;
-  color: #FAFAFA;
-}
-
-.highlight-text {
-  line-height: 2.0em;
-  color: #E53935;
-}
 
 </style>

@@ -16,6 +16,6 @@ public interface PostMapper {
 
 	void deletePostList(String postId);
 
-	void updatePostInfo(@Param("postId") String postId,@Param("post") Post post);
+	void updatePostInfo(@Param("postId") String postId, @Param("post") Post post);
 
 }

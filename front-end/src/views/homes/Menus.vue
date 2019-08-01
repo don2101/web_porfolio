@@ -1,4 +1,7 @@
 <template>
+  <v-container fill-height style="height: 90vh" d-flex>
+    <CircularMenu></CircularMenu>
+  </v-container>
   <div>
     <v-layout class="mt-3">
       <v-flex>
@@ -26,6 +29,17 @@
     <div v-if="isLoggedIn">
       <v-layout class="mt-3 ml-2">
       <Logout></Logout>
+      <!-- <router-link v-if="isAdmin===true" to="/admin" :class="{'red-color': adminPagePicked}" class="menu-title">
+        <div @mouseleave="adminPagePick" @mouseover="adminPagePick">
+          관리자 페이지
+        </div>
+      </router-link> -->
+      <router-link v-if="isAdmin===true" :to="{ name: 'adminPage'}" :class="{'red-color': adminPagePicked}" class="small-menu-title mr-5">
+        <div @mouseleave="adminPagePick" @mouseover="adminPagePick">
+          AdminPage
+        </div>
+      </router-link>
+      <!-- <p> {{isAdmin}} </p> -->
       </v-layout>
     </div>
 
@@ -35,7 +49,7 @@
       <SignupModal></SignupModal>
       </v-layout>
     </div>
-  
+
   </div>
 </template>
 
@@ -46,17 +60,17 @@
  * Login과 Signup은 Modal을 사용하기 때문에 따로 component로 분리
  */
 
+import CircularMenu from '../../components/commons/CircularMenu'
 import LoginModal from '../../components/accounts/LoginModal'
 import SignupModal from '../../components/accounts/SignupModal'
 import Logout from '../../components/accounts/Logout'
+import AdminService from '../../service/AdminService'
 
 export default {
   name: "Menus",
 
   components: {
-    LoginModal,
-    SignupModal,
-    Logout,
+    CircularMenu
   },
 
   methods: {
@@ -64,6 +78,7 @@ export default {
     portfoliosPick() { this.portfoliosPicked = !this.portfoliosPicked },
     aboutUsPick() { this.aboutUsPicked = !this.aboutUsPicked },
     signupPick() { this.signupPicked = !this.signupPicked },
+    adminPagePick(){this.adminPagePicked =!this.adminPagePicked},
   },
 
   data() {
@@ -72,19 +87,25 @@ export default {
       portfoliosPicked: false,
       aboutUsPicked: false,
       signupPicked: false,
+      adminPagePicked: false,
+      isAdmin: false,
+    }
+  },
+
+  async created(){
+    const grade = await AdminService.getGrade(sessionStorage.getItem("mid"));
+    if(grade === '0') {
+      this.isAdmin=true;
+    }else{
+      this.isAdmin=false;
     }
   },
 
   computed: {
     isLoggedIn () {
       return this.$store.state.isLoggedIn;
-    }
-  }
+    },
+
+  },
 }
 </script>
-
-<style>
-.text {
-  display: inline-block!important;
-}
-</style>

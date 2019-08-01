@@ -46,4 +46,16 @@ public class MemberDAOImpl implements MemberDAO {
 		mapper.deleteMemberList(email);
 	}
 
+
+	@Override
+	public void updateMemberGrade(String id, String grade) {
+		mapper.updateMemberGrade(id, grade);
+	}
+
+
+	@Override
+	public String getMemberGrade(String mid) {
+		return mapper.getMemberGrade(mid);
+	}
+
 }
