@@ -7,6 +7,7 @@
         <th>PortfolioCount</th>
         <th>PostCount</th>
         <th>Grade</th>
+        <th>회원 삭제</th>
       </tr>
       <tr v-for="p in memberListData" :key="p.name">
         <td>{{ p.email }}</td>
@@ -20,6 +21,8 @@
             <option style="color: black;" value="2">방문자</option>
           </select>
         </td>
+        <td v-if="midCheck(p.mid)"><v-btn @click="deleteMember(p.mid)">삭제</v-btn></td>
+        <td v-else></td>
       </tr>
     </table>
     <div class="btn-cover">
@@ -75,6 +78,27 @@ export default {
       console.log(this.listArray);
       await AdminService.updateMemberList(this.listArray);
     },
+
+    midCheck(mid){
+      let mmid=sessionStorage.getItem("mid");
+      if(mid===mmid){
+        return false;
+      }else{
+        return true;
+      }
+    },
+
+    async deleteMember(mid){
+      let response=await AdminService.deleteMemberList(mid);
+      console.log(response.data);
+      if(response.data.success==='true'){
+        alert("삭제 되었습니다.")
+        window.location.href="/admin"
+      }else{
+        alert("삭제 에러")
+      }
+
+    }
 
   },
 

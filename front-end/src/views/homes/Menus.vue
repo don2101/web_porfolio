@@ -26,7 +26,16 @@
     <div v-if="isLoggedIn">
       <v-layout class="mt-3 ml-2">
       <Logout></Logout>
-      <v-btn v-if="isAdmin===true" :to="{ name: 'adminPage'}">관리자 페이지</v-btn>
+      <!-- <router-link v-if="isAdmin===true" to="/admin" :class="{'red-color': adminPagePicked}" class="menu-title">
+        <div @mouseleave="adminPagePick" @mouseover="adminPagePick">
+          관리자 페이지
+        </div>
+      </router-link> -->
+      <router-link v-if="isAdmin===true" :to="{ name: 'adminPage'}" :class="{'red-color': adminPagePicked}" class="small-menu-title mr-5">
+        <div @mouseleave="adminPagePick" @mouseover="adminPagePick">
+          관리자 페이지
+        </div>
+      </router-link>
       <!-- <p> {{isAdmin}} </p> -->
       </v-layout>
     </div>
@@ -67,6 +76,7 @@ export default {
     portfoliosPick() { this.portfoliosPicked = !this.portfoliosPicked },
     aboutUsPick() { this.aboutUsPicked = !this.aboutUsPicked },
     signupPick() { this.signupPicked = !this.signupPicked },
+    adminPagePick(){this.adminPagePicked =!this.adminPagePicked},
   },
 
   data() {
@@ -75,6 +85,7 @@ export default {
       portfoliosPicked: false,
       aboutUsPicked: false,
       signupPicked: false,
+      adminPagePicked: false,
       isAdmin: false,
     }
   },

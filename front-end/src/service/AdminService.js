@@ -29,5 +29,12 @@ export default {
 
     // console.log(response)
     return response.data.grade
+  },
+
+  async deleteMemberList(mid){
+    let response=[];
+    response=await axios.delete(BASE_URL+'/member/'+mid)
+
+    return response
   }
 }

@@ -20,12 +20,11 @@ export default {
       memberArray: []
     }
   },
-  async created () {
+  async beforeCreate () {
     let grade = await AdminService.getGrade(sessionStorage.getItem("mid"));
     if(grade === '0'){
       axios.get('http://localhost:9090/member')
       .then(response => {
-        console.log(response);
         this.memberArray = response.data;
       })
       .catch(err => {
