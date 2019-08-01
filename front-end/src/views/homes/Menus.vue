@@ -33,7 +33,7 @@
       </router-link> -->
       <router-link v-if="isAdmin===true" :to="{ name: 'adminPage'}" :class="{'red-color': adminPagePicked}" class="small-menu-title mr-5">
         <div @mouseleave="adminPagePick" @mouseover="adminPagePick">
-          관리자 페이지
+          AdminPage
         </div>
       </router-link>
       <!-- <p> {{isAdmin}} </p> -->
