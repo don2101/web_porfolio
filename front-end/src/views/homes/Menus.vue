@@ -1,4 +1,5 @@
 <template>
+<div>
   <v-container fill-height style="height: 90vh" d-flex>
     <CircularMenu></CircularMenu>
   </v-container>
@@ -51,6 +52,7 @@
     </div>
 
   </div>
+</div>
 </template>
 
 
@@ -70,7 +72,10 @@ export default {
   name: "Menus",
 
   components: {
-    CircularMenu
+    CircularMenu,
+    LoginModal,
+    SignupModal,
+    Logout,
   },
 
   methods: {

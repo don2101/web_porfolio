@@ -67,10 +67,10 @@
     </div>
   </div>
   <PortfolioCommentWrite
-    :pfId="this.$route.query.idx">
+    :pfId="pfId">
   </PortfolioCommentWrite>
   <PortfolioCommentsList
-    :pfId="this.$route.query.idx">
+    :pfId="pfId">
   </PortfolioCommentsList>
   <!-- <Disqus/> -->
 </div>
