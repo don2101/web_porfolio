@@ -1,4 +1,5 @@
 <template>
+<div>
   <div>
     <div class="my-5">
       <!-- title area -->
@@ -40,15 +41,15 @@
       </v-layout>
 
     </div>
-    <PortfolioCommentWrite
-      :pfId="this.$route.query.idx"
-    >
-    </PortfolioCommentWrite>
-    <PortfolioCommentsList
-      :pfId="this.$route.query.idx"
-    >
-    </PortfolioCommentsList>
   </div>
+  <PortfolioCommentWrite
+    :pfId="this.$route.query.idx">
+  </PortfolioCommentWrite>
+  <PortfolioCommentsList
+    :pfId="this.$route.query.idx">
+  </PortfolioCommentsList>
+  <!-- <Disqus/> -->
+</div>
 </template>
 
 
@@ -58,8 +59,8 @@
  */
 import Portfolio from './Portfolio'
 import PortfolioService from '../../service/PortfolioService'
-import PortfolioCommentsList from '../comments/PortfolioCommentsList'
 import PortfolioCommentWrite from '../comments/PortfolioCommentWrite'
+import PortfolioCommentsList from '../comments/PortfolioCommentsList'
 import { get } from 'http';
 
 export default {
@@ -67,15 +68,15 @@ export default {
 
   components: {
     PortfolioService,
-    PortfolioCommentsList,
     PortfolioCommentWrite,
+    PortfolioCommentsList,
   },
 
-  data () {
+  data() {
     return {
-      title : '',
-      body : '',
-      img : '',
+      title: '',
+      body: '',
+      img: '',
       index: 0,
       msg: 'Hey Nic Raboy',
       portfolios: {},
@@ -100,9 +101,12 @@ export default {
           this.img = this.portfolios[i].pfImg
         }
       }
+
     },
 
-    buttonPick() { this.buttonPicked = !this.buttonPicked },
+    buttonPick() {
+      this.buttonPicked = !this.buttonPicked
+    },
 
   },
 

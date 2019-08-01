@@ -1,18 +1,17 @@
 <template>
-  <v-list>
-    <v-flex
-      v-for="i in portfolioComments.length"
-    >
-        <PortfolioComment
-          :pfcomId="portfolioComments[i - 1].pfcomId"
-          :content="portfolioComments[i - 1].content"
-          :date="portfolioComments[i - 1].date"
-          :pfId="portfolioComments[i - 1].pfId"
-          :mid="portfolioComments[i - 1].mid"
-        >
-        </PortfolioComment>
-    </v-flex>
-  </v-list>
+<v-list>
+  <v-flex
+    v-for="i in portfolioComments.length"
+    class="list">
+    <PortfolioComment
+      :pfcomId="portfolioComments[i - 1].pfcomId"
+      :content="portfolioComments[i - 1].content"
+      :date="portfolioComments[i - 1].date"
+      :pfId="portfolioComments[i - 1].pfId"
+      :mid="portfolioComments[i - 1].mid">
+    </PortfolioComment>
+  </v-flex>
+</v-list>
 </template>
 
 <script>
@@ -29,7 +28,9 @@ export default {
   },
 
   props: {
-    pfId: {type: String},
+    pfId: {
+      type: String
+    },
   },
 
   components: {
@@ -48,3 +49,8 @@ export default {
   },
 }
 </script>
+<style>
+.list {
+  background: #1a1c33;
+}
+</style>
