@@ -26,7 +26,8 @@
     <div v-if="isLoggedIn">
       <v-layout class="mt-3 ml-2">
       <Logout></Logout>
-      <v-btn :to="{ name: 'adminPage'}" v-if="isAuthorized">관리자 페이지</v-btn>
+      <v-btn v-if="isAdmin===true" :to="{ name: 'adminPage'}">관리자 페이지</v-btn>
+      <!-- <p> {{isAdmin}} </p> -->
       </v-layout>
     </div>
 
@@ -50,6 +51,7 @@
 import LoginModal from '../../components/accounts/LoginModal'
 import SignupModal from '../../components/accounts/SignupModal'
 import Logout from '../../components/accounts/Logout'
+import AdminService from '../../service/AdminService'
 
 export default {
   name: "Menus",
@@ -73,6 +75,16 @@ export default {
       portfoliosPicked: false,
       aboutUsPicked: false,
       signupPicked: false,
+      isAdmin: false,
+    }
+  },
+
+  async created(){
+    const grade = await AdminService.getGrade(sessionStorage.getItem("mid"));
+    if(grade === '0') {
+      this.isAdmin=true;
+    }else{
+      this.isAdmin=false;
     }
   },
 
@@ -80,13 +92,17 @@ export default {
     isLoggedIn () {
       return this.$store.state.isLoggedIn;
     },
+
+    // async isAdmin(){
+    //   const grade = await AdminService.getGrade(sessionStorage.getItem("mid"));
+    //   if(grade === '0') {
+    //     return true;
+    //   }else{
+    //     return false;
+    //   }
+    // },
     // 관리자인지 확인하는 isAdmin
-    isAuthorized(){
-      const isAdmin = this.$store.state.isAdmin;
-      const isLoggedIn = this.$store.state.isLoggedIn;
-      if (isAdmin && isLoggedIn)
-        return true;
-    },
+
   },
 }
 </script>

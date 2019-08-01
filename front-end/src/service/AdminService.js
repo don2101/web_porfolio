@@ -13,7 +13,7 @@ export default {
     response = await axios.put(BASE_URL + '/member', postData)
     .then(response=>{
       if(response.data.success==='true'){
-        alert("정상적으로 등록 되었습니다.")
+        alert("정상적으로 수정 되었습니다.")
         window.location.href='/admin'
       }else{
         alert("에러 발생")
@@ -21,5 +21,13 @@ export default {
     })
 
     return response
+  },
+
+  async getGrade(mid){
+    let response=[];
+    response=await axios.get(BASE_URL+'/member/'+mid)
+
+    // console.log(response)
+    return response.data.grade
   }
 }

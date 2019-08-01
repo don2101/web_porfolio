@@ -8,6 +8,8 @@
 <script>
 import axios from 'axios'
 import MemberList from './admin/MemberList.vue'
+import AdminService from '../service/AdminService'
+
 export default {
   name: 'simple-pagination',
   components: {
@@ -18,8 +20,9 @@ export default {
       memberArray: []
     }
   },
-  created () {
-    if(sessionStorage.getItem("grade")=='0'){
+  async created () {
+    let grade = await AdminService.getGrade(sessionStorage.getItem("mid"));
+    if(grade === '0'){
       axios.get('http://localhost:9090/member')
       .then(response => {
         console.log(response);

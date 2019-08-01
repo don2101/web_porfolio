@@ -126,6 +126,7 @@ export default {
           this.$store.state.isLoggedIn = true;
           sessionStorage.setItem("isLoggedIn", this.uid);
           sessionStorage.setItem("mid", result.id);
+          window.location.href='/'
         } else {
           alert(`등록되지 않은 아이디이거나, 아이디 또는 비밀번호를 잘못입력하셨습니다.`)
         }

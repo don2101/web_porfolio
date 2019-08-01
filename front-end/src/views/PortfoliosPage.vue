@@ -7,7 +7,7 @@
       :class="{'red-color': buttonPicked}"
       color="#FAFAFA"
       to="/portfolios/write"
-      v-if="isAuthorized">
+      v-if="isAdmin">
 
       <div @mouseover="buttonPick" @mouseleave="buttonPick">
         Add Portfolio
@@ -31,6 +31,7 @@
  */
 
 import PortfoliosList from './portfolios/PortfoliosList'
+import AdminService from '../service/AdminService'
 
 export default {
   name: 'PortfoliosPage',
@@ -43,19 +44,20 @@ export default {
     buttonPick() { this.buttonPicked = !this.buttonPicked },
   },
 
-  computed: {
-    // 관리자인지 확인하는 isAdmin
-    isAuthorized(){
-      const isAdmin = this.$store.state.isAdmin;
-      const isLoggedIn = this.$store.state.isLoggedIn;
-      if (isAdmin && isLoggedIn)
-        return true;
-    },
+  async created(){
+    const grade = await AdminService.getGrade(sessionStorage.getItem("mid"));
+    if(grade === '0') {
+      this.isAdmin=true;
+    }else{
+      this.isAdmin=false;
+    }
   },
 
   data() {
     return {
-      buttonPicked: false
+      buttonPicked: false,
+      isAdmin: false,
+
     }
   },
 }
