@@ -85,7 +85,6 @@ export default {
       };
       let response = [];
       response = await CommentService.postPortfolioComment(jsonData)
-      alert(response);
     },
 
     async updatePortfolioComment() {
