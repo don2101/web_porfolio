@@ -6,7 +6,7 @@
       :class="{'red-color': buttonPicked}"
       color="#FAFAFA"
       to="/posts/write"
-      v-if="isAuthorized">
+      v-if="isAdmin">
 
       <div @mouseover="buttonPick" @mouseleave="buttonPick">
         Write Post
@@ -25,6 +25,7 @@
  */
 
 import PostsList from './posts/PostsList'
+import AdminService from '../service/AdminService'
 
 export default {
   name: 'PostPage',
@@ -37,19 +38,19 @@ export default {
     buttonPick() { this.buttonPicked = !this.buttonPicked },
   },
 
-  computed: {
-    // 관리자인지 확인하는 isAdmin
-    isAuthorized() {
-      const isAdmin = this.$store.state.isAdmin;
-      const isLoggedIn = this.$store.state.isLoggedIn;
-      if (isAdmin && isLoggedIn) return true;
-      return false;
+  async created(){
+    const grade = await AdminService.getGrade(sessionStorage.getItem("mid"));
+    if(grade === '0') {
+      this.isAdmin=true;
+    }else{
+      this.isAdmin=false;
     }
   },
 
   data() {
     return {
-      buttonPicked: false
+      buttonPicked: false,
+      isAdmin: false,
     }
   }
 

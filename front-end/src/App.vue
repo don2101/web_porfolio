@@ -9,7 +9,6 @@
           </transition>
         </v-container>
         <ChatBot></ChatBot>
-
       </v-content>
     </v-app>
   </div>
@@ -33,7 +32,7 @@ export default {
   },
 
   created() {
-  
+
 
   },
 
@@ -48,7 +47,7 @@ export default {
   computed: {
     pageDirection() {
       return this.$store.state.direction
-    } 
+    }
   },
 
   mounted() {
@@ -56,10 +55,6 @@ export default {
     if (sessionStorage.getItem("isLoggedIn") != null) {
       this.$store.state.isLoggedIn = true;
       this.$store.state.memberId = sessionStorage.getItem("mid");
-      if (sessionStorage.getItem("isAdmin") != null){
-        this.$store.state.isAdmin = true;
-      }
-
     }
   },
 

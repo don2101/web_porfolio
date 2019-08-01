@@ -11,5 +11,9 @@ public interface MemberService {
 	public List<Member> getMemberList(); // 
 	public Member getDetailMember(String email); //
 	public void updateMemberInfo(String password, String id); //
-	public void deleteMemberList(String email); // 
+	public void deleteMemberList(String id);
+	/////////////////////////////////////////////////////////////////////////////////////////
+	//admin method
+	public void updateMemberGrade(String id, String grade);
+	public String getMemberGrade(String mid);
 }

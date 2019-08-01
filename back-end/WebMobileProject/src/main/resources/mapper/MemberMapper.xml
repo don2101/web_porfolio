@@ -24,12 +24,20 @@
  	</select>
  	
  	<!--관리자 로그인 시 유저 정보 확인  -->
- 	<select id="getMemberList" resultType="Member">
- 		select email, pw, name , grade from member order by grade
- 	</select>
+<!--  	<select id="getMemberList" resultType="Member"> -->
+<!--  		select email, pw, name , grade from member order by grade -->
+<!--  	</select> -->
+<select id="getMemberList" resultType="Member">
+	select m.mid,m.email,m.name,m.grade, (select count(*) from post p where p.mid = m.mid) "postCount",
+							(select count(*) from portfolio pf where m.mid = pf.mid) "pfCount",
+	                        (select count(*) from postcomment pc where m.mid = pc.mid) "postCommentCount",
+	                        (select count(*) from portfoliocomment pfc where m.mid = pfc.mid) "pfCommentCount"
+	from member m
+	order by m.mid;
+</select>
  	
  	<select id="getDetailMember" resultType="Member" parameterType="String">
- 		select email, pw, name, grade from member where email =#{param1}
+ 		select email, pw, name, grade from member where mid =#{param1}
  	</select>
   	
  	<update id="updateMemberInfo" parameterType="String">
@@ -37,10 +45,16 @@
  	</update>
  	
  	<delete id="deleteMemberList" parameterType="String">
- 		delete from member where email=#{param1}
+ 		delete from member where mid=#{param1}
  	</delete>
 
+	<update id="updateMemberGrade" parameterType="String">
+ 		update member set grade =#{param2} where email =#{param1}
+ 	</update>
   	
+	<select id="getMemberGrade" resultType="String" parameterType="String">
+ 		select grade from member where mid =#{param1}
+ 	</select>
 
  
   	

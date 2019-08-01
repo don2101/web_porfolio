@@ -13,6 +13,8 @@ import PortfolioWrite from './views/portfolios/PortfolioWrite.vue'
 import PortfolioDetail from './views/portfolios/PortfolioDetail.vue'
 import PortfolioUpdate from './views/portfolios/PortfolioUpdate.vue'
 
+import AdminPage from './views/AdminPage.vue'
+
 
 Vue.use(Router)
 
@@ -79,6 +81,12 @@ export default new Router({
       path: '/portfolios/update',
       name: 'portfolioUpdate',
       component: PortfolioUpdate,
+    },
+
+    {
+      path: '/admin',
+      name: 'adminPage',
+      component: AdminPage,
     },
   ]
 })

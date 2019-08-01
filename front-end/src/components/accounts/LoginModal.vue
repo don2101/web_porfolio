@@ -2,7 +2,7 @@
   <div>
     <v-layout row justify-center>
       <v-dialog v-model="dialog" persistent max-width="600px">
-        
+
         <template v-slot:activator="{ on }">
           <div v-on="on" :class="{ 'red-color': loginPicked }" class="small-menu-title mr-5">
             <div @mouseleave="loginUnPick" @mouseover="loginPick">
@@ -10,7 +10,7 @@
             </div>
           </div>
         </template>
-        
+
         <v-card @keyup.esc="dialog=false" @keyup.enter="loginSubmit">
           <v-card-title>
             <span class="headline">Login</span>
@@ -104,7 +104,7 @@ export default {
       loginPicked: false,
       savePicked: false,
       canclePicked: false,
-      
+
       emailRules: [
         v => !!v || 'E-mail is required',
         v => /.+@.+/.test(v) || 'E-mail must be valid'
@@ -125,19 +125,11 @@ export default {
 
       const response = AccountService.loginSubmit(loginForm);
       response.then(result => {
-          if (result.isLoggedIn == true) {
-            this.$store.state.isLoggedIn = true;
-            sessionStorage.setItem("isLoggedIn", this.uid);
-            sessionStorage.setItem("mid", result.id);
-
-
-          if (result.grade == 0) {
-            this.$store.state.isAdmin = true;
-            sessionStorage.setItem("isAdmin", this.uid);
-          }
-          this.notification();
-
-
+        if (result.isLoggedIn == true) {
+          this.$store.state.isLoggedIn = true;
+          sessionStorage.setItem("isLoggedIn", this.uid);
+          sessionStorage.setItem("mid", result.id);
+          window.location.href='/'
         } else {
           alert(`등록되지 않은 아이디이거나, 아이디 또는 비밀번호를 잘못입력하셨습니다.`)
         }

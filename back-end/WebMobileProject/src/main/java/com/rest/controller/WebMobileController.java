@@ -52,28 +52,66 @@ public class WebMobileController {
 			return map;
 		}
 	}
-	@RequestMapping(value = "/member", method = RequestMethod.GET, produces = { "application/json;charset=euc-kr" })
-	public List<Member> getMemberList(HttpSession session) {
-		List<Member> memberList = new ArrayList<>();
-		if (session.getAttribute("sessionId").equals("admin")) {
-			memberList = mService.getMemberList();
-			logger.info("멤버리스트 접근");
+//	@RequestMapping(value = "/member", method = RequestMethod.GET, produces = { "application/json;charset=euc-kr" })
+//	public List<Member> getMemberList(HttpSession session) {
+//		List<Member> memberList = new ArrayList<>();
+//		memberList = mService.getMemberList();
+//		if (session.getAttribute("sessionId").equals("admin")) {
+//			logger.info("멤버리스트 접근");
+//		}
+//		return memberList;
+////		return mService.getMemberList();
+//	}
+	
+	@RequestMapping(value = "/member", method = RequestMethod.GET, produces = { "application/json;charset=utf-8" })
+	public List<Member> getMemberList() {
+		logger.info("멤버리스트 접근");
+		return mService.getMemberList();
+	}
+	
+	@RequestMapping(value = "/member", method = RequestMethod.PUT, produces = { "application/json;charset=utf-8" })
+	public Map updateMemberList(@RequestBody List<Member> m) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		int adminCount=0;
+		for(Member ma:m) {
+			if(ma.getGrade().equals("0")) {
+				adminCount++;
+			}
 		}
-		return memberList;
+		if(adminCount==0) {
+			map.put("success", "false");
+			map.put("error", "관리자는 무조건 1명 이상이여야 합니다.");
+		}else {
+			for(int i=0;i<m.size();i++) {
+				Member tmp=m.get(i);
+//			System.out.println(tmp.getEmail()+" "+tmp.getGrade());
+				mService.updateMemberGrade(tmp.getEmail(), tmp.getGrade());
+			}
+			map.put("success", "true");
+		}
+		return map;
 	}
+	
+	@RequestMapping(value = "/member/{mid}", method = RequestMethod.GET, produces = {
+			"application/json;charset=utf-8" })
+	public Map getMemberGrade(@PathVariable("mid") String mid) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("grade", mService.getMemberGrade(mid) );
+		return map;
+}	
+	
 
-	@RequestMapping(value = "/member/{id}", method = RequestMethod.GET, produces = {
-			"application/json;charset=euc-kr" })
-	public Member getMemberList(@PathVariable("id") String email, HttpSession session) {
-		System.out.println(email);
-		Member member = mService.getDetailMember(email);
-		logger.info(email + " 정보 확인");
-		return member;
-	}
+//	@RequestMapping(value = "/member/{mid}", method = RequestMethod.GET, produces = {
+//			"application/json;charset=utf-8" })
+//	public Member getDetailMember(@PathVariable("mid") String mid) {
+//		System.out.println(mid);
+//		logger.info(mid + " 정보 확인");
+//		return mService.getDetailMember(mid);
+//	}
 
 	@RequestMapping(value = "/member/{id}", method = RequestMethod.PUT, produces = {
 			"application/json;charset=euc-kr" })
-	public Map updateMemberInfo(@PathVariable("id") String id, HttpSession session, @RequestBody Member member) {
+	public Map updateMemberInfo(@PathVariable("id") String id, @RequestBody Member member) {
 		HashMap<String, String> map = new HashMap<String, String>();
 		Member m = mService.getDetailMember(id);
 		String beforeUpdatePassword = m.getPw();
@@ -93,20 +131,12 @@ public class WebMobileController {
 		return map;
 	}
 
-	@RequestMapping(value = "/member/{id}", method = RequestMethod.DELETE, produces = {
-			"application/json;charset=euc-kr" })
-	public Map deleteMemberList(@PathVariable("id") String email) {
+	@RequestMapping(value = "/member/{mid}", method = RequestMethod.DELETE, produces = {
+			"application/json;charset=utf-8" })
+	public Map deleteMemberList(@PathVariable("mid") String mid) {
 		HashMap<String, String> map = new HashMap<String, String>();
-		mService.deleteMemberList(email);
-		Member member = mService.getDetailMember(email);
-		if (member == null) {
-			map.put("success", "true");
-			logger.info(member.getEmail() + " 회원삭제");
-		} else {
-			map.put("success", "false");
-			logger.info("삭제 실패");
-		}
-
+		mService.deleteMemberList(mid);
+		map.put("success", "true");
 		return map;
 
 	}
@@ -150,6 +180,8 @@ public class WebMobileController {
 			map.put("success", "true");
 		} catch (Exception e) {
 			logger.info("포트폴리오 저장 실패");
+			System.out.println(portfolio);
+			System.out.println(e.getMessage());
 			map.put("success", "fail");
 		}
 		return map;

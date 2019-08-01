@@ -46,6 +46,7 @@ export default {
   },
 
   components: {
+<<<<<<< HEAD
     TranslateAll,
     LoginModal,
     SignupModal,
@@ -57,5 +58,9 @@ export default {
       return this.$store.state.isLoggedIn;
     }
   }
+=======
+    TranslateAll
+  },
+>>>>>>> woogie
 }
 </script>
