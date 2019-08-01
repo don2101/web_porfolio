@@ -122,26 +122,13 @@ export default {
         pw: this.password,
       }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> bef11c6b7392391631d23aec0e12faed88835c80
       const response = AccountService.loginSubmit(loginForm);
       response.then(result => {
         if (result.isLoggedIn == true) {
           this.$store.state.isLoggedIn = true;
-<<<<<<< HEAD
-          sessionStorage.setItem("isLoggedIn", result.id);
-          this.$store.state.mid = result.id;
-          if (result.grade == 0) {
-            this.$store.state.isAdmin = true;
-            sessionStorage.setItem("isAdmin", this.uid);
-          }
-=======
           sessionStorage.setItem("isLoggedIn", this.uid);
           sessionStorage.setItem("mid", result.id);
           window.location.href='/'
->>>>>>> bef11c6b7392391631d23aec0e12faed88835c80
         } else {
           alert(`등록되지 않은 아이디이거나, 아이디 또는 비밀번호를 잘못입력하셨습니다.`)
         }
