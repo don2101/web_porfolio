@@ -51,19 +51,10 @@ export default {
   },
 
   mounted() {
-<<<<<<< HEAD
-    var mid = sessionStorage.getItem("isLoggedIn");
-    if (mid != null) {
-      this.$store.state.isLoggedIn = true;
-      this.$store.state.mid = mid;
-      if (sessionStorage.getItem("isAdmin") != null)
-        this.$store.state.isAdmin = true;
-=======
 
     if (sessionStorage.getItem("isLoggedIn") != null) {
       this.$store.state.isLoggedIn = true;
       this.$store.state.memberId = sessionStorage.getItem("mid");
->>>>>>> bef11c6b7392391631d23aec0e12faed88835c80
     }
   },
 
