@@ -16,7 +16,7 @@
       <v-flex xs11>
         <v-textarea
           v-model="content"
-          readonly dark no-resize rows="1">
+          readonly single-line dark auto-grow rows="1" color="#FAFAFA">
         </v-textarea>
       </v-flex>
       <v-flex

@@ -25,7 +25,8 @@
     <form @submit.prevent="postPortfolioComment">
       <v-text-field
         v-model="contentInput"
-          dark placeholder="댓글 추가...">
+        dark placeholder="댓글 추가..."
+        color="#E53935">
       </v-text-field>
       <v-layout justify-end>
         <v-btn
