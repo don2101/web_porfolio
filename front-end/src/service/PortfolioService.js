@@ -42,7 +42,7 @@ export default {
   async updatePortfolio(pfId,postData) {
     let response = {}
     
-    resposne = await axios.put(BASE_URL + '/portfolio/'+pfId, postData)
+    response = await axios.put(BASE_URL + '/portfolio/'+pfId, postData)
     
     if(response.data.success==='true'){
       alert("정상적으로 수정 되었습니다.")
@@ -56,12 +56,12 @@ export default {
   async deletePortfolio(pfId) {
     let response = {}
 
-    resposne = await axios.delete(BASE_URL + '/portfolio/'+pfId)
+    response = await axios.delete(BASE_URL + '/portfolio/'+pfId)
     
     if(response.data.success==='true'){
       alert("정상적으로 삭제 되었습니다.")
       window.location.href='/portfolios'
-    }else{
+    } else {
       alert("에러 발생")
     }
   },
