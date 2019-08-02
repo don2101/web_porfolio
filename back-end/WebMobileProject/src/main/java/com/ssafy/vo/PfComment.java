@@ -2,6 +2,9 @@ package com.ssafy.vo;
 
 import java.sql.Date;
 
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
 public class PfComment {
 	int pfcomId;
 	String content;
