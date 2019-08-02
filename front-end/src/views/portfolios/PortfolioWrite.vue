@@ -58,7 +58,7 @@
 
 <script>
 /**
- * 사용자로 부터 입력을 받아 portfolios를 post하는 component
+ * 사용자로 부터 입력을 받아 portfolios를 작성하는 component
  */
 
 import imageUploader from '../../components/image/ImageUploader'
@@ -94,7 +94,6 @@ export default {
         mid: this.getMemberId,
       };
       
-      console.log(jsonData.mid)
       let response = [];
       response = await PortfolioService.postPortfolio(jsonData)
     },

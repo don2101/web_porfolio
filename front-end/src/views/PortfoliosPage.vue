@@ -12,7 +12,7 @@
       v-if="isAdmin">
 
       <div @mouseover="buttonPick" @mouseleave="buttonPick">
-        Writer Portfolio
+        Write Portfolio
       </div>
     </v-btn>
 

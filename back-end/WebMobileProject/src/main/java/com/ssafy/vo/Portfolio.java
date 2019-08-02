@@ -1,12 +1,11 @@
 package com.ssafy.vo;
 
-import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
-@Builder
-@Getter @Setter @ToString
+@NoArgsConstructor
+@Getter @Setter
 public class Portfolio {
 	private String pfId;
 	private String title;

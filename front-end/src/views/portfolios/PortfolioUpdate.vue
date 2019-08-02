@@ -85,8 +85,6 @@ export default {
       content : '',
       imageSource : '',
       count: 0,
-      msg: 'Hey Nic Raboy',
-      // portfolios: {},
       portfolio: [],
       updateButtonPicked: false,
       cancleButtonPicked: false,
@@ -100,8 +98,8 @@ export default {
   },
 
   methods: {
+    // GET portfolios
     async getPortfolio() {
-      // this.portfolios = await PortfolioService.getPortfolios()
       this.portfolio= await PortfolioService.getPortfolio(this.pfId);
     },
 
@@ -112,6 +110,7 @@ export default {
       this.count = this.portfolio.count
     },
 
+    // PUT portfolios
     async updatePortfolio() {
       let jsonData = {
         title: this.title,
@@ -121,7 +120,7 @@ export default {
         img: this.imageSource,
         mid: this.$store.state.memberId,
       };
-      console.log(jsonData)
+      
       await PortfolioService.updatePortfolio(this.pfId,jsonData)
     },
 
