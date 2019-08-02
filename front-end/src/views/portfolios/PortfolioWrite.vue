@@ -67,9 +67,7 @@ import PortfolioService from '../../service/PortfolioService'
 
 export default {
   name: 'PortfolioWrite',
-  // data: () =>({
-  //   imgSrc: 'http://dy.gnch.or.kr/img/no-image.jpg'
-  // }),
+  
   components: {
     imageUploader,
   },
@@ -84,8 +82,10 @@ export default {
   },
 
   methods: {
+    // POST portfolio
     async postPortfolio() {
-      let jsonData = {
+      
+      const jsonData = {
         title: this.title,
         content: this.content,
         count: 0,
@@ -93,10 +93,13 @@ export default {
         img: this.imageSource,
         mid: this.getMemberId,
       };
+      
+      console.log(jsonData.mid)
       let response = [];
       response = await PortfolioService.postPortfolio(jsonData)
     },
 
+    // set portfolio Image
     setImageSource(resultLink) {
       this.imageSource = resultLink
     },
@@ -106,7 +109,7 @@ export default {
 
   computed: {
     getMemberId(){
-      return this.$store.state.memberId;
+      return sessionStorage.getItem('mid')
     }
   }
 }

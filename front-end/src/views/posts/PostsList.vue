@@ -22,6 +22,9 @@
 
 
 <script>
+/**
+ * Post list를 가져와 Post.vue에 출력
+ */
 import PostService from '../../service/PostService'
 import Post from './Post'
 

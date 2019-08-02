@@ -9,7 +9,6 @@
       height="50" style="font-size: 30px"></v-text-field>
     </v-flex>
 
-
     <!-- content view -->
     <v-flex class="markdown-view" xs6>
       <MarkdownItVue class="md-body" :content="content"/>
@@ -38,6 +37,10 @@
 
 
 <script>
+/**
+ * Post의 상세 내역을 출력
+ * Edit페이지로 이동하고, post를 삭제하는 버튼 추가
+ */
 import MarkdownItVue from 'markdown-it-vue'
 import 'markdown-it-vue/dist/markdown-it-vue.css'
 import PostService from '../../service/PostService'
@@ -70,6 +73,7 @@ export default {
 
     deletePick() { this.deletePicked = !this.deletePicked },
 
+    // 상세 Post를 가져온다.
     async requestPost() {
       const result = await PostService.getPost(this.idx);
       this.title = result.title;
@@ -78,6 +82,7 @@ export default {
       this.content = result.content;
     },
 
+    // DELETE post
     async deletePost() {
       const result = await PostService.deletePost(this.idx);
       
@@ -89,6 +94,7 @@ export default {
       }
     },
 
+    // PUT post
     editPost() {
       this.$router.push({ name: 'postUpdate', query: { 'idx': this.idx} })
     },

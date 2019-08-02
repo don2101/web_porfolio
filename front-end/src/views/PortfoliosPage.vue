@@ -1,7 +1,9 @@
 <template>
   <div>
-
+    
     <h1 class="main-title my-5">Portfolios</h1>
+    
+    <!-- write portfolio button -->
     <v-btn
       depressed large flat outline
       :class="{'red-color': buttonPicked}"
@@ -10,11 +12,11 @@
       v-if="isAdmin">
 
       <div @mouseover="buttonPick" @mouseleave="buttonPick">
-        Add Portfolio
+        Writer Portfolio
       </div>
     </v-btn>
 
-
+    <!-- portfolios lists -->
     <v-layout>
       <v-flex xs12>
         <PortfoliosList :limits="6" :load-more="true"></PortfoliosList>
@@ -41,22 +43,23 @@ export default {
 
   methods: {
     buttonPick() { this.buttonPicked = !this.buttonPicked },
+    
+    async checkGrade() {
+      const grade = await AdminService.getGrade(sessionStorage.getItem("mid"));
+      
+      if(grade === '0') this.isAdmin = true;
+      else this.isAdmin = false;  
+    }
   },
 
-  async created(){
-    const grade = await AdminService.getGrade(sessionStorage.getItem("mid"));
-    if(grade === '0') {
-      this.isAdmin=true;
-    }else{
-      this.isAdmin=false;
-    }
+  created(){
+    this.checkGrade();  
   },
 
   data() {
     return {
       buttonPicked: false,
       isAdmin: false,
-
     }
   },
 }

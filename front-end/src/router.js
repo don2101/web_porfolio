@@ -35,6 +35,7 @@ export default new Router({
       component: AboutUs,
     },
 
+    // post
     {
       path: '/posts',
       name: 'posts',
@@ -59,6 +60,7 @@ export default new Router({
       component: PostUpdate,
     },
 
+    // portfolios
     {
       path: '/portfolios',
       name: 'portfolios',
@@ -83,6 +85,7 @@ export default new Router({
       component: PortfolioUpdate,
     },
 
+    // admin
     {
       path: '/admin',
       name: 'adminPage',

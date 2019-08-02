@@ -1,9 +1,7 @@
 <template>
-  
   <v-container fill-height style="height: 90vh" d-flex>
     <CircularMenu></CircularMenu>
   </v-container>
-
 </template>
 
 
@@ -23,24 +21,5 @@ export default {
     CircularMenu,
   },
 
-  methods: {
-    postsPick() { this.postsPicked = !this.postsPicked },
-    portfoliosPick() { this.portfoliosPicked = !this.portfoliosPicked },
-    aboutUsPick() { this.aboutUsPicked = !this.aboutUsPicked },
-    signupPick() { this.signupPicked = !this.signupPicked },
-  },
-
-  data() {
-    return {
-      postsPicked: false,
-      portfoliosPicked: false,
-      aboutUsPicked: false,
-      signupPicked: false,
-    }
-  },
-
-  
-
-  
 }
 </script>

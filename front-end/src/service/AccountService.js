@@ -8,7 +8,9 @@ const BASE_URL = "http://localhost:9090"
 
 export default {
   async signUpSubmit(signupForm) {
-    const response = await axios.post(BASE_URL + '/member', signupForm)
+    const response = {};
+
+    await axios.post(BASE_URL + '/member', signupForm)
     .then(response => {
       this.result = response.data;
       if(this.result.success==='false'){

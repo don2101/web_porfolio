@@ -7,9 +7,6 @@ export default new Vuex.Store({
   state: {
     chartData: {},
     isLoggedIn: false,
-    isAdmin: false,
-    mid: "",
-    memberId: 0,
     direction: '',
   },
 

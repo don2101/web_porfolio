@@ -1,11 +1,11 @@
 <template>
   <div>
-    <v-toolbar class="mt-2 ml-2" color="transparent" flat fixed>
+    <v-toolbar class="mb-5" color="#1a1c33" flat fixed >
 
       <v-btn icon dark @click="goTo" ><v-icon dark x-large>home</v-icon></v-btn>
       
       <div v-if="isLoggedIn">
-        <v-layout class="ml-3">
+        <v-layout class="ml-5">
         <Logout></Logout>
         <router-link v-if="isAdmin===true" :to="{ name: 'adminPage'}" :class="{'red-color': adminPagePicked}" class="small-menu-title mr-5">
           <div @mouseleave="adminPagePick" @mouseover="adminPagePick">
@@ -16,7 +16,7 @@
       </div>
 
       <div v-else>
-        <v-layout class="ml-2">
+        <v-layout class="ml-5">
         <LoginModal></LoginModal>
         <SignupModal></SignupModal>
         </v-layout>
@@ -63,11 +63,8 @@ export default {
     async checkGrade() {
       const grade = await AdminService.getGrade(sessionStorage.getItem("mid"));
       
-      if(grade === '0') {
-        this.isAdmin=true;
-      } else {
-        this.isAdmin=false;
-      }
+      if(grade === '0') this.isAdmin = true;
+      else this.isAdmin = false;
     }
   },
 

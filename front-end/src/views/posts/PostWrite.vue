@@ -68,6 +68,7 @@ export default {
   methods: {
     buttonPick() { this.buttonPicked = !this.buttonPicked },
     
+    // POST post
     writePost() {
       const postBody = {
         mid: sessionStorage.getItem("mid"),

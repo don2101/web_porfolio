@@ -81,14 +81,14 @@ export default {
 
     updatePick() { this.updatePicked = !this.updatePicked },
 
-    // 변경할 Post를 요청
+    // GET post
     async requestPost() {
       const result = await PostService.getPost(this.idx);
       this.title = result.title;
       this.content = result.content;
     },
 
-    // Post를 수정
+    // PUT post
     async updatePost() {
       const postBody = {
         mid: sessionStorage.getItem("mid"),
