@@ -13,7 +13,7 @@
 
   <div v-else>
     <v-layout>
-      <v-flex xs11>
+      <v-flex xs10 offset-xs1>
         <v-textarea
           v-model="content"
           readonly dark auto-grow rows="1" color="#FAFAFA">
@@ -87,9 +87,12 @@ export default {
 
   methods: {
     async deletePortfolioComment() {
+      let jsonData = {
+        pfcomId: this.pfcomId,
+        pfId: this.pfId,
+      }
       let response = [];
-      response = await CommentService.deletePortfolioComment(this.pfcomId)
-      alert(response);
+      response = await CommentService.deletePortfolioComment(jsonData)
     },
 
     update() {
@@ -97,7 +100,7 @@ export default {
     },
 
     isUpdatable() {
-      return this.mid == this.$store.state.mid
+      return this.mid == this.$store.state.memberId
     },
   },
 }

@@ -2,10 +2,14 @@
 <div>
   <div v-if="isUpdated">
     <form @submit.prevent="updatePortfolioComment">
-      <v-text-field
-        v-model="content"
-        dark>
-      </v-text-field>
+      <v-layout>
+        <v-flex xs10 offset-xs1>
+          <v-text-field
+            v-model="content"
+            dark>
+          </v-text-field>
+        </v-flex>
+      </v-layout>
       <v-layout justify-end>
         <v-btn
           color="#FAFAFA" flat
@@ -18,6 +22,8 @@
           <input
             type="submit" value="SAVE" @mouseover="buttonPick" @mouseleave="buttonPick">
         </v-btn>
+        <v-flex xs1>
+        </v-flex>
       </v-layout>
     </form>
   </div>
@@ -81,14 +87,13 @@ export default {
       let jsonData = {
         content: this.contentInput,
         pfId: this.pfId,
-        mid: this.$store.state.mid,
+        mid: this.$store.state.memberId,
       };
       let response = [];
       response = await CommentService.postPortfolioComment(jsonData)
     },
 
     async updatePortfolioComment() {
-      alert(this.pfId)
       let jsonData = {
         pfcomId: this.pfcomId,
         content: this.content,
@@ -96,13 +101,12 @@ export default {
       };
       let response = [];
       response = await CommentService.updatePortfolioComment(jsonData)
-      // window.location.href = "detail?idx=" + this.pfId;
-      this.$router.push({
-        path: 'detail',
-        query: {
-          idx: this.pfId
-        }
-      })
+      // this.$router.push({
+      //   path: 'detail',
+      //   query: {
+      //     pfId: this.pfId
+      //   }
+      // })
     },
 
     buttonPick() {

@@ -19,7 +19,7 @@ export default {
     .then(response=>{
       if(response.data.success==='true'){
         alert("정상적으로 등록 되었습니다.")
-        window.location.href = '/portfolios/detail?idx=' + pfComData.pfId  // ?idx=
+        window.location.href = '/portfolios/detail?pfId=' + pfComData.pfId
       }else{
         alert("에러 발생")
       }
@@ -27,13 +27,13 @@ export default {
     return response
   },
 
-  async deletePortfolioComment(pfcomId) {
+  async deletePortfolioComment(jsonData) {
     let response = [];
-    response = await axios.delete(BASE_URL + '/portfolio/comments/' + pfcomId)
+    response = await axios.delete(BASE_URL + '/portfolio/comments/' + jsonData.pfcomId)
     .then(response=>{
       if(response.data.success==='true'){
         alert("정상적으로 삭제 되었습니다.")
-        window.location.href='/portfolios/'
+        window.location.href='/portfolios/detail?pfId=' + jsonData.pfId
       }else{
         alert("에러 발생")
       }
@@ -47,6 +47,7 @@ export default {
     .then(response=>{
       if(response.data.success==='true'){
         alert("정상적으로 등록 되었습니다.")
+        window.location.href = "/portfolios/detail?pfId=" + pfcomData.pfId;
       }else{
         alert("에러 발생")
       }

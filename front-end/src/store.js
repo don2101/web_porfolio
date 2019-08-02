@@ -8,7 +8,6 @@ export default new Vuex.Store({
     chartData: {},
     isLoggedIn: false,
     isAdmin: false,
-    mid: "",
     memberId: 0,
     direction: '',
   },

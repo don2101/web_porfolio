@@ -41,7 +41,6 @@ export default {
     async getPortfolioComments(pfId) {
       this.portfolioComments = await CommentService.getPortfolioComments(pfId)
     },
-
   },
 
   mounted() {
