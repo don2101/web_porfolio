@@ -57,6 +57,8 @@ export default {
       this.$store.state.isLoggedIn = true;
       this.$store.state.memberId = sessionStorage.getItem("mid");
     }
+
+    this.getGraphdata();
   },
 
   methods: {

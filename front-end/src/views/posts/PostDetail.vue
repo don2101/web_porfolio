@@ -76,7 +76,7 @@ export default {
 
     // 상세 Post를 가져온다.
     async requestPost() {
-      this.post = await PostService.getPost(this.idx);
+      this.post = await PostService.getPost(this.pid);
       this.title = this.post.title;
       this.date = this.post.date;
       this.writer = this.post.mid;
@@ -85,7 +85,7 @@ export default {
 
     // DELETE post
     async deletePost() {
-      const result = await PostService.deletePost(this.idx);
+      const result = await PostService.deletePost(this.pid);
       
       if(result.success == "true") {
         alert("삭제되었습니다.")
@@ -97,13 +97,13 @@ export default {
 
     // PUT post
     editPost() {
-      this.$router.push({ name: 'postUpdate', query: { 'idx': this.idx} })
+      this.$router.push({ name: 'postUpdate', query: { 'pid': this.pid} })
     },
   },
 
   computed: {
-    idx() {
-      return this.$route.query.idx
+    pid() {
+      return this.$route.query.pid
     }, 
     
     isWriter(){

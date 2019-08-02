@@ -1,7 +1,7 @@
 <template>
   <v-layout mt-5 wrap>
 
-    <v-flex v-for="i in portfolios.length > limits ? limits : portfolios.length" xs4 sm4 md4>
+    <v-flex v-for="i in portfolios.length > limits ? limits : portfolios.length" :key="portfolios[i-1].pfId" xs4 sm4 md4>
       <router-link :to="{ name: 'portfolioDetail', query: { 'pfId': portfolios[i-1].pfId } }">
         <Portfolio class="ma-3"
                 :date="portfolios[i - 1].date"

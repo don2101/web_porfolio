@@ -60,7 +60,6 @@ export default {
   components: {
     MarkdownItVue,
     VueSimplemde,
-    PostService,
   },
 
   data() {
@@ -89,7 +88,7 @@ export default {
 
     // GET post
     async requestPost() {
-      this.post = await PostService.getPost(this.idx);
+      this.post = await PostService.getPost(this.pid);
       this.title = this.post.title;
       this.content = this.post.content;
     },
@@ -102,11 +101,11 @@ export default {
         content: this.content,
       }
       
-      const result = await PostService.putPost(this.idx, postBody);
+      const result = await PostService.putPost(this.pid, postBody);
 
       if(result.success == "true") {
         alert("변경되었습니다.");
-        this.$router.push({ name: 'postDetail', query: { 'idx': this.idx} })
+        this.$router.push({ name: 'postDetail', query: { 'pid': this.pid} })
       } else {
         alert("변경이 거부되었습니다.")
       }
@@ -114,14 +113,14 @@ export default {
 
     // 변경 취소
     cancelUpdate() {
-      this.$router.push({ name: 'postDetail', query: { 'idx': this.idx} })
+      this.$router.push({ name: 'postDetail', query: { 'pid': this.pid} })
     } 
 
   },
 
   computed: {
-    idx() {
-      return this.$route.query.idx
+    pid() {
+      return this.$route.query.pid
     }
   },
 }

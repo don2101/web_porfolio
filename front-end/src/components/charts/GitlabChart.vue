@@ -1,7 +1,7 @@
 <template>
   <div class="my-5">
 
-    <v-flex v-for="(value, key) in graphData" class="display-res-sm display-res-md display-res-lg my-3" >
+    <v-flex v-for="(value, key) in graphData" :key="key" class="display-res-sm display-res-md display-res-lg my-3" >
       <Chart
         :title="key"
         :graphData="value"
