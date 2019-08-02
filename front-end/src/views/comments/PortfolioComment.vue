@@ -7,6 +7,7 @@
       :content="content"
       :pfId="pfId"
       :isUpdated="true"
+      :isPortfolio="isPortfolio"
       v-on:update="update()">
     </PortfolioCommentWrite>
   </div>
@@ -67,6 +68,9 @@ export default {
     pfcomId: {
       type: String
     },
+    postComId: {
+      type: String
+    },
     content: {
       type: String
     },
@@ -76,8 +80,15 @@ export default {
     pfId: {
       type: String
     },
+    postId: {
+      type: String
+    },
     mid: {
       type: String
+    },
+    isPortfolio: {
+      type: Boolean,
+      default: false
     },
   },
 
@@ -87,12 +98,21 @@ export default {
 
   methods: {
     async deletePortfolioComment() {
-      let jsonData = {
-        pfcomId: this.pfcomId,
-        pfId: this.pfId,
+      let jsonData = [];
+      if (this.isPortfolio) {
+        jsonData = {
+          pfcomId: this.pfcomId,
+          pfId: this.pfId,
+        }
+      } else {
+        jsonData = {
+          postComId: this.postComId,
+          postId: this.postId,
+        }
       }
       let response = [];
-      response = await CommentService.deletePortfolioComment(jsonData)
+      if (this.isPortfolio) response = await CommentService.deletePortfolioComment(jsonData)
+      else response = await CommentService.deletePostComment(jsonData)
     },
 
     update() {

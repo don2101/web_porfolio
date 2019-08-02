@@ -36,7 +36,7 @@
       </v-text-field>
       <v-layout justify-end>
         <v-btn
-          color="#FAFAFA" flat>
+          color="#FAFAFA" flat @click="cancle()">
           <input
             type="reset" value="CANCEL">
         </v-btn>
@@ -70,13 +70,23 @@ export default {
     pfcomId: {
       type: String
     },
+    postComId: {
+      type: String
+    },
     content: {
       type: String
     },
     pfId: {
       type: String
     },
+    postId: {
+      type: String
+    },
     isUpdated: {
+      type: Boolean,
+      default: false
+    },
+    isPortfolio: {
       type: Boolean,
       default: false
     },
@@ -84,23 +94,43 @@ export default {
 
   methods: {
     async postPortfolioComment() {
-      let jsonData = {
-        content: this.contentInput,
-        pfId: this.pfId,
-        mid: this.$store.state.memberId,
-      };
+      let jsonData = [];
+      if (this.isPortfolio) {
+        jsonData = {
+          content: this.contentInput,
+          pfId: this.pfId,
+          mid: this.$store.state.memberId,
+        }
+      } else {
+        jsonData = {
+          content: this.contentInput,
+          postId: this.postId,
+          mid: this.$store.state.memberId,
+        }
+      }
       let response = [];
-      response = await CommentService.postPortfolioComment(jsonData)
+      if (this.isPortfolio)  response = await CommentService.postPortfolioComment(jsonData)
+      else  response = await CommentService.postPostComment(jsonData)
     },
 
     async updatePortfolioComment() {
-      let jsonData = {
-        pfcomId: this.pfcomId,
-        content: this.content,
-        pfId: this.pfId,
-      };
+      let jsonData = [];
+      if (this.isPortfolio) {
+        jsonData = {
+          pfcomId: this.pfcomId,
+          content: this.content,
+          pfId: this.pfId,
+        }
+      } else {
+        jsonData = {
+          postComId: this.postComId,
+          content: this.content,
+          postId: this.postId,
+        }
+      }
       let response = [];
-      response = await CommentService.updatePortfolioComment(jsonData)
+      if (this.isPortfolio)  response = await CommentService.updatePortfolioComment(jsonData)
+      else  response = await CommentService.updatePostComment(jsonData)
       // this.$router.push({
       //   path: 'detail',
       //   query: {
@@ -116,6 +146,10 @@ export default {
     update() {
       this.$emit('update')
     },
+
+    // cancel() {
+    //   this.contentInput = ""
+    // },
   },
 }
 </script>

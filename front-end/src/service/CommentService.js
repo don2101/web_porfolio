@@ -64,4 +64,18 @@ export default {
 
     return response
   },
+
+  async postPostComment(jsonData) {
+    let response = [];
+    response = await axios.post(BASE_URL + '/post/comments', jsonData)
+    .then(response=>{
+      if(response.data.success==='true'){
+        alert("정상적으로 등록 되었습니다.")
+        window.location.href = '/posts/detail?idx=' + jsonData.postId
+      } else {
+        alert("에러 발생")
+      }
+    })
+    return response
+  },
 }

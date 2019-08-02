@@ -341,5 +341,21 @@ public class WebMobileController {
 		}
 		return map;
 	}
+	
+	// Post Comment
+	@RequestMapping(value="/post/comments", method = RequestMethod.POST)
+	public Map insertPostComment(@RequestBody PfComment postComment) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		System.out.println(postComment);
+		try {
+//			pfComService.insert(postComment);
+			logger.info("포스트 댓글 저장");
+			map.put("success", "true");
+		}catch(Exception e){
+			logger.info("포스트 댓글 저장 실패");
+			map.put("success", "fail");
+		}
+		return map;
+	}
 
 }

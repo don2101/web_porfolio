@@ -67,10 +67,12 @@
     </div>
   </div>
   <PortfolioCommentWrite
-    :pfId="pfId">
+    :pfId="pfId"
+    :isPortfolio="isPortfolio">
   </PortfolioCommentWrite>
   <PortfolioCommentsList
-    :pfId="pfId">
+    :pfId="pfId"
+    :isPortfolio="isPortfolio">
   </PortfolioCommentsList>
   <!-- <Disqus/> -->
 </div>
@@ -109,7 +111,7 @@ export default {
       listButtonPicked: false,
       updateButtonPicked: false,
       deleteButtonPicked: false,
-
+      isPortfolio: this.pfId == "" ? false : true,
     }
 
   },
