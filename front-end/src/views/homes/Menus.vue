@@ -30,17 +30,13 @@
     <div v-if="isLoggedIn">
       <v-layout class="mt-3 ml-2">
       <Logout></Logout>
-      <!-- <router-link v-if="isAdmin===true" to="/admin" :class="{'red-color': adminPagePicked}" class="menu-title">
-        <div @mouseleave="adminPagePick" @mouseover="adminPagePick">
-          관리자 페이지
-        </div>
-      </router-link> -->
+
       <router-link v-if="isAdmin===true" :to="{ name: 'adminPage'}" :class="{'red-color': adminPagePicked}" class="small-menu-title mr-5">
         <div @mouseleave="adminPagePick" @mouseover="adminPagePick">
           AdminPage
         </div>
       </router-link>
-      <!-- <p> {{isAdmin}} </p> -->
+
       </v-layout>
     </div>
 
