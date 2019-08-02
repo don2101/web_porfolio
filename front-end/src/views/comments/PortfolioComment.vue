@@ -7,13 +7,14 @@
       :content="content"
       :pfId="pfId"
       :isUpdated="true"
+      :isPortfolio="isPortfolio"
       v-on:update="update()">
     </PortfolioCommentWrite>
   </div>
 
   <div v-else>
     <v-layout>
-      <v-flex xs11>
+      <v-flex xs10 offset-xs1>
         <v-textarea
           v-model="content"
           readonly dark auto-grow rows="1" color="#FAFAFA">
@@ -67,6 +68,9 @@ export default {
     pfcomId: {
       type: String
     },
+    postComId: {
+      type: String
+    },
     content: {
       type: String
     },
@@ -76,8 +80,15 @@ export default {
     pfId: {
       type: String
     },
+    postId: {
+      type: String
+    },
     mid: {
       type: String
+    },
+    isPortfolio: {
+      type: Boolean,
+      default: false
     },
   },
 
@@ -87,9 +98,21 @@ export default {
 
   methods: {
     async deletePortfolioComment() {
+      let jsonData = [];
+      if (this.isPortfolio) {
+        jsonData = {
+          pfcomId: this.pfcomId,
+          pfId: this.pfId,
+        }
+      } else {
+        jsonData = {
+          postComId: this.postComId,
+          postId: this.postId,
+        }
+      }
       let response = [];
-      response = await CommentService.deletePortfolioComment(this.pfcomId)
-      alert(response);
+      if (this.isPortfolio) response = await CommentService.deletePortfolioComment(jsonData)
+      else response = await CommentService.deletePostComment(jsonData)
     },
 
     update() {
@@ -97,7 +120,7 @@ export default {
     },
 
     isUpdatable() {
-      return this.mid == this.$store.state.mid
+      return this.mid == this.$store.state.memberId
     },
   },
 }

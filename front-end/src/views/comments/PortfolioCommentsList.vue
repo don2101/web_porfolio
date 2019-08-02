@@ -1,14 +1,15 @@
 <template>
 <v-list>
   <v-flex
-    v-for="i in portfolioComments.length"
+    v-for="i in comments.length"
     class="list">
     <PortfolioComment
-      :pfcomId="portfolioComments[i - 1].pfcomId"
-      :content="portfolioComments[i - 1].content"
-      :date="portfolioComments[i - 1].date"
-      :pfId="portfolioComments[i - 1].pfId"
-      :mid="portfolioComments[i - 1].mid">
+      :pfcomId="comments[i - 1].pfcomId"
+      :content="comments[i - 1].content"
+      :date="comments[i - 1].date"
+      :pfId="comments[i - 1].pfId"
+      :mid="comments[i - 1].mid"
+      :isPortfolio="isPortfolio">
     </PortfolioComment>
   </v-flex>
 </v-list>
@@ -23,13 +24,20 @@ export default {
 
   data() {
     return {
-      portfolioComments: [],
+      comments: [],
     }
   },
 
   props: {
     pfId: {
       type: String
+    },
+    postId: {
+      type: String
+    },
+    isPortfolio: {
+      type: Boolean,
+      default: false
     },
   },
 
@@ -39,13 +47,17 @@ export default {
 
   methods: {
     async getPortfolioComments(pfId) {
-      this.portfolioComments = await CommentService.getPortfolioComments(pfId)
+      this.comments = await CommentService.getPortfolioComments(pfId)
     },
 
+    async getPostComments(postId) {
+      this.comments = await CommentService.getPostComments(postId)
+    },
   },
 
   mounted() {
-    this.getPortfolioComments(this.pfId)
+    if (this.isPortfolio) this.getPortfolioComments(this.pfId)
+    else  this.getPostComments(this.postId)
   },
 }
 </script>

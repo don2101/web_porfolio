@@ -2,10 +2,14 @@
 <div>
   <div v-if="isUpdated">
     <form @submit.prevent="updatePortfolioComment">
-      <v-text-field
-        v-model="content"
-        dark>
-      </v-text-field>
+      <v-layout>
+        <v-flex xs10 offset-xs1>
+          <v-text-field
+            v-model="content"
+            dark>
+          </v-text-field>
+        </v-flex>
+      </v-layout>
       <v-layout justify-end>
         <v-btn
           color="#FAFAFA" flat
@@ -18,6 +22,8 @@
           <input
             type="submit" value="SAVE" @mouseover="buttonPick" @mouseleave="buttonPick">
         </v-btn>
+        <v-flex xs1>
+        </v-flex>
       </v-layout>
     </form>
   </div>
@@ -30,7 +36,7 @@
       </v-text-field>
       <v-layout justify-end>
         <v-btn
-          color="#FAFAFA" flat>
+          color="#FAFAFA" flat @click="cancle()">
           <input
             type="reset" value="CANCEL">
         </v-btn>
@@ -64,13 +70,23 @@ export default {
     pfcomId: {
       type: String
     },
+    postComId: {
+      type: String
+    },
     content: {
       type: String
     },
     pfId: {
       type: String
     },
+    postId: {
+      type: String
+    },
     isUpdated: {
+      type: Boolean,
+      default: false
+    },
+    isPortfolio: {
       type: Boolean,
       default: false
     },
@@ -78,31 +94,49 @@ export default {
 
   methods: {
     async postPortfolioComment() {
-      let jsonData = {
-        content: this.contentInput,
-        pfId: this.pfId,
-        mid: this.$store.state.mid,
-      };
+      let jsonData = [];
+      if (this.isPortfolio) {
+        jsonData = {
+          content: this.contentInput,
+          pfId: this.pfId,
+          mid: this.$store.state.memberId,
+        }
+      } else {
+        jsonData = {
+          content: this.contentInput,
+          postId: this.postId,
+          mid: this.$store.state.memberId,
+        }
+      }
       let response = [];
-      response = await CommentService.postPortfolioComment(jsonData)
+      if (this.isPortfolio)  response = await CommentService.postPortfolioComment(jsonData)
+      else  response = await CommentService.postPostComment(jsonData)
     },
 
     async updatePortfolioComment() {
-      alert(this.pfId)
-      let jsonData = {
-        pfcomId: this.pfcomId,
-        content: this.content,
-        pfId: this.pfId,
-      };
-      let response = [];
-      response = await CommentService.updatePortfolioComment(jsonData)
-      // window.location.href = "detail?idx=" + this.pfId;
-      this.$router.push({
-        path: 'detail',
-        query: {
-          idx: this.pfId
+      let jsonData = [];
+      if (this.isPortfolio) {
+        jsonData = {
+          pfcomId: this.pfcomId,
+          content: this.content,
+          pfId: this.pfId,
         }
-      })
+      } else {
+        jsonData = {
+          postComId: this.postComId,
+          content: this.content,
+          postId: this.postId,
+        }
+      }
+      let response = [];
+      if (this.isPortfolio)  response = await CommentService.updatePortfolioComment(jsonData)
+      else  response = await CommentService.updatePostComment(jsonData)
+      // this.$router.push({
+      //   path: 'detail',
+      //   query: {
+      //     pfId: this.pfId
+      //   }
+      // })
     },
 
     buttonPick() {
@@ -112,6 +146,10 @@ export default {
     update() {
       this.$emit('update')
     },
+
+    // cancel() {
+    //   this.contentInput = ""
+    // },
   },
 }
 </script>

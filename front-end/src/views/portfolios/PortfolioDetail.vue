@@ -61,13 +61,16 @@
       </div>
     </div>
 
-    <PortfolioCommentWrite
-      :pfId="this.$route.query.idx">
-    </PortfolioCommentWrite>
-    <PortfolioCommentsList
-      :pfId="this.$route.query.idx">
-    </PortfolioCommentsList>
-  </div>
+  <PortfolioCommentWrite
+    :pfId="pfId"
+    :isPortfolio="isPortfolio">
+  </PortfolioCommentWrite>
+  <PortfolioCommentsList
+    :pfId="pfId"
+    :isPortfolio="isPortfolio">
+  </PortfolioCommentsList>
+  <!-- <Disqus/> -->
+</div>
 </template>
 
 
@@ -100,6 +103,7 @@ export default {
       listButtonPicked: false,
       updateButtonPicked: false,
       deleteButtonPicked: false,
+      isPortfolio: this.pfId == "" ? false : true,
     }
 
   },
