@@ -5,24 +5,29 @@
         data-init-key="value"
         ></div>
 </template>
+
+
 <script>
 export default {
     name: "chatbot",
+    
     methods: {
-      danbeeAi: (function(d, s, id){
-          console.log("here");
+      danbeeAI(d, s, id) {
           var js, fjs = d.getElementsByTagName(s)[0];
           if (d.getElementById(id)) {return;}
           js = d.createElement(s); js.id = id;
           js.src = "https:\/\/danbee.ai/js/plugins/frogue-embed/frogue-embed.min.js";
           fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'frogue-embed'))
+      }
     },
+
     mounted() {
-      this.danbeeAi()
+      this.danbeeAI(document, 'script', 'frogue-embed')
     }
   }
 </script>
+
+
 <style>
 #frogue-container {
   margin-bottom: auto;

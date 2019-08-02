@@ -25,7 +25,7 @@ export default {
   },
 
   async loginSubmit(loginForm) {
-    var result = {};
+    let result = {};
     await axios.post(BASE_URL + '/login', loginForm)
     .then(response => {
       if (response.data.success == "true") {
