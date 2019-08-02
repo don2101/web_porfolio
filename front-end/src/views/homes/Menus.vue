@@ -1,11 +1,7 @@
 <template>
+  
   <v-container fill-height style="height: 90vh" d-flex>
     <CircularMenu></CircularMenu>
-    <router-link v-if="isAdmin===true" :to="{ name: 'adminPage'}" :class="{'red-color': adminPagePicked}" class="small-menu-title mr-5">
-      <div @mouseleave="adminPagePick" @mouseover="adminPagePick">
-        AdminPage
-      </div>
-    </router-link>
   </v-container>
 
 </template>
@@ -18,16 +14,13 @@
  */
 
 import CircularMenu from '../../components/commons/CircularMenu'
-import LoginModal from '../../components/accounts/LoginModal'
-import SignupModal from '../../components/accounts/SignupModal'
-import Logout from '../../components/accounts/Logout'
-import AdminService from '../../service/AdminService'
+
 
 export default {
   name: "Menus",
 
   components: {
-    CircularMenu
+    CircularMenu,
   },
 
   methods: {
@@ -35,7 +28,6 @@ export default {
     portfoliosPick() { this.portfoliosPicked = !this.portfoliosPicked },
     aboutUsPick() { this.aboutUsPicked = !this.aboutUsPicked },
     signupPick() { this.signupPicked = !this.signupPicked },
-    adminPagePick(){this.adminPagePicked =!this.adminPagePicked},
   },
 
   data() {
@@ -44,25 +36,11 @@ export default {
       portfoliosPicked: false,
       aboutUsPicked: false,
       signupPicked: false,
-      adminPagePicked: false,
-      isAdmin: false,
     }
   },
 
-  async created(){
-    const grade = await AdminService.getGrade(sessionStorage.getItem("mid"));
-    if(grade === '0') {
-      this.isAdmin=true;
-    }else{
-      this.isAdmin=false;
-    }
-  },
+  
 
-  computed: {
-    isLoggedIn () {
-      return this.$store.state.isLoggedIn;
-    },
-
-  },
+  
 }
 </script>
