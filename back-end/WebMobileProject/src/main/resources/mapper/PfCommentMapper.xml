@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.mapper.PfCommentMapper">
+
+	<select id="selectOne" parameterType="String" resultType="PfComment">
+		select * from portfoliocomment where pfId = #{param1}
+	</select>
+	
+ 	<insert id="insert" parameterType="PfComment">
+ 		insert into portfoliocomment values (null, #{content}, sysdate(), #{pfId}, #{mid})
+ 	</insert>
+
+	<insert id="delete" parameterType="int">
+ 		delete from portfoliocomment where pfcomId = #{param1}
+ 	</insert>
+ 	
+ 	<update id="update" parameterType="PfComment">
+ 		update portfoliocomment
+ 		set content = #{content},
+ 		date = sysdate()
+ 		where pfcomId = #{pfcomId}
+ 	</update>
+
+</mapper>

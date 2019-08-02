@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- xml mapper와 짝이 될 java mapper의 패키지명(경로명)과 파일명을 적어줌 -->
+<mapper namespace="com.ssafy.mapper.MemberMapper">
+
+
+  
+  	<!-- 회원 가입  
+  		내부 회원가입 : 입력 정보 넣기
+  		외부 로그인 : ID, name 값 넣기  
+  		location 변수로 내부 , 외부 판별
+  	 -->
+ 	<insert id="insertMemberInfo" parameterType="Member">
+ 		insert into member values(null,#{email},#{pw},#{name},2)
+ 	</insert>
+ 
+ 	
+	<!--로그인 체크 --> 
+ 	<select id="checkLogin" resultType="Member" parameterType="String">
+ 		select mid, email, pw, name, grade from member where email = #{param1} and pw = #{param2}
+ 	</select>
+ 	
+ 	<!--관리자 로그인 시 유저 정보 확인  -->
+<!--  	<select id="getMemberList" resultType="Member"> -->
+<!--  		select email, pw, name , grade from member order by grade -->
+<!--  	</select> -->
+<select id="getMemberList" resultType="Member">
+	select m.mid,m.email,m.name,m.grade, (select count(*) from post p where p.mid = m.mid) "postCount",
+							(select count(*) from portfolio pf where m.mid = pf.mid) "pfCount",
+	                        (select count(*) from postcomment pc where m.mid = pc.mid) "postCommentCount",
+	                        (select count(*) from portfoliocomment pfc where m.mid = pfc.mid) "pfCommentCount"
+	from member m
+	order by m.mid;
+</select>
+ 	
+ 	<select id="getDetailMember" resultType="Member" parameterType="String">
+ 		select email, pw, name, grade from member where mid =#{param1}
+ 	</select>
+  	
+ 	<update id="updateMemberInfo" parameterType="String">
+ 		update member set pw =#{param1} where email =#{param2}
+ 	</update>
+ 	
+ 	<delete id="deleteMemberList" parameterType="String">
+ 		delete from member where mid=#{param1}
+ 	</delete>
+
+	<update id="updateMemberGrade" parameterType="String">
+ 		update member set grade =#{param2} where email =#{param1}
+ 	</update>
+  	
+	<select id="getMemberGrade" resultType="String" parameterType="String">
+ 		select grade from member where mid =#{param1}
+ 	</select>
+
+ 
+  	
+</mapper>
+
+
+
+
+
+
+
+
