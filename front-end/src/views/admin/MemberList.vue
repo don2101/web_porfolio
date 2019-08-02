@@ -1,5 +1,6 @@
 <template>
   <div style="color:white;">
+    <!-- member table -->
     <table>
       <tr>
         <th>Email</th>
@@ -25,6 +26,8 @@
         <td v-else></td>
       </tr>
     </table>
+
+    <!-- buttons -->
     <div class="btn-cover">
       <button :disabled="pageNum === 0" @click="prevPage" class="page-btn">
         이전
@@ -81,11 +84,8 @@ export default {
 
     midCheck(mid){
       let mmid=sessionStorage.getItem("mid");
-      if(mid===mmid){
-        return false;
-      }else{
-        return true;
-      }
+      
+      return mid !== mmid
     },
 
     async deleteMember(mid){
@@ -124,6 +124,7 @@ export default {
   }
 }
 </script>
+
 
 <style>
 table {
