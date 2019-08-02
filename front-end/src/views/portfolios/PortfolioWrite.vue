@@ -63,6 +63,7 @@
 
 import imageUploader from '../../components/image/ImageUploader'
 import PortfolioService from '../../service/PortfolioService'
+import AdminService from '../../service/AdminService'
 
 
 export default {
@@ -104,6 +105,15 @@ export default {
     },
 
     buttonPick() { this.buttonPicked = !this.buttonPicked },
+  },
+  
+  async created() {
+    let grade = await AdminService.getGrade(sessionStorage.getItem("mid"));
+    
+    if(grade !== '0' && grade !== '1'){
+      alert("권한이 없습니다.")
+      window.location.href="/portfolios"
+    }
   },
 
   computed: {

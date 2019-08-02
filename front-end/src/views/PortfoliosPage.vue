@@ -47,7 +47,7 @@ export default {
     async checkGrade() {
       const grade = await AdminService.getGrade(sessionStorage.getItem("mid"));
       
-      if(grade === '0') this.isAdmin = true;
+      if(grade === '0' || grade === '1') this.isAdmin = true;
       else this.isAdmin = false;  
     }
   },

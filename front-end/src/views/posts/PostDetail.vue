@@ -17,7 +17,7 @@
     <!-- edit button -->
     <v-btn 
       :class="{'red-color': this.editPicked}" color="#FAFAFA"
-      flat outline @click="editPost">
+      flat outline @click="editPost" v-if="isWriter">
       <div @mouseover="editPick" @mouseleave="editPick">
         edit
       </div>
@@ -26,7 +26,7 @@
     <!-- delete button -->
     <v-btn 
       :class="{'red-color': this.deletePicked}" color="#FAFAFA"
-      flat outline @click="deletePost">
+      flat outline @click="deletePost" v-if="isWriter">
       <div @mouseover="deletePick" @mouseleave="deletePick">
         delete
       </div>
@@ -59,6 +59,7 @@ export default {
       date: '',
       writer: '',
       content: '',
+      post:[],
       editPicked: false,
       deletePicked: false,
     }
@@ -75,11 +76,11 @@ export default {
 
     // 상세 Post를 가져온다.
     async requestPost() {
-      const result = await PostService.getPost(this.idx);
-      this.title = result.title;
-      this.date = result.date;
-      this.writer = result.mid;
-      this.content = result.content;
+      this.post = await PostService.getPost(this.idx);
+      this.title = this.post.title;
+      this.date = this.post.date;
+      this.writer = this.post.mid;
+      this.content = this.post.content;
     },
 
     // DELETE post
@@ -103,7 +104,11 @@ export default {
   computed: {
     idx() {
       return this.$route.query.idx
-    }
+    }, 
+    
+    isWriter(){
+      return this.post.mid === sessionStorage.getItem("mid")
+    },
   },
 }
 </script>

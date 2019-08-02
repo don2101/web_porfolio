@@ -74,33 +74,16 @@ import imageUploader from '../../components/image/ImageUploader'
 
 export default {
 	name: 'PortfolioDetail',
+  
   components: {
     PortfolioService,
     imageUploader,
   },
 
-  data () {
-    return {
-      title : '',
-      content : '',
-      imageSource : '',
-      count: 0,
-      portfolio: [],
-      updateButtonPicked: false,
-      cancleButtonPicked: false,
-    }
-
-  },
-
-  async created() {
-    await this.getPortfolio()
-    this.setPortfolio()
-  },
-
   methods: {
     // GET portfolios
     async getPortfolio() {
-      this.portfolio= await PortfolioService.getPortfolio(this.pfId);
+      this.portfolio = await PortfolioService.getPortfolio(this.pfId);
     },
 
     setPortfolio() {
@@ -121,7 +104,7 @@ export default {
         mid: this.$store.state.memberId,
       };
       
-      await PortfolioService.updatePortfolio(this.pfId,jsonData)
+      await PortfolioService.updatePortfolio(this.pfId, jsonData)
     },
 
     updateButtonPick() { this.updateButtonPicked = !this.updateButtonPicked },
@@ -131,6 +114,29 @@ export default {
     setImageSource(resultLink) {
       this.imageSource = resultLink
     },
+
+  },
+
+  async created() {
+    await this.getPortfolio()
+    this.setPortfolio()
+    
+    if(sessionStorage.getItem("mid") !== this.portfolio.mid){
+      alert("권한이 없습니다.")
+      window.location.href="/portfolios"
+    }
+  },
+
+  data () {
+    return {
+      title : '',
+      content : '',
+      imageSource : '',
+      count: 0,
+      portfolio: [],
+      updateButtonPicked: false,
+      cancleButtonPicked: false,
+    }
 
   },
 

@@ -64,16 +64,22 @@ export default {
   },
 
   data() {
-    return {
+   return {
       title: '',
       content: '',
+      post: [],
       cancelPicked: false,
       updatePicked: false,
     }
   },
 
-  created() {
-    this.requestPost();
+  async created() {
+    await this.requestPost();
+    
+    if(this.post.mid !== sessionStorage.getItem("mid")){
+      alert("권한이 없습니다.")
+      window.location.href="/posts"
+    }
   },
 
   methods: {
@@ -83,9 +89,9 @@ export default {
 
     // GET post
     async requestPost() {
-      const result = await PostService.getPost(this.idx);
-      this.title = result.title;
-      this.content = result.content;
+      this.post = await PostService.getPost(this.idx);
+      this.title = this.post.title;
+      this.content = this.post.content;
     },
 
     // PUT post

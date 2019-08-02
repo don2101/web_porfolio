@@ -48,6 +48,7 @@ import MarkdownItVue from 'markdown-it-vue'
 import 'markdown-it-vue/dist/markdown-it-vue.css'
 import VueSimplemde from 'vue-simplemde'
 import PostService from '../../service/PostService'
+import AdminService from '../../service/AdminService'
 
 export default {
   name: 'PostWrite',
@@ -62,6 +63,15 @@ export default {
       content: '',
       title: '',
       buttonPicked: false,
+    }
+  },
+
+  async created() {
+    let grade = await AdminService.getGrade(sessionStorage.getItem("mid"));
+    
+    if(grade !== '0' && grade !== '1'){
+      alert("권한이 없습니다.")
+      window.location.href="/posts"
     }
   },
 

@@ -30,7 +30,7 @@
 
             <!-- Update button -->
             <v-btn
-              :class="{'red-color': this.updateButtonPicked}" v-if="isAuthorized" color="#FAFAFA"
+              :class="{'red-color': this.updateButtonPicked}" v-if="isWriter" color="#FAFAFA"
               flat outline :to="{ name: 'portfolioUpdate', query: { 'pfId': this.pfId }}">
               <div @mouseover="updateButtonPick" @mouseleave="updateButtonPick">
                 Update
@@ -39,7 +39,7 @@
 
             <!-- Delete button -->
             <v-btn
-              :class="{'red-color': this.deleteButtonPicked}" v-if="isAuthorized" color="#FAFAFA"
+              :class="{'red-color': this.deleteButtonPicked}" v-if="isWriter" color="#FAFAFA"
               flat outline @click="deletePortfolio">
               <div @mouseover="deleteButtonPick" @mouseleave="deleteButtonPick">
                 Delete
@@ -140,11 +140,8 @@ export default {
       return this.$route.query.pfId
     },
 
-    isAuthorized() {
-      const isAdmin = this.$store.state.isAdmin;
-      const isLoggedIn = this.$store.state.isLoggedIn;
-      if (isAdmin && isLoggedIn)
-        return true;
+    isWriter(){
+      return this.portfolio.mid === sessionStorage.getItem("mid")
     },
   },
 

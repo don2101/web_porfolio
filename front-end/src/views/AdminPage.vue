@@ -30,18 +30,12 @@ export default {
   },
 
   async beforeCreate () {
-    // 사용자를 확인
-    // 페이지가 로드되기 전에(컨텐츠가 보이기 전에) 사용자 인지 확인
+  // 사용자를 확인
+  // 페이지가 로드되기 전에(컨텐츠가 보이기 전에) 사용자 인지 확인
     let grade = await AdminService.getGrade(sessionStorage.getItem("mid"));
-    
     if(grade === '0'){
-      axios.get('http://localhost:9090/member')
-      .then(response => {
-        this.memberArray = response.data;
-      })
-      .catch(err => {
-        console.log(err);
-      });
+        const response = await AdminService.getMemberList()
+        this.memberArray = response;
     } else {
       alert("권한이 없습니다.")
       window.location.href='/'
