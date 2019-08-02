@@ -20,11 +20,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.service.MemberService;
 import com.ssafy.service.PfCommentService;
 import com.ssafy.service.PortfolioService;
+import com.ssafy.service.PostCommentService;
 import com.ssafy.service.PostService;
 import com.ssafy.vo.Member;
 import com.ssafy.vo.PfComment;
 import com.ssafy.vo.Portfolio;
 import com.ssafy.vo.Post;
+import com.ssafy.vo.PostComment;
 
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
 @RestController
@@ -40,6 +42,8 @@ public class WebMobileController {
 
 	@Autowired
 	PfCommentService pfComService;
+	@Autowired
+	PostCommentService postComService;
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST, produces = { "application/json;charset=euc-kr" })
 	public Map login(@RequestBody Member member, HttpSession session) {
@@ -343,17 +347,50 @@ public class WebMobileController {
 	}
 	
 	// Post Comment
+	@RequestMapping(value="/post/comments/{postId}", method = RequestMethod.GET)
+	public List<PostComment> getPostCommentList(@PathVariable("postId") String postId){
+		return postComService.getPostCommentList(postId);
+	}
+	
 	@RequestMapping(value="/post/comments", method = RequestMethod.POST)
-	public Map insertPostComment(@RequestBody PfComment postComment) {
+	public Map insertPostComment(@RequestBody PostComment postComment) {
 		HashMap<String, String> map = new HashMap<String, String>();
-		System.out.println(postComment);
 		try {
-//			pfComService.insert(postComment);
+			postComService.insert(postComment);
 			logger.info("포스트 댓글 저장");
 			map.put("success", "true");
 		}catch(Exception e){
 			logger.info("포스트 댓글 저장 실패");
 			map.put("success", "fail");
+		}
+		return map;
+	}
+	
+	@RequestMapping(value = "/post/comments/{postcomId}", method = RequestMethod.DELETE, produces = {
+			"application/json;charset=euc-kr" })
+	public Map deletePostComment(@PathVariable("postcomId") String postcomId) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		try {
+			postComService.deletePostComment(postcomId);
+			map.put("success", "true");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			map.put("success", "false");
+		}
+		return map;
+
+	}
+
+	@RequestMapping(value = "/post/comments/", method = RequestMethod.PUT, produces = {
+			"application/json;charset=euc-kr" })
+	public Map updatePostComment(@RequestBody PostComment postComment) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		try {
+			postComService.updatePostComment(postComment);
+			map.put("success", "true");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			map.put("success", "false");
 		}
 		return map;
 	}

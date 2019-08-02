@@ -55,13 +55,12 @@ export default {
     return response
   },
 
-  async getPostComments() {
+  async getPostComments(postId) {
     let response = [];
-    response = await axios.get(BASE_URL + '/post/comments')
+    response = await axios.get(BASE_URL + '/post/comments/' + postId)
     .then(response=>{
       return response.data
     })
-
     return response
   },
 
@@ -73,6 +72,34 @@ export default {
         alert("정상적으로 등록 되었습니다.")
         window.location.href = '/posts/detail?idx=' + jsonData.postId
       } else {
+        alert("에러 발생")
+      }
+    })
+    return response
+  },
+
+  async deletePostComment(jsonData) {
+    let response = [];
+    response = await axios.delete(BASE_URL + '/post/comments/' + jsonData.postcomId)
+    .then(response=>{
+      if(response.data.success==='true'){
+        alert("정상적으로 삭제 되었습니다.")
+        window.location.href='/posts/detail?idx=' + jsonData.postId
+      }else{
+        alert("에러 발생")
+      }
+    })
+    return response
+  },
+
+  async updatePostComment(jsonData) {
+    let response = [];
+    response = await axios.put(BASE_URL + '/post/comments/', jsonData)
+    .then(response=>{
+      if(response.data.success==='true'){
+        alert("정상적으로 등록 되었습니다.")
+        window.location.href = "/posts/detail?idx=" + jsonData.postId;
+      }else{
         alert("에러 발생")
       }
     })

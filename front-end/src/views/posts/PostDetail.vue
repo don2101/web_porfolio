@@ -2,7 +2,7 @@
   <div>
     <!-- title view -->
     <v-flex xs12>
-      <v-text-field 
+      <v-text-field
       :value="title"
       color="#FAFAFA"
       dark outline single-line readonly
@@ -16,7 +16,7 @@
     </v-flex>
 
     <!-- edit button -->
-    <v-btn 
+    <v-btn
       :class="{'red-color': this.editPicked}" color="#FAFAFA"
       flat outline @click="editPost">
       <div @mouseover="editPick" @mouseleave="editPick">
@@ -25,14 +25,21 @@
     </v-btn>
 
     <!-- delete button -->
-    <v-btn 
+    <v-btn
       :class="{'red-color': this.deletePicked}" color="#FAFAFA"
       flat outline @click="deletePost">
       <div @mouseover="deletePick" @mouseleave="deletePick">
         delete
       </div>
     </v-btn>
-
+    <PortfolioCommentWrite
+      :postId="idx"
+      :isPortfolio="isPortfolio">
+    </PortfolioCommentWrite>
+    <PortfolioCommentsList
+      :postId="idx"
+      :isPortfolio="isPortfolio">
+    </PortfolioCommentsList>
   </div>
 </template>
 
@@ -41,6 +48,8 @@
 import MarkdownItVue from 'markdown-it-vue'
 import 'markdown-it-vue/dist/markdown-it-vue.css'
 import PostService from '../../service/PostService'
+import PortfolioCommentWrite from '../comments/PortfolioCommentWrite'
+import PortfolioCommentsList from '../comments/PortfolioCommentsList'
 
 export default {
   name: "PostDetail",
@@ -48,6 +57,8 @@ export default {
   components: {
     MarkdownItVue,
     PostService,
+    PortfolioCommentWrite,
+    PortfolioCommentsList,
   },
 
   data() {
@@ -58,6 +69,7 @@ export default {
       content: '',
       editPicked: false,
       deletePicked: false,
+      isPortfolio: this.idx == "" ? true : false,
     }
   },
 
@@ -80,7 +92,7 @@ export default {
 
     async deletePost() {
       const result = await PostService.deletePost(this.idx);
-      
+
       if(result.success == "true") {
         alert("삭제되었습니다.")
         window.location.href = "/posts"

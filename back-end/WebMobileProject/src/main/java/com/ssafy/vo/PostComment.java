@@ -7,11 +7,11 @@ import lombok.ToString;
 
 @NoArgsConstructor
 @Getter @Setter @ToString
-public class PfComment {
-	private	int pfcomId;
+public class PostComment {
+	private int postcomId;
 	private String content;
 	private String date;
-	private	int pfId;
+	private int postId;
 	private int mid;
 	
 }

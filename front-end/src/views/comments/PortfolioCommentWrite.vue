@@ -70,7 +70,7 @@ export default {
     pfcomId: {
       type: String
     },
-    postComId: {
+    postcomId: {
       type: String
     },
     content: {
@@ -123,7 +123,7 @@ export default {
         }
       } else {
         jsonData = {
-          postComId: this.postComId,
+          postcomId: this.postcomId,
           content: this.content,
           postId: this.postId,
         }

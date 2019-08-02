@@ -4,8 +4,10 @@
     v-if="isUpdated">
     <PortfolioCommentWrite
       :pfcomId="pfcomId"
+      :postcomId="postcomId"
       :content="content"
       :pfId="pfId"
+      :postId="postId"
       :isUpdated="true"
       :isPortfolio="isPortfolio"
       v-on:update="update()">
@@ -68,7 +70,7 @@ export default {
     pfcomId: {
       type: String
     },
-    postComId: {
+    postcomId: {
       type: String
     },
     content: {
@@ -106,7 +108,7 @@ export default {
         }
       } else {
         jsonData = {
-          postComId: this.postComId,
+          postcomId: this.postcomId,
           postId: this.postId,
         }
       }

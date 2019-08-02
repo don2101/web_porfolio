@@ -5,9 +5,11 @@
     class="list">
     <PortfolioComment
       :pfcomId="comments[i - 1].pfcomId"
+      :postcomId="comments[i - 1].postcomId"
       :content="comments[i - 1].content"
       :date="comments[i - 1].date"
       :pfId="comments[i - 1].pfId"
+      :postId="comments[i - 1].postId"
       :mid="comments[i - 1].mid"
       :isPortfolio="isPortfolio">
     </PortfolioComment>
