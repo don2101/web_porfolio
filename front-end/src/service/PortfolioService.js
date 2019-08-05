@@ -7,72 +7,63 @@ import axios from 'axios'
 const BASE_URL = "http://localhost:9090"
 
 export default {
+  // POST portfolio
   async postPortfolio(postData) {
-    let response = [];
-
+    let response = {}
+    
     response = await axios.post(BASE_URL + '/portfolio', postData)
-    .then(response=>{
-      if(response.data.success==='true'){
-        const test = new Notification("포트폴리오", {body:'새 포트폴리오가 등록되었습니다.'});
-        Notification.requestPermission();
-        // const test1 = new Notification("타이틀", {body:'메세지내용222'});
-        alert("정상적으로 등록 되었습니다.")
-        // var notification = new Notification("안녕",{body: "안녕"});        
-        window.location.href='/portfolios'
-      }else{
-        alert("에러 발생")
-      }
-    })
-
-    return response
+    
+    if(response.data.success==='true'){
+      alert("정상적으로 등록 되었습니다.")
+      window.location.href='/portfolios'
+    } else {
+      alert("에러 발생")
+    }
   },
 
+  // GET portfolios
   async getPortfolios() {
     let response = [];
-
     response =  await axios.get(BASE_URL + '/portfolio')
-    .then(response=>{
-      return response.data
-    });
-
-    return response
+    
+    return response.data
   },
 
+  // GET portfolio
   async getPortfolio(pfId){
     let response = [];
 
     response = await axios.get(BASE_URL + '/portfolio/'+pfId)
-    .then(res=>{
-      return res.data
-    });
 
-    return response;
+    return response.data;
   },
 
+  // PUT portfolio
   async updatePortfolio(pfId,postData) {
-
-    await axios.put(BASE_URL + '/portfolio/'+pfId, postData)
-    .then(response=>{
-      if(response.data.success==='true'){
-        alert("정상적으로 수정 되었습니다.")
-        window.location.href='/portfolios'
-      }else{
-        alert("에러 발생")
-      }
-    })
+    let response = {}
+    
+    response = await axios.put(BASE_URL + '/portfolio/'+pfId, postData)
+    
+    if(response.data.success==='true'){
+      alert("정상적으로 수정 되었습니다.")
+      window.location.href='/portfolios'
+    }else{
+      alert("에러 발생")
+    }
   },
 
+  // DELETE portfolio
   async deletePortfolio(pfId) {
+    let response = {}
 
-    await axios.delete(BASE_URL + '/portfolio/'+pfId)
-    .then(response=>{
-      if(response.data.success==='true'){
-        alert("정상적으로 삭제 되었습니다.")
-        window.location.href='/portfolios'
-      }else{
-        alert("에러 발생")
-      }
-    });
+    response = await axios.delete(BASE_URL + '/portfolio/'+pfId)
+    
+    if(response.data.success==='true'){
+      alert("정상적으로 삭제 되었습니다.")
+      window.location.href='/portfolios'
+    } else {
+      alert("에러 발생")
+    }
   },
 
 }

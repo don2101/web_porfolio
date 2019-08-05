@@ -60,20 +60,25 @@ export default {
   components: {
     MarkdownItVue,
     VueSimplemde,
-    PostService,
   },
 
   data() {
-    return {
+   return {
       title: '',
       content: '',
+      post: [],
       cancelPicked: false,
       updatePicked: false,
     }
   },
 
-  created() {
-    this.requestPost();
+  async created() {
+    await this.requestPost();
+    
+    if(this.post.mid !== sessionStorage.getItem("mid")){
+      alert("권한이 없습니다.")
+      window.location.href="/posts"
+    }
   },
 
   methods: {
@@ -81,14 +86,14 @@ export default {
 
     updatePick() { this.updatePicked = !this.updatePicked },
 
-    // 변경할 Post를 요청
+    // GET post
     async requestPost() {
-      const result = await PostService.getPost(this.idx);
-      this.title = result.title;
-      this.content = result.content;
+      this.post = await PostService.getPost(this.pid);
+      this.title = this.post.title;
+      this.content = this.post.content;
     },
 
-    // Post를 수정
+    // PUT post
     async updatePost() {
       const postBody = {
         mid: sessionStorage.getItem("mid"),
@@ -96,11 +101,11 @@ export default {
         content: this.content,
       }
       
-      const result = await PostService.putPost(this.idx, postBody);
+      const result = await PostService.putPost(this.pid, postBody);
 
       if(result.success == "true") {
         alert("변경되었습니다.");
-        this.$router.push({ name: 'postDetail', query: { 'idx': this.idx} })
+        this.$router.push({ name: 'postDetail', query: { 'pid': this.pid} })
       } else {
         alert("변경이 거부되었습니다.")
       }
@@ -108,14 +113,14 @@ export default {
 
     // 변경 취소
     cancelUpdate() {
-      this.$router.push({ name: 'postDetail', query: { 'idx': this.idx} })
+      this.$router.push({ name: 'postDetail', query: { 'pid': this.pid} })
     } 
 
   },
 
   computed: {
-    idx() {
-      return this.$route.query.idx
+    pid() {
+      return this.$route.query.pid
     }
   },
 }

@@ -9,7 +9,6 @@
       height="50" style="font-size: 30px"></v-text-field>
     </v-flex>
 
-
     <!-- content view -->
     <v-flex class="markdown-view" xs6>
       <MarkdownItVue class="md-body" :content="content"/>
@@ -18,7 +17,7 @@
     <!-- edit button -->
     <v-btn
       :class="{'red-color': this.editPicked}" color="#FAFAFA"
-      flat outline @click="editPost">
+      flat outline @click="editPost" v-if="isWriter">
       <div @mouseover="editPick" @mouseleave="editPick">
         edit
       </div>
@@ -27,17 +26,17 @@
     <!-- delete button -->
     <v-btn
       :class="{'red-color': this.deletePicked}" color="#FAFAFA"
-      flat outline @click="deletePost">
+      flat outline @click="deletePost" v-if="isWriter">
       <div @mouseover="deletePick" @mouseleave="deletePick">
         delete
       </div>
     </v-btn>
     <PortfolioCommentWrite
-      :postId="idx"
+      :postId="pid"
       :isPortfolio="isPortfolio">
     </PortfolioCommentWrite>
     <PortfolioCommentsList
-      :postId="idx"
+      :postId="pid"
       :isPortfolio="isPortfolio">
     </PortfolioCommentsList>
   </div>
@@ -45,6 +44,10 @@
 
 
 <script>
+/**
+ * Post의 상세 내역을 출력
+ * Edit페이지로 이동하고, post를 삭제하는 버튼 추가
+ */
 import MarkdownItVue from 'markdown-it-vue'
 import 'markdown-it-vue/dist/markdown-it-vue.css'
 import PostService from '../../service/PostService'
@@ -67,9 +70,10 @@ export default {
       date: '',
       writer: '',
       content: '',
+      post:[],
       editPicked: false,
       deletePicked: false,
-      isPortfolio: this.idx == "" ? true : false,
+      isPortfolio: this.pid == "" ? true : false,
     }
   },
 
@@ -82,16 +86,18 @@ export default {
 
     deletePick() { this.deletePicked = !this.deletePicked },
 
+    // 상세 Post를 가져온다.
     async requestPost() {
-      const result = await PostService.getPost(this.idx);
-      this.title = result.title;
-      this.date = result.date;
-      this.writer = result.mid;
-      this.content = result.content;
+      this.post = await PostService.getPost(this.pid);
+      this.title = this.post.title;
+      this.date = this.post.date;
+      this.writer = this.post.mid;
+      this.content = this.post.content;
     },
 
+    // DELETE post
     async deletePost() {
-      const result = await PostService.deletePost(this.idx);
+      const result = await PostService.deletePost(this.pid);
 
       if(result.success == "true") {
         alert("삭제되었습니다.")
@@ -101,15 +107,20 @@ export default {
       }
     },
 
+    // PUT post
     editPost() {
-      this.$router.push({ name: 'postUpdate', query: { 'idx': this.idx} })
+      this.$router.push({ name: 'postUpdate', query: { 'pid': this.pid} })
     },
   },
 
   computed: {
-    idx() {
-      return this.$route.query.idx
-    }
+    pid() {
+      return this.$route.query.pid
+    },
+
+    isWriter(){
+      return this.post.mid === sessionStorage.getItem("mid")
+    },
   },
 }
 </script>

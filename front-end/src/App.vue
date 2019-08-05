@@ -2,12 +2,14 @@
   <div id="app">
     <v-app>
       <v-content>
+        <Header></Header>
+        
         <v-container>
-          <Header></Header>
           <transition :name="this.pageDirection" mode="out-in">
-            <router-view></router-view>
+            <router-view class="my-5"></router-view>
           </transition>
         </v-container>
+        
         <ChatBot></ChatBot>
       </v-content>
     </v-app>
@@ -51,11 +53,12 @@ export default {
   },
 
   mounted() {
-
     if (sessionStorage.getItem("isLoggedIn") != null) {
       this.$store.state.isLoggedIn = true;
       this.$store.state.memberId = sessionStorage.getItem("mid");
     }
+
+    this.getGraphdata();
   },
 
   methods: {
@@ -73,6 +76,5 @@ export default {
 <style>
 @import url('https://fonts.googleapis.com/css?family=Lato:400,700&display=swap');
 @import './assets/style.css';
-
 
 </style>

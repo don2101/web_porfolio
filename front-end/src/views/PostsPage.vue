@@ -1,18 +1,20 @@
 <template>
   <div>
     <h1 class="main-title my-5">Posts</h1>
+
+    <!-- write post button -->
     <v-btn
     depressed large flat outline
       :class="{'red-color': buttonPicked}"
       color="#FAFAFA"
       to="/posts/write"
       v-if="isAdmin">
-
       <div @mouseover="buttonPick" @mouseleave="buttonPick">
         Write Post
       </div>
     </v-btn>
 
+    <!-- post list -->
     <PostsList />
 
   </div>
@@ -34,25 +36,26 @@ export default {
     PostsList,
   },
 
-  methods: {
-    buttonPick() { this.buttonPicked = !this.buttonPicked },
-  },
-
-  async created(){
-    const grade = await AdminService.getGrade(sessionStorage.getItem("mid"));
-    if(grade === '0') {
-      this.isAdmin=true;
-    }else{
-      this.isAdmin=false;
-    }
-  },
-
   data() {
     return {
       buttonPicked: false,
       isAdmin: false,
     }
-  }
+  },
+
+  methods: {
+    buttonPick() { this.buttonPicked = !this.buttonPicked },
+    async checkGrade() {
+      const grade = await AdminService.getGrade(sessionStorage.getItem("mid"));
+    
+      if(grade === '0' || grade === '1') this.isAdmin = true;
+      else this.isAdmin = false;
+    }
+  },
+
+  created(){
+    this.checkGrade();
+  },
 
 }
 </script>

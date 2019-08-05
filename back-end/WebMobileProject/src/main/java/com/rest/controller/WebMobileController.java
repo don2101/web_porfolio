@@ -349,6 +349,7 @@ public class WebMobileController {
 	// Post Comment
 	@RequestMapping(value="/post/comments/{postId}", method = RequestMethod.GET)
 	public List<PostComment> getPostCommentList(@PathVariable("postId") String postId){
+		logger.info("포스트 댓글 불러옴");
 		return postComService.getPostCommentList(postId);
 	}
 	

@@ -7,18 +7,24 @@ import axios from 'axios'
 const BASE_URL = "http://localhost:9090"
 
 export default {
+  async getMemberList(){
+    let response=[];
+    response = await axios.get(BASE_URL+"/member")
+    
+    return response.data;
+  },
+
   async updateMemberList(postData) {
     let response = [];
 
     response = await axios.put(BASE_URL + '/member', postData)
-    .then(response=>{
-      if(response.data.success==='true'){
-        alert("정상적으로 수정 되었습니다.")
-        window.location.href='/admin'
-      }else{
-        alert("에러 발생")
-      }
-    })
+    
+    if(response.data.success==='true'){
+      alert("정상적으로 수정 되었습니다.")
+      window.location.href='/admin'
+    } else {
+      alert("에러 발생")
+    }
 
     return response
   },

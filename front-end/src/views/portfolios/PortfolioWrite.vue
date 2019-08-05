@@ -58,18 +58,17 @@
 
 <script>
 /**
- * 사용자로 부터 입력을 받아 portfolios를 post하는 component
+ * 사용자로 부터 입력을 받아 portfolios를 작성하는 component
  */
 
 import imageUploader from '../../components/image/ImageUploader'
 import PortfolioService from '../../service/PortfolioService'
+import AdminService from '../../service/AdminService'
 
 
 export default {
   name: 'PortfolioWrite',
-  // data: () =>({
-  //   imgSrc: 'http://dy.gnch.or.kr/img/no-image.jpg'
-  // }),
+  
   components: {
     imageUploader,
   },
@@ -84,8 +83,10 @@ export default {
   },
 
   methods: {
+    // POST portfolio
     async postPortfolio() {
-      let jsonData = {
+      
+      const jsonData = {
         title: this.title,
         content: this.content,
         count: 0,
@@ -93,20 +94,31 @@ export default {
         img: this.imageSource,
         mid: this.getMemberId,
       };
+      
       let response = [];
       response = await PortfolioService.postPortfolio(jsonData)
     },
 
+    // set portfolio Image
     setImageSource(resultLink) {
       this.imageSource = resultLink
     },
 
     buttonPick() { this.buttonPicked = !this.buttonPicked },
   },
+  
+  async created() {
+    let grade = await AdminService.getGrade(sessionStorage.getItem("mid"));
+    
+    if(grade !== '0' && grade !== '1'){
+      alert("권한이 없습니다.")
+      window.location.href="/portfolios"
+    }
+  },
 
   computed: {
     getMemberId(){
-      return this.$store.state.memberId;
+      return sessionStorage.getItem('mid')
     }
   }
 }

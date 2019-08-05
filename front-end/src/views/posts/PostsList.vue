@@ -2,8 +2,8 @@
   <div class="mt-5">
     <v-card>
       <v-list two-line dark>
-        <v-list-tile v-for="i in posts.length" xs12>
-          <router-link :to="{ name: 'postDetail', query: { 'idx': posts[i-1].postId } }">
+        <v-list-tile v-for="i in posts.length" :key="posts[i-1].postId" xs12>
+          <router-link :to="{ name: 'postDetail', query: { 'pid': posts[i-1].postId } }">
             <v-list-tile-content>
               <Post
                 :title="posts[i-1].title"
@@ -22,6 +22,9 @@
 
 
 <script>
+/**
+ * Post list를 가져와 Post.vue에 출력
+ */
 import PostService from '../../service/PostService'
 import Post from './Post'
 

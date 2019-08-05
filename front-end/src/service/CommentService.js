@@ -70,7 +70,7 @@ export default {
     .then(response=>{
       if(response.data.success==='true'){
         alert("정상적으로 등록 되었습니다.")
-        window.location.href = '/posts/detail?idx=' + jsonData.postId
+        window.location.href = '/posts/detail?pid=' + jsonData.postId
       } else {
         alert("에러 발생")
       }
@@ -84,7 +84,7 @@ export default {
     .then(response=>{
       if(response.data.success==='true'){
         alert("정상적으로 삭제 되었습니다.")
-        window.location.href='/posts/detail?idx=' + jsonData.postId
+        window.location.href='/posts/detail?pid=' + jsonData.postId
       }else{
         alert("에러 발생")
       }
@@ -98,7 +98,7 @@ export default {
     .then(response=>{
       if(response.data.success==='true'){
         alert("정상적으로 등록 되었습니다.")
-        window.location.href = "/posts/detail?idx=" + jsonData.postId;
+        window.location.href = "/posts/detail?pid=" + jsonData.postId;
       }else{
         alert("에러 발생")
       }
