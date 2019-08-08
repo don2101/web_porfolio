@@ -9,6 +9,8 @@
     color: #E53935!important;
 }
 
+
+/* title */
 .menu-title {
     font-size: 8.0rem;
     color: #FAFAFA;
@@ -28,6 +30,18 @@
     text-decoration: none !important;
 }
 
+.portfolio-title {
+    font-size: 6.0rem;
+    margin-bottom: 10px;
+}
+
+
+/* text */
+.portfolio-text {
+    margin-top: 50px !important;
+    font-size: 2rem !important;
+}
+
 .main-text {
     font-size: 2.0em;
     line-height: 2.0em;
@@ -39,6 +53,11 @@
     color: #E53935;
 }
 
+
+/* image */
+.portfolio-image {
+    margin-top: 30px !important;
+}
 
 
 /* page transit animation */

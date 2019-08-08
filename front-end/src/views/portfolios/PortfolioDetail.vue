@@ -1,76 +1,72 @@
 <template>
   <div>
-    <div>
-      <div class="my-5">
-        <!-- title area -->
-        <v-layout>
-          <v-flex xs12 class="mt-5 mb-3">
-            <v-text-field
-            :value="title"
-            color="#FAFAFA"
-            dark outline single-line readonly
-            height="50" style="font-size: 30px">
-            </v-text-field>
-          </v-flex>
-        </v-layout>
+    <!-- title area -->
+    <h1 class="main-title portfolio-title">{{ title }}</h1>
+    <hr/>
 
-        <v-layout>
-          <!-- image view area -->
-          <v-flex xs6 class="mr-3 my-3">
-            <img id="image" v-bind:src="img" style="max-width: 100%">
-          </v-flex>
+    <!-- image view area -->
+    <v-layout justify-center>
+      <div>
+        <img id="image" class="portfolio-image" v-bind:src="img" style="max-width: 100%">
+      </div>
+    </v-layout>
+    
+    <!-- text view area -->
+    <v-textarea
+      dark readonly flat auto-grow solo
+      :value="body" background-color="#1a1c33"
+      class="portfolio-text">
+    </v-textarea>
 
-          <!-- text view area -->
-          <v-flex xs6>
-            <v-textarea
-              class="my-3" color="#FAFAFA"
-              :value="body"
-              outline dark auto-grow flat readonly>
-            </v-textarea>
+    <hr class="mb-3"/>
+    <!-- button group -->
+    <v-layout justify-end>
+      <div>
+        <!-- Update button -->
+        <v-btn
+          :class="{'red-color': this.updateButtonPicked}" v-if="isWriter" color="#FAFAFA"
+          flat outline :to="{ name: 'portfolioUpdate', query: { 'pfId': this.pfId }}">
+          <div @mouseover="updateButtonPick" @mouseleave="updateButtonPick">
+            Update
+          </div>
+        </v-btn>
 
-            <!-- Update button -->
-            <v-btn
-              :class="{'red-color': this.updateButtonPicked}" v-if="isWriter" color="#FAFAFA"
-              flat outline :to="{ name: 'portfolioUpdate', query: { 'pfId': this.pfId }}">
-              <div @mouseover="updateButtonPick" @mouseleave="updateButtonPick">
-                Update
-              </div>
-            </v-btn>
+        <!-- Delete button -->
+        <v-btn
+          :class="{'red-color': this.deleteButtonPicked}" v-if="isWriter" color="#FAFAFA"
+          flat outline @click="deletePortfolio">
+          <div @mouseover="deleteButtonPick" @mouseleave="deleteButtonPick">
+            Delete
+          </div>
+        </v-btn>
 
-            <!-- Delete button -->
-            <v-btn
-              :class="{'red-color': this.deleteButtonPicked}" v-if="isWriter" color="#FAFAFA"
-              flat outline @click="deletePortfolio">
-              <div @mouseover="deleteButtonPick" @mouseleave="deleteButtonPick">
-                Delete
-              </div>
-            </v-btn>
-
-            <!-- 뒤로가기 button -->
-            <v-btn
-              :class="{'red-color': this.listButtonPicked}" color="#FAFAFA"
-              flat outline :to="{ name: 'portfolios'}">
-              <div @mouseover="listButtonPick" @mouseleave="listButtonPick">
-                List
-              </div>
-            </v-btn>
-
-          </v-flex>
-        </v-layout>
+        <!-- 뒤로가기 button -->
+        <v-btn
+          :class="{'red-color': this.listButtonPicked}" color="#FAFAFA"
+          flat outline :to="{ name: 'portfolios'}">
+          <div @mouseover="listButtonPick" @mouseleave="listButtonPick">
+            List
+          </div>
+        </v-btn>
 
       </div>
-    </div>
+    </v-layout>
+    
 
-  <PortfolioCommentWrite
-    :pfId="pfId"
-    :isPortfolio="isPortfolio">
-  </PortfolioCommentWrite>
-  <PortfolioCommentsList
-    :pfId="pfId"
-    :isPortfolio="isPortfolio">
-  </PortfolioCommentsList>
-  <!-- <Disqus/> -->
-</div>
+    <!-- Comment Group -->
+    <div class="mt-5">
+      <PortfolioCommentWrite
+        :pfId="pfId"
+        :isPortfolio="isPortfolio">
+      </PortfolioCommentWrite>
+      
+      <PortfolioCommentsList
+        :pfId="pfId"
+        :isPortfolio="isPortfolio">
+      </PortfolioCommentsList>
+    </div>
+    <!-- <Disqus/> -->
+  </div>
 </template>
 
 
