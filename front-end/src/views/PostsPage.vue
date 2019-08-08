@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="main-title my-5">Posts</h1>
+    <h1 class="main-title">Posts</h1>
 
     <!-- write post button -->
     <v-btn
