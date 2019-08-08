@@ -6,9 +6,7 @@
 
     <!-- image view area -->
     <v-layout justify-center>
-      <div>
-        <img id="image" class="portfolio-image" v-bind:src="img" style="max-width: 100%">
-      </div>
+      <v-img id="image" class="portfolio-image" v-bind:src="img" style="max-width: 70%"></v-img>
     </v-layout>
     
     <!-- text view area -->
@@ -19,6 +17,7 @@
     </v-textarea>
 
     <hr class="mb-3"/>
+    
     <!-- button group -->
     <v-layout justify-end>
       <div>
@@ -154,5 +153,4 @@ export default {
 #text-line {
   line-height: 3rem !important
 }
-
 </style>

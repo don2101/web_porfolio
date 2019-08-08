@@ -15,42 +15,37 @@
         </v-flex>
       </v-layout>
 
-      <v-layout class="portfolio-body-input">
-        <!-- text view area -->
-        <v-flex xs6 class="mr-3">
-          <img id="image" v-bind:src="imageSource" style="max-width: 100%">
 
-          <div id="registedImages">
-            <v-textarea
-              background-color="transparent" color="#FAFAFA"
-              auto-grow dark solo readonly flat
-              v-bind:value="content">
-              {{ imageSource }}
-            </v-textarea>
+      <!-- text view area -->
+      <v-layout justify-center>
+        <div>
+          <img class="portfolio-image" id="image" v-bind:src="imageSource" style="max-width: 100%">
+          
+          <div class="portfolio-image">
+            <imageUploader @passUploadImage="setImageSource" />
           </div>
-        </v-flex>
-
-        <!-- text area -->
-        <v-flex xs6>
-          <imageUploader @passUploadImage="setImageSource" />
-
-          <v-textarea
-            class="my-3" color="#FAFAFA"
-            outline dark auto-grow flat
-            v-model="content" name="content" required>
-
-          </v-textarea>
-
-          <!-- submit button -->
-          <v-btn
-            :class="{'red-color': this.buttonPicked}" color="#FAFAFA"
-            flat outline>
-            <input type="submit" value="WRITE" @mouseover="buttonPick" @mouseleave="buttonPick">
-
-          </v-btn>
-
-        </v-flex>
+        </div>
       </v-layout>
+
+      <!-- text area -->
+      <v-textarea
+        color="#FAFAFA" class="portfolio-text" id="text-line"
+        rows="10"
+        outline dark auto-grow flat
+        v-model="content" name="content" required>
+      </v-textarea>
+
+
+      <!-- submit button -->
+      <v-layout justify-end>
+        <v-btn
+          :class="{'red-color': this.buttonPicked}" color="#FAFAFA"
+          flat outline>
+          <input type="submit" value="WRITE" @mouseover="buttonPick" @mouseleave="buttonPick">
+
+        </v-btn>
+      </v-layout>
+
     </form>
 
   </div>
@@ -124,3 +119,10 @@ export default {
   }
 }
 </script>
+
+
+<style>
+#text-line {
+  line-height: 3rem !important
+}
+</style>
