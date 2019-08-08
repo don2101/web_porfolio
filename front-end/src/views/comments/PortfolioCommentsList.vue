@@ -1,20 +1,20 @@
 <template>
-<v-list>
-  <v-flex
-    v-for="(comment, i) in comments" :key="i"
-    class="list">
-    <PortfolioComment
-      :pfcomId=comment.pfcomId
-      :postcomId=comment.postcomId
-      :content=comment.content
-      :date=comment.date
-      :pfId=comment.pfId
-      :postId=comments.postId
-      :mid=comment.mid
-      :isPortfolio="isPortfolio">
-    </PortfolioComment>
-  </v-flex>
-</v-list>
+  <v-list style="padding: 3px 0px">
+    <v-flex
+      v-for="(comment, i) in comments" :key="i"
+      class="list">
+      <PortfolioComment
+        :pfcomId=comment.pfcomId
+        :postcomId=comment.postcomId
+        :content=comment.content
+        :date=comment.date
+        :pfId=comment.pfId
+        :postId=comments.postId
+        :mid=comment.mid
+        :isPortfolio="isPortfolio">
+      </PortfolioComment>
+    </v-flex>
+  </v-list>
 </template>
 
 <script>

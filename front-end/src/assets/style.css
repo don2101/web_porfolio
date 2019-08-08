@@ -60,6 +60,12 @@
 }
 
 
+/* comment */
+.comment-style {
+    padding: 20px;
+    color: #FAFAFA;
+}
+
 /* page transit animation */
 
 .slide-left-leave-active,

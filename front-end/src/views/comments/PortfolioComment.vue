@@ -16,12 +16,19 @@
 
   <div v-else>
     <v-layout>
-      <v-flex xs10 offset-xs1>
+      <v-flex class="comment-style" text-xs-center text-xs-end xs1>
+        <!-- TODO: 이름으로 출력 -->
+        {{ mid }}
+      </v-flex>
+
+      <v-flex xs10>
         <v-textarea
           v-model="content"
           readonly dark auto-grow rows="1" color="#FAFAFA">
         </v-textarea>
       </v-flex>
+
+      <!-- edit, delete button -->
       <v-flex
         v-if="isUpdatable()"
         xs1>
@@ -33,6 +40,7 @@
               <v-icon>more_vert</v-icon>
             </v-btn>
           </template>
+
           <v-list>
             <v-list-tile @click="update()">
               <v-list-tile-title>
@@ -46,8 +54,8 @@
             </v-list-tile>
           </v-list>
         </v-menu>
-
       </v-flex>
+
     </v-layout>
   </div>
 </div>

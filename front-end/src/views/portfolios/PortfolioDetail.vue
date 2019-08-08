@@ -60,10 +60,12 @@
         :isPortfolio="isPortfolio">
       </PortfolioCommentWrite>
       
-      <PortfolioCommentsList
-        :pfId="pfId"
-        :isPortfolio="isPortfolio">
-      </PortfolioCommentsList>
+      <div class="mt-5">
+        <PortfolioCommentsList
+          :pfId="pfId"
+          :isPortfolio="isPortfolio">
+        </PortfolioCommentsList>
+      </div>
     </div>
     <!-- <Disqus/> -->
   </div>
