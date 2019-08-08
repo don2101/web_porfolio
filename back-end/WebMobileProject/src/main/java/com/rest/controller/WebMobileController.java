@@ -71,16 +71,22 @@ public class WebMobileController {
 	@RequestMapping(value = "/token", method = RequestMethod.POST, produces = { "application/json;charset=euc-kr" })
 	public Map insertToken(@RequestBody Token token, HttpSession session) {
 		HashMap<String, String> map = new HashMap<String, String>();
+		tokenService.deleteToken(token.getMid());
 		tokenService.insertToken(token);
 		map.put("success", "true");
 		return map;
 	}
 	
 	@RequestMapping(value = "/token", method = RequestMethod.GET, produces = { "application/json;charset=utf-8" })
-	public List<Token> getTokenList() {
-		logger.info("토큰 접근");
-		return tokenService.getTokenList();
-	}
+    public String[] getTokenList() {
+        logger.info("토큰 접근");
+        List<Token> list = tokenService.getTokenList();
+        String[] result = new String[list.size()];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = list.get(i).getValue();
+        }
+        return result;
+    }
 	
 	@RequestMapping(value = "/token/{mid}", method = RequestMethod.DELETE, produces = { "application/json;charset=utf-8" })
 	public Map deleteToken(@PathVariable("mid") String mid) {
@@ -90,16 +96,6 @@ public class WebMobileController {
 		return map;
 }
 	
-//	@RequestMapping(value = "/member", method = RequestMethod.GET, produces = { "application/json;charset=euc-kr" })
-//	public List<Member> getMemberList(HttpSession session) {
-//		List<Member> memberList = new ArrayList<>();
-//		memberList = mService.getMemberList();
-//		if (session.getAttribute("sessionId").equals("admin")) {
-//			logger.info("멤버리스트 접근");
-//		}
-//		return memberList;
-////		return mService.getMemberList();
-//	}
 	
 	@RequestMapping(value = "/member", method = RequestMethod.GET, produces = { "application/json;charset=utf-8" })
 	public List<Member> getMemberList() {
@@ -122,7 +118,6 @@ public class WebMobileController {
 		}else {
 			for(int i=0;i<m.size();i++) {
 				Member tmp=m.get(i);
-//			System.out.println(tmp.getEmail()+" "+tmp.getGrade());
 				mService.updateMemberGrade(tmp.getEmail(), tmp.getGrade());
 			}
 			map.put("success", "true");
@@ -139,13 +134,6 @@ public class WebMobileController {
 }	
 	
 
-//	@RequestMapping(value = "/member/{mid}", method = RequestMethod.GET, produces = {
-//			"application/json;charset=utf-8" })
-//	public Member getDetailMember(@PathVariable("mid") String mid) {
-//		System.out.println(mid);
-//		logger.info(mid + " 정보 확인");
-//		return mService.getDetailMember(mid);
-//	}
 
 	@RequestMapping(value = "/member/{id}", method = RequestMethod.PUT, produces = {
 			"application/json;charset=euc-kr" })
