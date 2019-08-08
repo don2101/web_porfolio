@@ -13,9 +13,9 @@
     
     <!-- text view area -->
     <v-textarea
-      dark readonly flat auto-grow solo
+      dark readonly row-height="1" flat auto-grow solo
       :value="body" background-color="#1a1c33"
-      class="portfolio-text">
+      class="portfolio-text" id="text-line">
     </v-textarea>
 
     <hr class="mb-3"/>
@@ -148,3 +148,11 @@ export default {
 
 }
 </script>
+
+
+<style>
+#text-line {
+  line-height: 3rem !important
+}
+
+</style>
