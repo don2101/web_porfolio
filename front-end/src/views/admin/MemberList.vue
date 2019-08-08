@@ -78,7 +78,6 @@ export default {
     },
 
     async updateMemberList(){
-      console.log(this.listArray);
       await AdminService.updateMemberList(this.listArray);
     },
 
@@ -89,8 +88,8 @@ export default {
     },
 
     async deleteMember(mid){
-      let response=await AdminService.deleteMemberList(mid);
-      console.log(response.data);
+      let response = await AdminService.deleteMemberList(mid);
+
       if(response.data.success==='true'){
         alert("삭제 되었습니다.")
         window.location.href="/admin"

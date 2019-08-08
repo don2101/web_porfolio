@@ -1,16 +1,16 @@
 <template>
 <v-list>
   <v-flex
-    v-for="i in comments.length"
+    v-for="(comment, i) in comments" :key="i"
     class="list">
     <PortfolioComment
-      :pfcomId="comments[i - 1].pfcomId"
-      :postcomId="comments[i - 1].postcomId"
-      :content="comments[i - 1].content"
-      :date="comments[i - 1].date"
-      :pfId="comments[i - 1].pfId"
-      :postId="comments[i - 1].postId"
-      :mid="comments[i - 1].mid"
+      :pfcomId=comment.pfcomId
+      :postcomId=comment.postcomId
+      :content=comment.content
+      :date=comment.date
+      :pfId=comment.pfId
+      :postId=comments.postId
+      :mid=comment.mid
       :isPortfolio="isPortfolio">
     </PortfolioComment>
   </v-flex>

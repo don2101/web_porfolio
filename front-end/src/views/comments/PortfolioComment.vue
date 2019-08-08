@@ -3,13 +3,13 @@
   <div
     v-if="isUpdated">
     <PortfolioCommentWrite
-      :pfcomId="pfcomId"
-      :postcomId="postcomId"
-      :content="content"
-      :pfId="pfId"
-      :postId="postId"
-      :isUpdated="true"
-      :isPortfolio="isPortfolio"
+      :pfcomId=pfcomId
+      :postcomId=postcomId
+      :content=content
+      :pfId=this.pfId
+      :postId=postId
+      :isUpdated=true
+      :isPortfolio=isPortfolio
       v-on:update="update()">
     </PortfolioCommentWrite>
   </div>
@@ -68,10 +68,10 @@ export default {
 
   props: {
     pfcomId: {
-      type: String
+      type: Number
     },
     postcomId: {
-      type: String
+      type: Number
     },
     content: {
       type: String
@@ -80,13 +80,13 @@ export default {
       type: String
     },
     pfId: {
-      type: String
+      type: Number
     },
     postId: {
-      type: String
+      type: Number
     },
     mid: {
-      type: String
+      type: Number
     },
     isPortfolio: {
       type: Boolean,

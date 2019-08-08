@@ -86,7 +86,6 @@ export default {
 	name: 'PortfolioDetail',
 
   components: {
-    PortfolioService,
     PortfolioCommentWrite,
     PortfolioCommentsList,
   },
