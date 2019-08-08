@@ -11,7 +11,7 @@
         </div>
       </template>
 
-      <v-card @keyup.esc="dialog=false" @keyup.enter="loginSubmit">
+      <v-card @keyup.esc="dialog=false" @keyup.enter="signupSubmit; dialog=false">
         <v-card-title>
           <span class="headline">Signup</span>
         </v-card-title>
@@ -58,7 +58,7 @@
           <v-spacer></v-spacer>
           <!-- save button -->
           <v-btn :class="{'red-color': savePicked}" color="#1a1c33"
-            depressed flat outline type="submit">
+            depressed flat outline type="submit" @click="signupSubmit">
             <div @mouseleave="savePick" @mouseover="savePick">
               save
             </div>
@@ -121,7 +121,7 @@ export default {
   },
 
   methods: {
-    async loginSubmit(){
+    async signupSubmit(){
       if(this.isPasswordSame()) {
         // axios로 로그인 요청
         const signupForm = {
