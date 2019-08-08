@@ -22,11 +22,13 @@ import com.ssafy.service.PfCommentService;
 import com.ssafy.service.PortfolioService;
 import com.ssafy.service.PostCommentService;
 import com.ssafy.service.PostService;
+import com.ssafy.service.TokenService;
 import com.ssafy.vo.Member;
 import com.ssafy.vo.PfComment;
 import com.ssafy.vo.Portfolio;
 import com.ssafy.vo.Post;
 import com.ssafy.vo.PostComment;
+import com.ssafy.vo.Token;
 
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
 @RestController
@@ -45,6 +47,9 @@ public class WebMobileController {
 	@Autowired
 	PostCommentService postComService;
 	
+	@Autowired
+	TokenService tokenService;
+	
 	@RequestMapping(value = "/login", method = RequestMethod.POST, produces = { "application/json;charset=euc-kr" })
 	public Map login(@RequestBody Member member, HttpSession session) {
 		HashMap<String, String> map = new HashMap<String, String>();
@@ -53,6 +58,7 @@ public class WebMobileController {
 			map.put("success", "true");
 			map.put("mid", m.getMid());
 			map.put("grade", m.getGrade());
+//			tokenService.insertToken(token);
 			logger.info(m.getEmail() + " 로그인");
 			return map;
 		} else {
@@ -61,6 +67,29 @@ public class WebMobileController {
 			return map;
 		}
 	}
+	
+	@RequestMapping(value = "/token", method = RequestMethod.POST, produces = { "application/json;charset=euc-kr" })
+	public Map insertToken(@RequestBody Token token, HttpSession session) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		tokenService.insertToken(token);
+		map.put("success", "true");
+		return map;
+	}
+	
+	@RequestMapping(value = "/token", method = RequestMethod.GET, produces = { "application/json;charset=utf-8" })
+	public List<Token> getTokenList() {
+		logger.info("토큰 접근");
+		return tokenService.getTokenList();
+	}
+	
+	@RequestMapping(value = "/token/{mid}", method = RequestMethod.DELETE, produces = { "application/json;charset=utf-8" })
+	public Map deleteToken(@PathVariable("mid") String mid) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		tokenService.deleteToken(mid);
+		map.put("success", "true");
+		return map;
+}
+	
 //	@RequestMapping(value = "/member", method = RequestMethod.GET, produces = { "application/json;charset=euc-kr" })
 //	public List<Member> getMemberList(HttpSession session) {
 //		List<Member> memberList = new ArrayList<>();

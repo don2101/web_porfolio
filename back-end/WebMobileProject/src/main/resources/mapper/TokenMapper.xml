@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- xml mapper와 짝이 될 java mapper의 패키지명(경로명)과 파일명을 적어줌 -->
+<mapper namespace="com.ssafy.mapper.TokenMapper">
+
+ 	<insert id="insertToken" parameterType="Token">
+ 		insert into token values(null,#{value},#{mid})
+ 	</insert>
+ 
+	<select id="getTokenList" resultType="Token">
+		select * from token order by tid
+	</select>
+ 	
+ 	
+ 	<delete id="deleteToken" parameterType="String">
+ 		delete from token where mid=#{param1}
+ 	</delete>
+
+  	
+</mapper>
+
+
+
+
+
+
+
+
