@@ -5,7 +5,7 @@
 import axios from 'axios'
 
 const GITLAB_URL = "https://lab.ssafy.com/api/v4/projects/6033/repository/commits?&all=true&per_page=500"
-// const GITLAB_URL_2 = "https://lab.ssafy.com/api/v4/projects/6033/repository/commits?&all=true&per_page=500"
+
 
 
 export default {
@@ -56,7 +56,7 @@ export default {
         )
       }
     }
-    
+
     return parseData
   },
 
@@ -67,7 +67,7 @@ export default {
 
     for(let committerName in parseData) {
       graphData[committerName] = {}
-      
+
       for(let idx = 0; idx < parseData[committerName].length; idx++) {
         let commitCount = parseData[committerName][idx]
 

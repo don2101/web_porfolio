@@ -1,4 +1,5 @@
 import axios from 'axios'
+import TokenService from './TokenService'
 
 const BASE_URL = "http://localhost:9090/post"
 
@@ -12,27 +13,31 @@ export default {
     } catch(err) {
       alert(err)
     }
-    
+
   },
 
   // POST post
   async postPost(postBody) {
     try {
       const response = await axios.post(BASE_URL, postBody);
-    
-      if(response.data.success == "true") { return true }
-      else { return false }  
+
+      if(response.data.success == "true") {
+        TokenService.notificationAll('new post!!')
+        return true
+      }
+      else {
+        return false
+      }
     } catch(err) {
       alert(err)
     }
-    
   },
 
   // GET post
   async getPost(postId) {
     try {
       const response = await axios.get(BASE_URL + "/" + postId);
-      
+
       return response.data
     } catch(err) {
 
@@ -48,14 +53,14 @@ export default {
     } catch(err) {
       alert(err)
     }
-    
+
   },
 
   // DELETE post
   async deletePost(postId) {
     try {
       const response = await axios.delete(BASE_URL + "/" + postId);
-  
+
       return response.data
     } catch(err) {
       alert(err)
