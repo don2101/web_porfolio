@@ -1,37 +1,30 @@
 <template>
   <div class="mt-5">
-    
-    <v-data-table
-      :headers="headers"
-      :items="desserts"
-    >
-      <template v-slot:items="props">
-        <td>{{ props.item.name }}</td>
-        <td class="text-xs-right">{{ props.item.calories }}</td>
-        <td class="text-xs-right">{{ props.item.fat }}</td>
-        <td class="text-xs-right">{{ props.item.carbs }}</td>
-        <td class="text-xs-right">{{ props.item.protein }}</td>
-        <td class="text-xs-right">{{ props.item.iron }}</td>
-      </template>
-    </v-data-table>
 
-    <v-card>
-      <v-list two-line dark>
-        <v-list-tile v-for="i in posts.length" :key="posts[i-1].postId" xs12>
-          <router-link :to="{ name: 'postDetail', query: { 'pid': posts[i-1].postId } }">
-            <v-list-tile-content>
-              <Post
-                :title="posts[i-1].title"
-                :date="posts[i-1].date"
-                :writer="posts[i-1].mid">
-              </Post>
+    <v-layout class="post-header">
+      <v-flex xs2>
+        <p>작성자</p>
+      </v-flex>
+      <v-flex xs8>
+        <p>제목</p>
+      </v-flex>
+      <v-flex xs2>
+        <p>작성일</p>
+      </v-flex>
+    </v-layout>
 
-            </v-list-tile-content>
-          </router-link>
-        </v-list-tile>
-      </v-list>
-    </v-card>
-    
+    <hr class="post-header-hr"/>
+
+    <div v-for="i in posts.length" :key="posts[i-1].postId">
+      <router-link :to="{ name: 'postDetail', query: { 'pid': posts[i-1].postId } }">
+          <Post
+            :title="posts[i-1].title"
+            :date="posts[i-1].date"
+            :writer="posts[i-1].mid">
+          </Post>
+      </router-link>
+    </div>
+
   </div>
 </template>
 

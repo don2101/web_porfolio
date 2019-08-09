@@ -1,13 +1,18 @@
 <template>
   <div>
-    <v-list-tile-title>{{ title }}</v-list-tile-title>
-    <v-list-tile-sub-title class="text--primary">{{ date }}</v-list-tile-sub-title>
-    <v-list-tile-sub-title>{{ writer }}</v-list-tile-sub-title>
+    <v-layout class="post-title">
+      <v-flex xs2>
+        <p>{{ writer }}</p>
+      </v-flex>
+      <v-flex xs8>
+        {{ title }}
+      </v-flex>
+      <v-flex xs2>
+        {{ date }}
+      </v-flex>
+    </v-layout>
     
-    <v-divider>
-
-    </v-divider>
-
+    <hr class="post-title-hr"/>
   </div>
 </template>
 

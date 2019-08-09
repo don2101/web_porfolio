@@ -35,6 +35,11 @@
     margin-bottom: 10px;
 }
 
+.post-header {
+    font-size: 2rem;
+    color: #FAFAFA;
+}
+
 
 /* text */
 .portfolio-text {
@@ -66,6 +71,11 @@
     margin-top: 30px;
 }
 
+.post-title {
+    font-size: 1.5rem;
+    color: #FAFAFA;
+}
+
 
 /* image */
 .portfolio-image {
@@ -78,6 +88,22 @@
     padding: 20px;
     color: #FAFAFA;
 }
+
+/* hr */
+.post-header-hr {
+    height: 3.5px;
+    background-color: #FAFAFA;
+    margin-bottom: 20px;
+}
+
+.post-title-hr {
+    height: 2px;
+    background-color: #FAFAFA;
+    border-color: #FAFAFA;
+    margin-bottom: 10px;
+}
+
+
 
 /* page transit animation */
 
