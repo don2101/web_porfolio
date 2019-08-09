@@ -30,7 +30,7 @@
     text-decoration: none !important;
 }
 
-.portfolio-title {
+.detail-title {
     font-size: 5.5rem;
     margin-bottom: 10px;
 }
@@ -40,6 +40,11 @@
 .portfolio-text {
     margin-top: 50px !important;
     font-size: 2rem !important;
+}
+
+.post-text {
+    margin-top: 50px !important;
+    margin-bottom: 40px !important;
 }
 
 .main-text {
