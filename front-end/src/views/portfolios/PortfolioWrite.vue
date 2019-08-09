@@ -4,7 +4,7 @@
     <form @submit.prevent="postPortfolio">
 
       <!-- title -->
-      <v-layout class="portfolio-title-input">
+      <v-layout class="write-title-input">
         <v-flex xs12>
           <v-text-field
           v-model="title"
