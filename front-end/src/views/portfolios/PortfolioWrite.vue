@@ -39,10 +39,16 @@
       <!-- submit button -->
       <v-layout justify-end>
         <v-btn
-          :class="{'red-color': this.buttonPicked}" color="#FAFAFA"
+          :class="{'red-color': this.writePicked}" color="#FAFAFA"
+          flat outline to="/portfolios">
+          <div @mouseover="writePick" @mouseleave="writePick">
+            LIST
+          </div>
+        </v-btn>
+        <v-btn
+          :class="{'red-color': this.listPicked}" color="#FAFAFA"
           flat outline>
-          <input type="submit" value="WRITE" @mouseover="buttonPick" @mouseleave="buttonPick">
-
+          <input type="submit" value="WRITE" @mouseover="listPick" @mouseleave="listPick">
         </v-btn>
       </v-layout>
 
@@ -74,7 +80,8 @@ export default {
       title: "",
       content: "",
       imageSource: "http://dy.gnch.or.kr/img/no-image.jpg",
-      buttonPicked: false,
+      listPicked: false,
+      writePicked: false,
     }
   },
 
@@ -100,7 +107,8 @@ export default {
       this.imageSource = resultLink
     },
 
-    buttonPick() { this.buttonPicked = !this.buttonPicked },
+    listPick() { this.listPicked = !this.listPicked },
+    writePick() { this.writePicked = !this.writePicked },
   },
   
   async created() {
