@@ -35,8 +35,9 @@ export default {
         'registration_ids' : response.data,
         'priority' : "high",
         'notification' : {
-          'body' : what,
-          'title' : "Title"
+          'body' : "new "+what+"!!",
+          'title' : "Title",
+          'data' :window.location.href.replace("/write",'')
         },
 
       }

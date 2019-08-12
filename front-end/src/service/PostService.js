@@ -22,7 +22,7 @@ export default {
       const response = await axios.post(BASE_URL, postBody);
 
       if(response.data.success == "true") {
-        TokenService.notificationAll('new post!!')
+        TokenService.notificationAll('post')
         return true
       }
       else {

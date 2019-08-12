@@ -16,7 +16,7 @@ export default {
 
     if(response.data.success==='true'){
       alert("정상적으로 등록 되었습니다.")
-      TokenService.notificationAll('new portfolio!!')
+      TokenService.notificationAll('portfolio')
       window.location.href='/portfolios'
     } else {
       alert("에러 발생")
