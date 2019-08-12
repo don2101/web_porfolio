@@ -115,7 +115,7 @@ public class PostController {
 
 	@RequestMapping(value = "/post/comments/{postcomId}", method = RequestMethod.DELETE, produces = {
 			"application/json;charset=euc-kr" })
-	public Map deletePostComment(@PathVariable("postcomId") String postcomId, RequestBody res) {
+	public Map deletePostComment(@PathVariable("postcomId") String postcomId) {
 		HashMap<String, String> map = new HashMap<String, String>();
 		try {
 
