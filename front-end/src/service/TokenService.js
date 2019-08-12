@@ -42,5 +42,30 @@ export default {
       }
       axios.post("https://fcm.googleapis.com/fcm/send",content,config)
     })
-  }
+  },
+
+  async checkToken(){
+    let result = {};
+    const jwtForm = {
+      jwt: window.sessionStorage.getItem("jwt")
+    }
+    console.log("jwt: " + window.sessionStorage.getItem("jwt"))
+    axios.post(BASE_URL + '/jwt/auth', jwtForm)
+    .then(response=>{
+      if(response.data.success==="true") {
+        alert("valid Token")
+        result = {
+          mid: Number(response.data.mid),
+          name: response.data.name,
+        }
+        console.log("mid: " + result.mid)
+      } else if (response.data.success==="invalidToken") {
+        alert("invalid Token")
+        window.sessionStorage.removeItem("jwt")
+        window.location.href='/'
+      }
+    })
+    return result
+  },
+
 }

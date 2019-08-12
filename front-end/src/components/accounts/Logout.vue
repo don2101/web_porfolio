@@ -29,9 +29,10 @@ export default {
   methods: {
     logout() {
       TokenService.deleteToken(sessionStorage.getItem("mid"));
+      sessionStorage.removeItem("mid");
       sessionStorage.removeItem("jwt");
       this.$store.state.isLoggedIn = false;
-      this.$store.state.mid = "";
+      this.$store.state.mid = -1;
       // window.location.href = "/"
     },
 

@@ -127,7 +127,7 @@ export default {
         if (result.isLoggedIn == true) {
           this.$store.state.isLoggedIn = true;
           this.$store.state.mid = result.id;
-          alert(result.id)
+          sessionStorage.setItem("mid", result.id);
           sessionStorage.setItem("jwt", result.jwt);
           // window.location.href='/'
         } else {

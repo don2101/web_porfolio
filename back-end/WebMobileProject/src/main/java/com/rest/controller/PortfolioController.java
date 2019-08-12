@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.service.PfCommentService;
 import com.ssafy.service.PortfolioService;
+import com.ssafy.vo.Jwt;
 import com.ssafy.vo.Portfolio;
 
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
@@ -29,11 +31,14 @@ public class PortfolioController {
 	PfCommentService pfComService;
 	
 
-	@RequestMapping(value = "/portfolio", method = RequestMethod.GET)
+	@RequestMapping(value = "/portfolio", method = RequestMethod.GET, produces = { "application/json;charset=euc-kr" })
 	public List<Portfolio> getPortfolioList() {
 		List<Portfolio> list = pService.getPortfolioList();
+//		@RequestBody Jwt jwt
+//		logger.info(jwt.getJwt());
+//		logger.info(jwt1);
 		logger.info("포트폴리오 리스트 불러옴");
-		return pService.getPortfolioList();
+		return list;
 	}
 
 	@RequestMapping(value = "/portfolio/{pfId}", method = RequestMethod.GET)

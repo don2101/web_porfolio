@@ -7,6 +7,7 @@ export default {
   // GET Posts
   async getPostList() {
     try {
+      TokenService.checkToken();
       const response = await axios.get(BASE_URL);
 
       return response.data
@@ -19,6 +20,7 @@ export default {
   // POST post
   async postPost(postBody) {
     try {
+      TokenService.checkToken();
       const response = await axios.post(BASE_URL, postBody);
 
       if(response.data.success == "true") {
@@ -36,6 +38,7 @@ export default {
   // GET post
   async getPost(postId) {
     try {
+      TokenService.checkToken();
       const response = await axios.get(BASE_URL + "/" + postId);
 
       return response.data
@@ -47,6 +50,7 @@ export default {
   // PUT post
   async putPost(postId, postBody) {
     try {
+      TokenService.checkToken();
       const response = await axios.put(BASE_URL + "/" + postId, postBody);
 
       return response.data
@@ -59,6 +63,7 @@ export default {
   // DELETE post
   async deletePost(postId) {
     try {
+      TokenService.checkToken();
       const response = await axios.delete(BASE_URL + "/" + postId);
 
       return response.data
