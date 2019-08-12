@@ -15,16 +15,23 @@
 
     <hr class="post-header-hr"/>
 
-    <div v-for="i in posts.length" :key="posts[i-1].postId">
-      <router-link :to="{ name: 'postDetail', query: { 'pid': posts[i-1].postId } }">
-          <Post
-            :title="posts[i-1].title"
-            :date="posts[i-1].date"
-            :writer="posts[i-1].mid">
-          </Post>
-      </router-link>
+    <div v-for="(post, i) in posts" :key="i">
+      <div v-if="i < pageNum*pageSize && i >= (pageNum-1)*pageSize">
+        <router-link :to="{ name: 'postDetail', query: { 'pid': post.postId } }">
+            <Post
+              :title="post.title"
+              :date="post.date"
+              :writer="post.mid">
+            </Post>
+        </router-link>
+      </div>
     </div>
-
+    
+    <v-layout justify-center>
+      <v-btn @click="prevPage"> prev </v-btn>
+      <p class="post-header mt-2 mx-3" style="font-size: 1.5rem"> {{ this.pageNum }} / {{ this.totalPage }}  page </p>
+      <v-btn @click="nextPage"> next </v-btn>
+    </v-layout>
   </div>
 </template>
 
@@ -46,101 +53,9 @@ export default {
   data() {
     return {
       posts: [],
-
-      headers: [
-        {
-          align: 'left',
-          sortable: false,
-          value: 'name'
-        },
-        { text: 'Calories', },
-        { text: 'Fat (g)', },
-        { text: 'Carbs (g)', },
-        { text: 'Protein (g)', },
-        { text: 'Iron (%)', }
-      ],
-      desserts: [
-        {
-          name: 'Frozen Yogurt',
-          calories: 159,
-          fat: 6.0,
-          carbs: 24,
-          protein: 4.0,
-          iron: '1%'
-        },
-        {
-          name: 'Ice cream sandwich',
-          calories: 237,
-          fat: 9.0,
-          carbs: 37,
-          protein: 4.3,
-          iron: '1%'
-        },
-        {
-          name: 'Eclair',
-          calories: 262,
-          fat: 16.0,
-          carbs: 23,
-          protein: 6.0,
-          iron: '7%'
-        },
-        {
-          name: 'Cupcake',
-          calories: 305,
-          fat: 3.7,
-          carbs: 67,
-          protein: 4.3,
-          iron: '8%'
-        },
-        {
-          name: 'Gingerbread',
-          calories: 356,
-          fat: 16.0,
-          carbs: 49,
-          protein: 3.9,
-          iron: '16%'
-        },
-        {
-          name: 'Jelly bean',
-          calories: 375,
-          fat: 0.0,
-          carbs: 94,
-          protein: 0.0,
-          iron: '0%'
-        },
-        {
-          name: 'Lollipop',
-          calories: 392,
-          fat: 0.2,
-          carbs: 98,
-          protein: 0,
-          iron: '2%'
-        },
-        {
-          name: 'Honeycomb',
-          calories: 408,
-          fat: 3.2,
-          carbs: 87,
-          protein: 6.5,
-          iron: '45%'
-        },
-        {
-          name: 'Donut',
-          calories: 452,
-          fat: 25.0,
-          carbs: 51,
-          protein: 4.9,
-          iron: '22%'
-        },
-        {
-          name: 'KitKat',
-          calories: 518,
-          fat: 26.0,
-          carbs: 65,
-          protein: 7,
-          iron: '6%'
-        }
-      ]
+      pageNum: 1,
+      pageSize: 10,
+      totalPage: 0,
     }
   },
 
@@ -152,7 +67,18 @@ export default {
     // post List를 요청하고 저장하는 기능
     async requestPostList() {
       this.posts = await PostService.getPostList();
+      this.totalPage = parseInt(this.posts.length/11) + 1;
     },
+
+    nextPage() {
+      if((this.pageNum)*this.pageSize < this.posts.length) this.pageNum++;
+      else alert('마지막 페이지 입니다.')
+    },
+
+    prevPage() {
+      if(this.pageNum == 1) alert('첫번째 페이지 입니다.')
+      else this.pageNum--;
+    }
   },
 
 }
