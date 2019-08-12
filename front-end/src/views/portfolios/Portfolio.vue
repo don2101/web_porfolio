@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <!-- thumbnail image -->
-    <v-img :src="imgSrc" height="200px"></v-img>
+    <v-img :src="this.imgSrc" height="200px"></v-img>
     
     <!-- text content -->
     <v-card-title primary-title>

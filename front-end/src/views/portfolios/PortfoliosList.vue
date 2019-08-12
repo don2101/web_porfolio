@@ -1,15 +1,17 @@
 <template>
   <v-layout mt-5 wrap>
 
-    <v-flex v-for="i in portfolios.length > limits ? limits : portfolios.length" :key="portfolios[i-1].pfId" xs4 sm4 md4>
-      <router-link :to="{ name: 'portfolioDetail', query: { 'pfId': portfolios[i-1].pfId } }">
-        <Portfolio class="ma-3"
-                :date="portfolios[i - 1].date"
-                :title="portfolios[i - 1].title"
-                :body="portfolios[i - 1].content"
-                :imgSrc="portfolios[i - 1].img"
-                ></Portfolio>
-      </router-link>
+    <v-flex v-for="(portfolio, i) in portfolios" :key="i" xs4 sm4 md4>
+      <div v-if="i < limits">
+        <router-link :to="{ name: 'portfolioDetail', query: { 'pfId': portfolio.pfId } }">
+          <Portfolio class="ma-3"
+                  :date="portfolio.date"
+                  :title="portfolio.title"
+                  :body="portfolio.content"
+                  :imgSrc="portfolio.img"
+                  ></Portfolio>
+        </router-link>
+      </div>
     </v-flex>
 
     <v-flex xs12 text-xs-center round my-5 v-if="loadMore">
@@ -44,14 +46,16 @@ export default {
   },
 
 	props: {
-		limits: {type: Number},
-    loadMore: {type: Boolean, default: true}
+		// limits: {type: Number},
+    // loadMore: {type: Boolean, default: true}
   },
 
 	data() {
 		return {
       portfolios: [],
-      buttonPicked: false
+      buttonPicked: false,
+      limits: 6,
+      loadMore: true,
 		}
   },
 
