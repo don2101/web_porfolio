@@ -1,42 +1,50 @@
 <template>
   <div>
-    <div class="my-5">
-      <v-layout>
-        <!-- title -->
-        <v-flex xs12>
-          <v-text-field 
-          v-model="title" 
-          dark
-          color="#FAFAFA"
-          outline single-line 
-          height="50" style="font-size: 30px"></v-text-field>
-        </v-flex>
 
-      </v-layout>
-    
-      <v-layout class="my-5">
-        <!-- markdown view -->
-        <v-flex class="markdown-view" xs6>
-          <MarkdownItVue class="md-body" :content="content"/>
-        </v-flex>
+    <v-layout class="write-title-input">
+      <!-- title -->
+      <v-flex xs12>
+        <v-text-field 
+        v-model="title" 
+        dark
+        color="#FAFAFA"
+        outline single-line 
+        height="50" style="font-size: 30px"></v-text-field>
+      </v-flex>
 
-        <v-flex class="ml-3" xs6>
-          <!-- markdown writer -->
-          <vue-simplemde v-model="content" ref="markdownEditor" />
+    </v-layout>
+  
+    <v-layout class="my-3">
+      <!-- markdown view -->
+      <v-flex class="markdown-view" xs6>
+        <MarkdownItVue class="md-body" :content="content"/>
+      </v-flex>
+      
+      <!-- markdown writer -->
+      <v-flex class="ml-3" xs6>
+        <vue-simplemde v-model="content" ref="markdownEditor" />
+      </v-flex>
+    </v-layout>
 
-          <!-- submit button -->
-          <v-btn 
-            :class="{'red-color': this.buttonPicked}" color="#FAFAFA"
-            flat outline @click="writePost">
-            <div @mouseover="buttonPick" @mouseleave="buttonPick">
-              write
-            </div>
-          </v-btn>
-
-        </v-flex>
-      </v-layout>
-    </div>
+    <v-layout justify-end>
+      <!-- submit button -->
+      <v-btn 
+        :class="{'red-color': this.listPicked}" color="#FAFAFA"
+        flat outline to="/posts">
+        <div @mouseover="listPick" @mouseleave="listPick">
+          list
+        </div>
+      </v-btn>
+      <v-btn 
+        :class="{'red-color': this.writePicked}" color="#FAFAFA"
+        flat outline @click="writePost">
+        <div @mouseover="writePick" @mouseleave="writePick">
+          write
+        </div>
+      </v-btn>
+    </v-layout>
   </div>
+
 </template>
 
 
@@ -62,7 +70,8 @@ export default {
     return {
       content: '',
       title: '',
-      buttonPicked: false,
+      writePicked: false,
+      listPicked: false,
     }
   },
 
@@ -76,7 +85,8 @@ export default {
   },
 
   methods: {
-    buttonPick() { this.buttonPicked = !this.buttonPicked },
+    listPick() { this.listPicked = !this.listPicked },
+    writePick() { this.writePicked = !this.writePicked },
     
     // POST post
     writePost() {

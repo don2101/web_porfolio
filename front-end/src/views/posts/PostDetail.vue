@@ -1,44 +1,59 @@
 <template>
   <div>
-    <!-- title view -->
-    <v-flex xs12>
-      <v-text-field
-      :value="title"
-      color="#FAFAFA"
-      dark outline single-line readonly
-      height="50" style="font-size: 30px"></v-text-field>
-    </v-flex>
+    <!-- title area -->
+    <h1 class="main-title detail-title">{{ title }}</h1>
+    <hr/>
 
     <!-- content view -->
-    <v-flex class="markdown-view" xs6>
+    <v-flex class="markdown-view post-text" xs6>
       <MarkdownItVue class="md-body" :content="content"/>
     </v-flex>
 
-    <!-- edit button -->
-    <v-btn
-      :class="{'red-color': this.editPicked}" color="#FAFAFA"
-      flat outline @click="editPost" v-if="isWriter">
-      <div @mouseover="editPick" @mouseleave="editPick">
-        edit
-      </div>
-    </v-btn>
+    <hr class="mb-3"/>
 
-    <!-- delete button -->
-    <v-btn
-      :class="{'red-color': this.deletePicked}" color="#FAFAFA"
-      flat outline @click="deletePost" v-if="isWriter">
-      <div @mouseover="deletePick" @mouseleave="deletePick">
-        delete
+    <v-layout justify-end>
+      <!-- edit button -->
+      <v-btn
+        :class="{'red-color': this.editPicked}" color="#FAFAFA"
+        flat outline @click="editPost" v-if="isWriter">
+        <div @mouseover="editPick" @mouseleave="editPick">
+          update
+        </div>
+      </v-btn>
+
+      <!-- delete button -->
+      <v-btn
+        :class="{'red-color': this.deletePicked}" color="#FAFAFA"
+        flat outline @click="deletePost" v-if="isWriter">
+        <div @mouseover="deletePick" @mouseleave="deletePick">
+          delete
+        </div>
+      </v-btn>
+
+      <!-- list button -->
+      <v-btn
+        :class="{'red-color': this.listPicked}" color="#FAFAFA"
+        flat outline to="/posts">
+        <div @mouseover="listPick" @mouseleave="listPick">
+          list
+        </div>
+      </v-btn>
+    </v-layout>
+
+    <!-- Comment Group -->
+    <div class="mt-5">
+      <PortfolioCommentWrite
+        :postId="pid"
+        :isPortfolio="isPortfolio">
+      </PortfolioCommentWrite>
+      <div class="mt-5">
+        <PortfolioCommentsList
+          :postId="pid"
+          :isPortfolio="isPortfolio">
+        </PortfolioCommentsList>
       </div>
-    </v-btn>
-    <PortfolioCommentWrite
-      :postId="pid"
-      :isPortfolio="isPortfolio">
-    </PortfolioCommentWrite>
-    <PortfolioCommentsList
-      :postId="pid"
-      :isPortfolio="isPortfolio">
-    </PortfolioCommentsList>
+    </div>
+    
   </div>
 </template>
 
@@ -59,7 +74,6 @@ export default {
 
   components: {
     MarkdownItVue,
-    PostService,
     PortfolioCommentWrite,
     PortfolioCommentsList,
   },
@@ -73,6 +87,7 @@ export default {
       post:[],
       editPicked: false,
       deletePicked: false,
+      listPicked: false,
       isPortfolio: this.pid == "" ? true : false,
     }
   },
@@ -83,8 +98,8 @@ export default {
 
   methods: {
     editPick() { this.editPicked = !this.editPicked },
-
     deletePick() { this.deletePicked = !this.deletePicked },
+    listPick() { this.listPicked = !this.listPicked },
 
     // 상세 Post를 가져온다.
     async requestPost() {

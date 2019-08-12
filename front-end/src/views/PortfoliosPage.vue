@@ -1,7 +1,7 @@
 <template>
   <div>
     
-    <h1 class="main-title my-5">Portfolios</h1>
+    <h1 class="main-title">Portfolios</h1>
     
     <!-- write portfolio button -->
     <v-btn
@@ -63,6 +63,4 @@ export default {
     }
   },
 }
-
-
 </script>

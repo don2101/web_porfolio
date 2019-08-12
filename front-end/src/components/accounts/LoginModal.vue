@@ -135,25 +135,6 @@ export default {
       })
     },
 
-    notification(){
-      console.log('로그인 완성');
-      Notification.requestPermission(result=>{
-        if(result === 'denied') {
-          console.log('Permission denied');
-          return;
-        }else if(result ==='defalut'){
-          console.log('the permission request was dismissed');
-          return;
-        }else if(result ==='granted'){
-          console.log('Permission was granted');
-          cookieService.addCookie(sessionStorage.getItem("mid"));
-          var info = cookieService.getCookie('alarm_granted');
-
-          console.log(info + "정보");
-
-        }
-      });
-    },
     loginPick() {
       document.body.style.cursor = 'pointer';
       this.loginPicked = !this.loginPicked
