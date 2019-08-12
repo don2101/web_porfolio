@@ -17,6 +17,10 @@ export default {
       alert("정상적으로 등록 되었습니다.")
       TokenService.notificationAll('new portfolio!!')
       window.location.href='/portfolios'
+    } else if (response.data.success === 'invalidToken'){
+      // 재로그인 요청
+      alert("유효하지 않은 접근이거나, 로그인이 만료되었습니다.\n다시 로그인하십시오")
+      window.location.href='/'
     } else {
       alert("에러 발생")
     }

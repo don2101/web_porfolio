@@ -77,7 +77,7 @@ public class JwtServiceImpl implements JwtService {
 	public Member readJwt(String jwt) {
 		Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(secretKey))
                 .parseClaimsJws(jwt).getBody(); // 정상 수행된다면 해당 토큰은 정상토큰	
-		Member m = null;
+		Member m = new Member();
         m.setMid((String) claims.get("mid"));
         m.setName((String) claims.get("name"));
         logger.info("mid :" + m.getMid());

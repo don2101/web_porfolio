@@ -5,18 +5,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.service.JwtService;
 import com.ssafy.service.MemberService;
 import com.ssafy.service.PfCommentService;
 import com.ssafy.service.PortfolioService;
@@ -50,6 +53,9 @@ public class WebMobileController {
 	@Autowired
 	TokenService tokenService;
 	
+	@Autowired
+	JwtService jwtService;
+	
 	@RequestMapping(value = "/login", method = RequestMethod.POST, produces = { "application/json;charset=euc-kr" })
 	public Map login(@RequestBody Member member, HttpSession session) {
 		HashMap<String, String> map = new HashMap<String, String>();
@@ -59,6 +65,10 @@ public class WebMobileController {
 			map.put("mid", m.getMid());
 			map.put("grade", m.getGrade());
 //			tokenService.insertToken(token);
+			// jwt 생성 및 Map에 담기
+			String jwt = jwtService.makeJwt(m);
+			map.put("jwt", jwt);
+			logger.info("jwt 생성: " + jwt);
 			logger.info(m.getEmail() + " 로그인");
 			return map;
 		} else {
@@ -67,6 +77,16 @@ public class WebMobileController {
 			return map;
 		}
 	}
+	
+//	// logout시 String jwt를 받아 redis에서 삭제
+//	@RequestMapping(value = "/logout", method = RequestMethod.POST, produces = { "application/json;charset=euc-kr" })
+//	public Map logout(@RequestBody String jwt) {
+//		HashMap<String, String> map = new HashMap<String, String>();
+//		jwt = jwt.substring(0, jwt.length() - 1);
+//		logger.info("logout: " + jwt);
+//		
+//		return map;
+//	}
 	
 	@RequestMapping(value = "/token", method = RequestMethod.POST, produces = { "application/json;charset=euc-kr" })
 	public Map insertToken(@RequestBody Token token, HttpSession session) {
@@ -411,6 +431,27 @@ public class WebMobileController {
 			map.put("success", "false");
 		}
 		return map;
+	}
+	
+	@GetMapping("/jwt/auth")
+	public Map checkAuth(HttpServletRequest res) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		String jwt = res.getParameter("jwt");
+		// 유효화 검사.. 유효하면 갱신, 그렇지 않으면 폐기
+		// 유효화 검사에 accesstoken과 refreshToken 2개를 발
+		if (jwtService.checkJwt(jwt)) {
+			logger.info("jwt 유효");
+			map.put("success", "true");
+			Member m = jwtService.readJwt(jwt);
+			map.put("mid", m.getMid());
+			map.put("name", m.getName());
+			return map;
+		} else {
+			logger.info("jwt 유효하지 않음");
+			logger.info(jwt);
+			map.put("success", "invalidToken");
+			return map;
+		}
 	}
 
 }

@@ -25,10 +25,10 @@ export default {
   },
 
   methods: {
-    logout: function (event) {
+    logout() {
       sessionStorage.removeItem("isLoggedIn");
       sessionStorage.removeItem("mid");
-
+      sessionStorage.removeItem("jwt");
       window.location.href = "/"
     },
 
