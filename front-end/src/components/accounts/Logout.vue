@@ -15,6 +15,8 @@
 
 
 <script>
+import TokenService from '../../service/TokenService'
+
 export default {
   name: 'logout',
 
@@ -27,6 +29,7 @@ export default {
   methods: {
     logout: function (event) {
       sessionStorage.removeItem("isLoggedIn");
+      TokenService.deleteToken(sessionStorage.getItem("mid"));
       sessionStorage.removeItem("mid");
 
       window.location.href = "/"

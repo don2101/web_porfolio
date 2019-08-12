@@ -12,6 +12,15 @@ export default {
     })
   },
 
+  async deleteToken(mid){
+    axios.delete(BASE_URL + '/token/'+mid)
+    .then(response=>{
+      if(response.data.success!="true"){
+        console.log("deleteToken error")
+      }
+    })
+  },
+
   async notificationAll(what){
     axios.get(BASE_URL+'/token')
     .then(response=>{
