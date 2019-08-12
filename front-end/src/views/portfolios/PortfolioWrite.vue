@@ -19,7 +19,7 @@
       <!-- text view area -->
       <v-layout justify-center>
         <div>
-          <img class="portfolio-image" id="image" v-bind:src="imageSource" style="max-width: 100%">
+          <v-img class="portfolio-image" id="image" v-bind:src="imageSource" style="max-width: 100%"></v-img>
           
           <div class="portfolio-image">
             <imageUploader @passUploadImage="setImageSource" />
