@@ -16,7 +16,7 @@ export default {
 
     if(response.data.success==='true'){
       alert("정상적으로 등록 되었습니다.")
-      TokenService.notificationAll('new portfolio!!')
+      TokenService.notificationAll('portfolio')
       window.location.href='/portfolios'
     } else if (response.data.success === 'invalidToken'){
       // 재로그인 요청
