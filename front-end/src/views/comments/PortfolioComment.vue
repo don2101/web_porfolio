@@ -18,7 +18,7 @@
     <v-layout>
       <v-flex class="comment-style" text-xs-center text-xs-end xs1>
         <!-- TODO: 이름으로 출력 -->
-        {{ mid }}
+        {{ name }}
       </v-flex>
 
       <v-flex xs10>
@@ -95,6 +95,9 @@ export default {
     },
     mid: {
       type: Number
+    },
+    name: {
+      type: String
     },
     isPortfolio: {
       type: Boolean,

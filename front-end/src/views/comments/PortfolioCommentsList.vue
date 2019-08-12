@@ -11,6 +11,7 @@
         :pfId=comment.pfId
         :postId=comments.postId
         :mid=comment.mid
+        :name=comment.name
         :isPortfolio="isPortfolio">
       </PortfolioComment>
     </v-flex>
