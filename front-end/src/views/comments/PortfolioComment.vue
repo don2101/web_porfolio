@@ -6,7 +6,7 @@
       :pfcomId=pfcomId
       :postcomId=postcomId
       :content=content
-      :pfId=this.pfId
+      :pfId=pfId
       :postId=postId
       :isUpdated=true
       :isPortfolio=isPortfolio
@@ -30,7 +30,7 @@
 
       <!-- edit, delete button -->
       <v-flex
-        v-if="isUpdatable()"
+        v-if="isUpdatable"
         xs1>
         <v-menu
           bottom left>
@@ -42,7 +42,7 @@
           </template>
 
           <v-list>
-            <v-list-tile @click="update()">
+            <v-list-tile @click="update">
               <v-list-tile-title>
                 <v-icon left>create</v-icon>EDIT
               </v-list-tile-title>
@@ -123,6 +123,7 @@ export default {
           postId: this.postId,
         }
       }
+      
       let response = [];
       if (this.isPortfolio) response = await CommentService.deletePortfolioComment(jsonData)
       else response = await CommentService.deletePostComment(jsonData)

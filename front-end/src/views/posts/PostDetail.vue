@@ -43,13 +43,13 @@
     <!-- Comment Group -->
     <div class="mt-5">
       <PortfolioCommentWrite
-        :postId="pid"
-        :isPortfolio="isPortfolio">
+        :postId=this.postId
+        :isPortfolio=isPortfolio>
       </PortfolioCommentWrite>
       <div class="mt-5">
         <PortfolioCommentsList
-          :postId="pid"
-          :isPortfolio="isPortfolio">
+          :postId=this.postId
+          :isPortfolio=isPortfolio>
         </PortfolioCommentsList>
       </div>
     </div>
@@ -85,6 +85,7 @@ export default {
       writer: '',
       content: '',
       post:[],
+      postId: 0,
       editPicked: false,
       deletePicked: false,
       listPicked: false,
@@ -108,6 +109,7 @@ export default {
       this.date = this.post.date;
       this.writer = this.post.mid;
       this.content = this.post.content;
+      this.postId = parseInt(this.post.postId);
     },
 
     // DELETE post

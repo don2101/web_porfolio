@@ -1,6 +1,6 @@
 import axios from 'axios'
 //back 서버를 켠 노트북의 ip로 넣을것
-const BASE_URL = "https://70.12.246.56:9090"
+const BASE_URL = "http://localhost:9090"
 
 export default {
   async getPortfolioComments(pfId) {
@@ -98,7 +98,7 @@ export default {
     .then(response=>{
       if(response.data.success==='true'){
         alert("정상적으로 등록 되었습니다.")
-        window.location.href = "/posts/detail?pid=" + jsonData.postId;
+        window.location.href = "/posts/detail?pid=" + jsonData.postId
       }else{
         alert("에러 발생")
       }
