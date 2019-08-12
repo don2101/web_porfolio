@@ -54,10 +54,12 @@ export default {
   },
 
   mounted() {
-    if (sessionStorage.getItem("isLoggedIn") != null) {
+    if (sessionStorage.getItem("jwt") != null) {
+      let result = TokenService.checkToken();
+      this.$store.state.mid = result.mid;
       this.$store.state.isLoggedIn = true;
-      this.$store.state.memberId = sessionStorage.getItem("mid");
     }
+
 
     this.getGraphdata();
 

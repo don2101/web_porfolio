@@ -7,6 +7,7 @@ export default new Vuex.Store({
   state: {
     chartData: {},
     isLoggedIn: false,
+    mid: -1,
     direction: 'slide-down',
   },
 

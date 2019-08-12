@@ -133,7 +133,7 @@ export default {
     },
 
     isUpdatable() {
-      return this.mid == this.$store.state.memberId
+      return this.mid == this.$store.state.mid
     },
   },
 }

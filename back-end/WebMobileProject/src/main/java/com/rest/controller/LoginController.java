@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.service.JwtService;
 import com.ssafy.service.MemberService;
 import com.ssafy.service.TokenService;
+import com.ssafy.vo.Jwt;
 import com.ssafy.vo.Member;
 import com.ssafy.vo.Token;
 
@@ -87,22 +88,24 @@ public class LoginController {
 		return map;
 	}
 	
-	@GetMapping("/jwt/auth")
-	public Map checkAuth(HttpServletRequest res) {
+	@RequestMapping(value = "/jwt/auth", method = RequestMethod.POST, produces = { "application/json;charset=utf-8" })
+	public Map checkAuth(@RequestBody Jwt jwt) {
 		HashMap<String, String> map = new HashMap<String, String>();
-		String jwt = res.getParameter("jwt");
+		String token = jwt.getJwt();
+		logger.info(token);
 		// 유효화 검사.. 유효하면 갱신, 그렇지 않으면 폐기
 		// 유효화 검사에 accesstoken과 refreshToken 2개를 발
-		if (jwtService.checkJwt(jwt)) {
+		if (jwtService.checkJwt(token)) {
 			logger.info("jwt 유효");
+			logger.info(token);
 			map.put("success", "true");
-			Member m = jwtService.readJwt(jwt);
+			Member m = jwtService.readJwt(token);
 			map.put("mid", m.getMid());
 			map.put("name", m.getName());
 			return map;
 		} else {
 			logger.info("jwt 유효하지 않음");
-			logger.info(jwt);
+			logger.info(token);
 			map.put("success", "invalidToken");
 			return map;
 		}
