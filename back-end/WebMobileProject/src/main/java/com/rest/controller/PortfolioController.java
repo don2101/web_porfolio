@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.service.PfCommentService;
 import com.ssafy.service.PortfolioService;
+import com.ssafy.vo.PfComment;
 import com.ssafy.vo.Portfolio;
 
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
@@ -89,6 +90,58 @@ public class PortfolioController {
 			map.put("success", "false");
 		}
 		
+		return map;
+	}
+	
+	// Portfolio comment 불러오기 (GET)
+	@RequestMapping(value="/portfolio/comments/{pfId}", method = RequestMethod.GET)
+	public List<PfComment> getPfCommentList(@PathVariable("pfId") String pfId){
+		System.out.println(pfComService.getPfCommentList(pfId));
+		return pfComService.getPfCommentList(pfId);
+	}
+	
+	// Portfolio comment 추가 (POST)
+	@RequestMapping(value="/portfolio/comments", method = RequestMethod.POST)
+	public Map insertPfComment(@RequestBody PfComment pfComment) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		try {
+			pfComService.insert(pfComment);
+			logger.info("포트폴리오 댓글 저장");
+			map.put("success", "true");
+		}catch(Exception e){
+			logger.info("포트폴리오 댓글 저장 실패");
+			map.put("success", "fail");
+		}
+		return map;
+	}
+	
+	@RequestMapping(value = "/portfolio/comments/{pfcomId}", method = RequestMethod.DELETE, produces = {
+			"application/json;charset=euc-kr" })
+	public Map deletePfComment(@PathVariable("pfcomId") String pfcomId) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		try {
+			pfComService.deletePfComment(pfcomId);
+			map.put("success", "true");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			map.put("success", "false");
+		}
+		return map;
+
+	}
+	
+	@RequestMapping(value = "/portfolio/comments/{pfcomId}", method = RequestMethod.PUT, produces = {
+			"application/json;charset=euc-kr" })
+	public Map updatePfComment(@PathVariable String pfcomId, @RequestBody PfComment pfComment) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		System.out.println(pfComment.getPfcomId() + " and " + pfComment.getContent());
+		try {
+			pfComService.updatePfComment(pfComment);
+			map.put("success", "true");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			map.put("success", "false");
+		}
 		return map;
 	}
 }
