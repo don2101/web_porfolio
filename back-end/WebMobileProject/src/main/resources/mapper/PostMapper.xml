@@ -9,11 +9,14 @@
 	
 
 	<select id="getPostList" resultType="Post">
-		select * from post order by postId
+		select p.postId, p.title, p.content, p.count, p.date, p.img, p.mid, (select m.name from member m where p.mid = m.mid) name
+		from post p;
 	</select>
 	
 	<select id="getDetailPost" resultType="Post" parameterType="String">
-		select * from post where postId=#{param1}
+		select p.postId, p.title, p.content, p.count, p.date, p.img, p.mid, (select m.name from member m where p.mid = m.mid) name
+		from post p
+		where p.postId = #{param1};
 	</select>
   
  	<insert id="insertPostInfo" parameterType="Post">

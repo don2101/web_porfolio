@@ -14,4 +14,5 @@ public class Portfolio {
 	private String date;
 	private String img;
 	private String mid;
+	private String name;
 }
