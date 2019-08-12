@@ -1,49 +1,50 @@
 <template>
   <div>
-    <div class="my-5">
-      <v-layout>
-        <!-- title -->
-        <v-flex xs12>
-          <v-text-field 
-          v-model="title" 
-          color="#FAFAFA"
-          outline single-line dark
-          height="50" style="font-size: 30px"></v-text-field>
-        </v-flex>
 
-      </v-layout>
-    
-      <v-layout class="my-5">
-        <!-- markdown view -->
-        <v-flex class="markdown-view" xs6>
-          <MarkdownItVue class="md-body" :content="content"/>
-        </v-flex>
+    <v-layout class="write-title-input">
+      <!-- title -->
+      <v-flex xs12>
+        <v-text-field 
+        v-model="title" 
+        dark
+        color="#FAFAFA"
+        outline single-line 
+        height="50" style="font-size: 30px"></v-text-field>
+      </v-flex>
+    </v-layout>
+  
+    <v-layout class="my-3">
+      <!-- markdown view -->
+      <v-flex class="markdown-view" xs6>
+        <MarkdownItVue class="md-body" :content="content"/>
+      </v-flex>
+      
+      <!-- markdown writer -->
+      <v-flex class="ml-3" xs6>
+        <vue-simplemde v-model="content" ref="markdownEditor" />
+      </v-flex>
+    </v-layout>
 
-        <v-flex class="ml-3" xs6>
-          <!-- markdown writer -->
-          <vue-simplemde v-model="content" ref="markdownEditor" />
+    <v-layout justify-end>
+      <!-- submit button -->
+      <v-btn 
+        :class="{'red-color': this.cancelPicked}" color="#FAFAFA"
+        flat outline @click="cancelUpdate">
+        <div @mouseover="cancelPick" @mouseleave="cancelPick">
+          cancel
+        </div>
+      </v-btn>
 
-          <!-- submit button -->
-          <v-btn 
-            :class="{'red-color': this.cancelPicked}" color="#FAFAFA"
-            flat outline @click="cancelUpdate">
-            <div @mouseover="cancelPick" @mouseleave="cancelPick">
-              cancel
-            </div>
-          </v-btn>
+      <!-- submit button -->
+      <v-btn 
+        :class="{'red-color': this.updatePicked}" color="#FAFAFA"
+        flat outline @click="updatePost">
+        <div @mouseover="updatePick" @mouseleave="updatePick">
+          update
+        </div>
+      </v-btn>
+    </v-layout>
 
-          <!-- submit button -->
-          <v-btn 
-            :class="{'red-color': this.updatePicked}" color="#FAFAFA"
-            flat outline @click="updatePost">
-            <div @mouseover="updatePick" @mouseleave="updatePick">
-              update
-            </div>
-          </v-btn>
-
-        </v-flex>
-      </v-layout>
-    </div>
   </div>
 </template>
 

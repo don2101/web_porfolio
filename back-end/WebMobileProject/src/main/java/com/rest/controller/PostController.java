@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.service.PostCommentService;
 import com.ssafy.service.PostService;
+import com.ssafy.vo.Post;
 import com.ssafy.vo.PostComment;
 
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
@@ -29,7 +30,69 @@ public class PostController {
 	@Autowired
 	PostCommentService postComService;
 
+	@RequestMapping(value = "/post", method = RequestMethod.GET)
+	public List<Post> getPostList() {
+		List<Post> list = postService.getPostList();
+		logger.info("포트폴리오 리스트 불러옴");
+		return list;
+	}
+
+	@RequestMapping(value = "/post/{postId}", method = RequestMethod.GET)
+	public Post getDetailPostList(@PathVariable String postId) {
+		Post post = postService.getDetailPost(postId);
+		return post;
+	}
+
+	@RequestMapping(value = "/post", method = RequestMethod.POST, produces = { "application/json;charset=euc-kr" })
+	public Map insertPostInfo(@RequestBody Post post) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		try {
+			postService.insertPostInfo(post);
+			logger.info("포트폴리오 저장");
+			map.put("success", "true");
+		} catch (Exception e) {
+			logger.info("포트폴리오 저장 실패");
+			map.put("success", "fail");
+		}
+		return map;
+	}
+
+	@RequestMapping(value = "/post/{postId}", method = RequestMethod.DELETE, produces = {
+			"application/json;charset=euc-kr" })
+	public Map deletePostList(@PathVariable("postId") String postId) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		postService.deletePostList(postId);
+		try {
+			Post post = postService.getDetailPost(postId);
+			if (post == null) {
+				map.put("success", "true");
+			} else {
+				map.put("success", "false");
+			}
+		} catch (Exception e) {
+		}
+
+		return map;
+
+	}
+
+	@RequestMapping(value = "/post/{postId}", method = RequestMethod.PUT, produces = {
+			"application/json;charset=euc-kr" })
+	public Map updatePostInfo(@PathVariable String postId, @RequestBody Post post) {
+		HashMap<String, String> map = new HashMap<String, String>();
+
+		try {
+			postService.updatePostInfo(postId, post);	
+			map.put("success", "true");
+		} catch (Exception e) {
+			map.put("success", "false");
+		}
+
+		return map;
+	}
+	
 	// Post Comment
+	
 	@RequestMapping(value = "/post/comments/{postId}", method = RequestMethod.GET)
 	public List<PostComment> getPostCommentList(@PathVariable("postId") String postId) {
 		logger.info("포스트 댓글 불러옴");
