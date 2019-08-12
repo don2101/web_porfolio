@@ -6,7 +6,8 @@
 <mapper namespace="com.ssafy.mapper.PfCommentMapper">
 
 	<select id="selectOne" parameterType="String" resultType="PfComment">
-		select * from portfoliocomment where pfId = #{param1}
+		select pc.pfcomId, pc.content, pc.date, pc.pfId, pc.mid, (select m.name from member m where pc.mid = mid) name
+		from portfoliocomment pc where pfId = #{param1};
 	</select>
 	
  	<insert id="insert" parameterType="PfComment">

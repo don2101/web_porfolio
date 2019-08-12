@@ -13,5 +13,6 @@ public class PostComment {
 	private String date;
 	private int postId;
 	private int mid;
+	private String name;
 	
 }

@@ -6,7 +6,8 @@
 <mapper namespace="com.ssafy.mapper.PostCommentMapper">
 
 	<select id="selectOne" parameterType="String" resultType="PostComment">
-		select * from postcomment where postId = #{param1}
+		select pc.postcomId, pc.content, pc.date, pc.postId, pc.mid, (select m.name from member m where pc.mid = mid) name
+		from postcomment pc where postId = #{param1};
 	</select>
 	
  	<insert id="insert" parameterType="PostComment">

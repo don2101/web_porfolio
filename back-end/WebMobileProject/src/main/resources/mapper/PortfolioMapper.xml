@@ -9,11 +9,14 @@
 	
 
 	<select id="getPortfolioList" resultType="Portfolio">
-		select * from portfolio order by pfId
+		select p.pfId, p.title, p.content, p.count, p.date, p.img, p.mid, (select m.name from member m where p.mid = m.mid) name
+		from Portfolio p;
 	</select>
 	
 	<select id="getDetailPortfolio" resultType="Portfolio" parameterType="String">
-		select * from portfolio where pfId=#{param1}
+		select p.pfId, p.title, p.content, p.count, p.date, p.img, p.mid, (select m.name from member m where p.mid = m.mid) name
+		from Portfolio p
+		where p.pfId = #{param1};
 	</select>
   
  	<insert id="insertPortfolioInfo" parameterType="Portfolio">

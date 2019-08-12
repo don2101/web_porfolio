@@ -13,5 +13,6 @@ public class PfComment {
 	private String date;
 	private	int pfId;
 	private int mid;
+	private String name;
 	
 }
