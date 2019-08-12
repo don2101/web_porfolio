@@ -1,7 +1,7 @@
 <template>
   <div>
     <div style="height: 100vh">
-      <h1 class="main-title my-5">About Us</h1>
+      <h1 class="main-title">About Us</h1>
       
       <p class="main-text">
         We are <strong class="highlight-text">developers</strong> <br>
