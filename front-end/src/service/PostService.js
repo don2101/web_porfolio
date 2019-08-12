@@ -1,7 +1,7 @@
 import axios from 'axios'
 import TokenService from './TokenService'
 //back 서버를 켠 노트북의 ip로 넣을것
-const BASE_URL = "https://70.12.246.37:9090/post"
+const BASE_URL = "http://localhost:9090/post"
 
 export default {
   // GET Posts
