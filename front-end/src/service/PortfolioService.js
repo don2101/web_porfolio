@@ -4,7 +4,8 @@
 
 import axios from 'axios'
 import TokenService from './TokenService'
-const BASE_URL = "http://localhost:9090"
+//back 서버를 켠 노트북의 ip로 넣을것
+const BASE_URL = "https://70.12.246.37:9090"
 
 export default {
   // POST portfolio
