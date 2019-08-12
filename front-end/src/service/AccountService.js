@@ -33,6 +33,7 @@ export default {
         result = {
           isLoggedIn: true,
           id: Number(response.data.mid),
+          jwt: response.data.jwt,
         }
       }
     })

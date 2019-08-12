@@ -27,11 +27,11 @@ export default {
   },
 
   methods: {
-    logout: function (event) {
+    logout() {
       sessionStorage.removeItem("isLoggedIn");
       TokenService.deleteToken(sessionStorage.getItem("mid"));
       sessionStorage.removeItem("mid");
-
+      sessionStorage.removeItem("jwt");
       window.location.href = "/"
     },
 
