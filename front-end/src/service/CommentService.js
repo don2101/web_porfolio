@@ -1,6 +1,6 @@
 import axios from 'axios'
 //back 서버를 켠 노트북의 ip로 넣을것
-const BASE_URL = "https://70.12.246.37:9090"
+const BASE_URL = "https://70.12.246.56:9090"
 
 export default {
   async getPortfolioComments(pfId) {
