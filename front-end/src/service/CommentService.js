@@ -1,4 +1,5 @@
 import axios from 'axios'
+import TokenService from './TokenService'
 //back 서버를 켠 노트북의 ip로 넣을것
 const BASE_URL = "https://70.12.246.56:9090"
 
@@ -14,6 +15,7 @@ export default {
   },
 
   async postPortfolioComment(pfComData) {
+    TokenService.checkToken();
     let response = [];
     response = await axios.post(BASE_URL + '/portfolio/comments', pfComData)
     .then(response=>{
@@ -28,6 +30,7 @@ export default {
   },
 
   async deletePortfolioComment(jsonData) {
+    TokenService.checkToken();
     let response = [];
     response = await axios.delete(BASE_URL + '/portfolio/comments/' + jsonData.pfcomId)
     .then(response=>{
@@ -42,6 +45,7 @@ export default {
   },
 
   async updatePortfolioComment(pfcomData) {
+    TokenService.checkToken();
     let response = [];
     response = await axios.put(BASE_URL + '/portfolio/comments/' + pfcomData.pfcomId, pfcomData)
     .then(response=>{
@@ -65,6 +69,7 @@ export default {
   },
 
   async postPostComment(jsonData) {
+    TokenService.checkToken();
     let response = [];
     response = await axios.post(BASE_URL + '/post/comments', jsonData)
     .then(response=>{
@@ -79,6 +84,7 @@ export default {
   },
 
   async deletePostComment(jsonData) {
+    TokenService.checkToken();
     let response = [];
     response = await axios.delete(BASE_URL + '/post/comments/' + jsonData.postcomId)
     .then(response=>{
@@ -93,6 +99,7 @@ export default {
   },
 
   async updatePostComment(jsonData) {
+    TokenService.checkToken();
     let response = [];
     response = await axios.put(BASE_URL + '/post/comments/', jsonData)
     .then(response=>{
