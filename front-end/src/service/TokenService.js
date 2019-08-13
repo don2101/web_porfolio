@@ -49,30 +49,22 @@ export default {
   },
 
   // get push token
-  async checkToken(){
-    let result = {};
-
+  async checkToken() {
     const jwtForm = {
       jwt: window.sessionStorage.getItem("jwt")
     }
 
-    axios.post(BASE_URL + '/jwt/auth', jwtForm)
-    .then(response=>{
-      if(response.data.success==="true") {
-        alert("valid Token")
-        result = {
-          mid: Number(response.data.mid),
-          name: response.data.name,
-        }
-        console.log("mid: " + result.mid)
-      } else if (response.data.success==="invalidToken") {
-        alert("invalid Token")
-        window.sessionStorage.removeItem("jwt")
-        window.location.href='/'
-      }
-    })
+    const response = await axios.post(BASE_URL + '/jwt/auth', jwtForm)
+    
+    if(response.data.success === "true") {
+      
+      return response
+    } else if (response.data.success==="invalidToken") {
+      window.sessionStorage.removeItem("jwt")
+      window.location.href='/'
+      
+    }
 
-    return result
   },
 
 }

@@ -53,15 +53,16 @@ export default {
     }
   },
 
-  mounted() {
+  async mounted() {
     // jwt를 사용해서 mounted 될 때 마다 login되어 있는지를 확인하고 mid값을 저장
     if (sessionStorage.getItem("jwt") != null) {
-      let result = TokenService.checkToken();
-      console.log(result)
-      this.$store.commit('setMid', result.mid);
+      let result = await TokenService.checkToken()
+      
+      this.$store.commit('setMid', result.data.mid);
       this.$store.commit('setLogin', true);
-      console.log(this.$store.state.mid)
-      console.log(this.$store.state.isLoggedIn)
+    } else {
+      this.$store.commit('setMid', -1);
+      this.$store.commit('setLogin', false);
     }
 
     this.getGraphdata();
