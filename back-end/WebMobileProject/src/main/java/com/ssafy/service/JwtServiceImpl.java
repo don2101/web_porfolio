@@ -85,5 +85,12 @@ public class JwtServiceImpl implements JwtService {
 		return m;
 	}
 
+	@Override
+	public String getId(String jwt) {
+		Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(secretKey))
+                .parseClaimsJws(jwt).getBody(); // 정상 수행된다면 해당 토큰은 정상토큰	
+		return (String) claims.get("mid");
+	}
+
 }
 

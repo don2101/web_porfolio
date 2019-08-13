@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.service.JwtService;
 import com.ssafy.service.MemberService;
+import com.ssafy.vo.Jwt;
 import com.ssafy.vo.Member;
 
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
@@ -27,6 +29,9 @@ public class MemberController {
 
 	@Autowired
 	MemberService mService;
+	
+	@Autowired
+	JwtService jwtService;
 	
 	@RequestMapping(value = "/member", method = RequestMethod.GET, produces = { "application/json;charset=utf-8" })
 	public List<Member> getMemberList() {
@@ -56,9 +61,18 @@ public class MemberController {
 		return map;
 	}
 	
-	@RequestMapping(value = "/member/{mid}", method = RequestMethod.GET, produces = {
-			"application/json;charset=utf-8" })
-	public Map getMemberGrade(@PathVariable("mid") String mid) {
+//	@RequestMapping(value = "/member/{mid}", method = RequestMethod.GET, produces = {
+//			"application/json;charset=utf-8" })
+//	public Map getMemberGrade(@PathVariable("mid") String mid) {
+//		HashMap<String, String> map = new HashMap<String, String>();
+//		map.put("grade", mService.getMemberGrade(mid) );
+//		return map;
+//}	
+	
+	@RequestMapping(value = "/grade", method = RequestMethod.POST, produces = {
+		"application/json;charset=utf-8" })
+	public Map getMemberGrade(@RequestBody Jwt jwt) {
+		String mid = jwtService.getId(jwt.getJwt());
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("grade", mService.getMemberGrade(mid) );
 		return map;
