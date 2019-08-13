@@ -31,7 +31,7 @@
       </v-layout>
     </form>
   </div>
-  
+
   <!-- comment add -->
   <div v-else>
     <form @submit.prevent="postPortfolioComment">
@@ -109,13 +109,13 @@ export default {
         jsonData = {
           content: this.contentInput,
           pfId: this.pfId,
-          mid: this.$store.state.memberId,
+          mid: this.$store.state.mid,
         }
       } else {
         jsonData = {
           content: this.contentInput,
           postId: this.postId,
-          mid: this.$store.state.memberId,
+          mid: this.$store.state.mid,
         }
       }
       let response = [];
