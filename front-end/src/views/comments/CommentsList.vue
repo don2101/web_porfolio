@@ -3,7 +3,7 @@
     <v-flex
       v-for="(comment, i) in comments" :key="i"
       class="list">
-      <PortfolioComment
+      <Comment
         :pfcomId=comment.pfcomId
         :postcomId=comment.postcomId
         :content="comment.content"
@@ -13,17 +13,17 @@
         :mid=comment.mid
         :name="comment.name"
         :isPortfolio="isPortfolio">
-      </PortfolioComment>
+      </Comment>
     </v-flex>
   </v-list>
 </template>
 
 <script>
 import CommentService from '../../service/CommentService.js'
-import PortfolioComment from './PortfolioComment'
+import Comment from './Comment'
 
 export default {
-  name: 'PortfolioCommentsList',
+  name: 'CommentsList',
 
   data() {
     return {
@@ -45,7 +45,7 @@ export default {
   },
 
   components: {
-    PortfolioComment,
+    Comment,
   },
 
   methods: {

@@ -55,14 +55,14 @@ export default {
     }
     console.log(jwtForm)
     const response = await axios.post(BASE_URL + '/jwt/auth', jwtForm)
-    
+
     if(response.data.success === "true") {
-      
+
       return response
     } else if (response.data.success==="invalidToken") {
       window.sessionStorage.removeItem("jwt")
       window.location.href='/'
-      
+
     }
 
   },
