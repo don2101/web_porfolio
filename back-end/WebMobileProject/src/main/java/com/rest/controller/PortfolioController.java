@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.service.PfCommentService;
@@ -34,7 +35,7 @@ public class PortfolioController {
 	public List<Portfolio> getPortfolioList() {
 		List<Portfolio> list = pService.getPortfolioList();
 		logger.info("포트폴리오 리스트 불러옴");
-		return pService.getPortfolioList();
+		return list;
 	}
 
 	@RequestMapping(value = "/portfolio/{pfId}", method = RequestMethod.GET)

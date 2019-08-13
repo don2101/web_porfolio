@@ -28,11 +28,12 @@ export default {
 
   methods: {
     logout() {
-      sessionStorage.removeItem("isLoggedIn");
       TokenService.deleteToken(sessionStorage.getItem("mid"));
       sessionStorage.removeItem("mid");
       sessionStorage.removeItem("jwt");
-      window.location.href = "/"
+      this.$store.state.isLoggedIn = false;
+      this.$store.state.mid = -1;
+      // window.location.href = "/"
     },
 
     loginPick() {

@@ -126,7 +126,7 @@ export default {
       response.then(result => {
         if (result.isLoggedIn == true) {
           this.$store.state.isLoggedIn = true;
-          sessionStorage.setItem("isLoggedIn", this.uid);
+          this.$store.state.mid = result.id;
           sessionStorage.setItem("mid", result.id);
           sessionStorage.setItem("jwt", result.jwt);
           window.location.href='/'

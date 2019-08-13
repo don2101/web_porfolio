@@ -1,6 +1,6 @@
 import axios from 'axios'
 //back 서버를 켠 노트북의 ip로 넣을것
-const BASE_URL = "http://localhost:9090"
+const BASE_URL = "https://70.12.246.68:9090"
 
 export default {
   async insertToken(tokenForm){
@@ -35,12 +35,38 @@ export default {
         'registration_ids' : response.data,
         'priority' : "high",
         'notification' : {
-          'body' : what,
-          'title' : "Title"
+          'body' : "new "+what+"!!",
+          'title' : "Title",
+          'data' :window.location.href.replace("/write",'')
         },
 
       }
       axios.post("https://fcm.googleapis.com/fcm/send",content,config)
     })
-  }
+  },
+
+  async checkToken(){
+    let result = {};
+    const jwtForm = {
+      jwt: window.sessionStorage.getItem("jwt")
+    }
+    console.log("jwt: " + window.sessionStorage.getItem("jwt"))
+    axios.post(BASE_URL + '/jwt/auth', jwtForm)
+    .then(response=>{
+      if(response.data.success==="true") {
+        alert("valid Token")
+        result = {
+          mid: Number(response.data.mid),
+          name: response.data.name,
+        }
+        console.log("mid: " + result.mid)
+      } else if (response.data.success==="invalidToken") {
+        alert("invalid Token")
+        window.sessionStorage.removeItem("jwt")
+        window.location.href='/'
+      }
+    })
+    return result
+  },
+
 }
