@@ -54,11 +54,12 @@
 
     <!-- Comment Group -->
     <div class="mt-5">
-      <PortfolioCommentWrite
-        :pfId="pfId"
-        :isPortfolio="isPortfolio">
-      </PortfolioCommentWrite>
-      
+      <div v-if="isLogin">
+        <PortfolioCommentWrite
+          :pfId="pfId"
+          :isPortfolio="isPortfolio">
+        </PortfolioCommentWrite>
+      </div>
       <div class="mt-5">
         <PortfolioCommentsList
           :pfId="pfId"
@@ -141,9 +142,13 @@ export default {
       return this.$route.query.pfId
     },
 
-    isWriter(){
+    isWriter() {
       return this.portfolio.mid === sessionStorage.getItem("mid")
     },
+
+    isLogin() {
+      return this.$store.state.isLoggedIn
+    }
   },
 
 }

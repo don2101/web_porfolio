@@ -42,10 +42,13 @@
 
     <!-- Comment Group -->
     <div class="mt-5">
-      <PortfolioCommentWrite
-        :postId="pid"
-        :isPortfolio="isPortfolio">
-      </PortfolioCommentWrite>
+      <div v-if="isLogin">
+        <PortfolioCommentWrite
+          :postId="pid"
+          :isPortfolio="isPortfolio">
+        </PortfolioCommentWrite>
+      </div>
+
       <div class="mt-5">
         <PortfolioCommentsList
           :postId="pid"

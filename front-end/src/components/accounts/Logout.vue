@@ -31,9 +31,9 @@ export default {
       TokenService.deleteToken(sessionStorage.getItem("mid"));
       sessionStorage.removeItem("mid");
       sessionStorage.removeItem("jwt");
-      this.$store.state.isLoggedIn = false;
-      this.$store.state.mid = -1;
-      // window.location.href = "/"
+      this.$store.commit("setMid", -1);
+      this.$store.commit("setLogin", false);
+      window.location.href = "/";
     },
 
     loginPick() {

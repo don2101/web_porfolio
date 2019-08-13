@@ -81,6 +81,7 @@ export default {
     } else {
       console.log("can't find service worker")
     }
+    /* service worker regist */
 
     /* firebase initilization */
     var firebaseConfig = {

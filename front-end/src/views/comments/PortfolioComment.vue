@@ -30,7 +30,7 @@
 
       <!-- edit, delete button -->
       <v-flex
-        v-if="isUpdatable"
+        v-if="isUpdatable()"
         xs1>
         <v-menu
           bottom left>
@@ -41,7 +41,7 @@
             </v-btn>
           </template>
 
-          <v-list>
+          <v-list >
             <v-list-tile @click="update">
               <v-list-tile-title>
                 <v-icon left>create</v-icon>EDIT
@@ -109,6 +109,12 @@ export default {
     PortfolioCommentWrite,
   },
 
+  computed: {
+    writerId() {
+      return this.$store.state.mid
+    }
+  },
+
   methods: {
     async deletePortfolioComment() {
       let jsonData = [];
@@ -134,7 +140,7 @@ export default {
     },
 
     isUpdatable() {
-      return this.mid == this.$store.state.mid
+      return this.mid === this.$store.state.mid
     },
   },
 }
