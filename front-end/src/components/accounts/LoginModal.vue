@@ -130,6 +130,7 @@ export default {
           this.$store.commit('setMid', result.id);
           this.$store.commit('setLogin', true);
           sessionStorage.setItem("jwt", result.jwt);
+          alert('로그인 되었습니다.')
           window.location.href='/'
         } else {
           alert(`등록되지 않은 아이디이거나, 아이디 또는 비밀번호를 잘못입력하셨습니다.`)

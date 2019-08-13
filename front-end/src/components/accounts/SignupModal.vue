@@ -133,7 +133,7 @@ export default {
 
         await AccountService.signUpSubmit(signupForm)
 
-
+        
       }
       else {
         alert("Password is unmatched");
