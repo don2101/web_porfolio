@@ -28,8 +28,8 @@ export default {
 
   methods: {
     logout() {
+      alert('로그아웃 되었습니다.')
       TokenService.deleteToken(sessionStorage.getItem("mid"));
-      sessionStorage.removeItem("mid");
       sessionStorage.removeItem("jwt");
       this.$store.commit("setMid", -1);
       this.$store.commit("setLogin", false);

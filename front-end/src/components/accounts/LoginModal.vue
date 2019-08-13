@@ -43,10 +43,10 @@
           </v-card-text>
 
           <!-- sns login components -->
-          <div class="text-xs-center">
+          <!-- <div class="text-xs-center">
             <KakaoLogin/>
             <FacebookLogin/>
-          </div>
+          </div> -->
 
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -105,6 +105,7 @@ export default {
       savePicked: false,
       canclePicked: false,
 
+      // email, pw 입력에 대한 제한 적용
       emailRules: [
         v => !!v || 'E-mail is required',
         v => /.+@.+/.test(v) || 'E-mail must be valid'
@@ -116,6 +117,7 @@ export default {
   },
 
   methods:{
+    // login 처리 로직
     loginSubmit(){
       const loginForm = {
         email: this.uid,

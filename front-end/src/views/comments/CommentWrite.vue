@@ -125,7 +125,6 @@ export default {
 
     async updatePortfolioComment() {
       let jsonData = [];
-      console.log(this.pfId)
 
       if (this.isPortfolio) {
         jsonData = {

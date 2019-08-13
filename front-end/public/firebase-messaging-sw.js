@@ -7,6 +7,7 @@ firebase.initializeApp({
 
 const messaging = firebase.messaging();
 
+// push 알림 처리
 self.addEventListener('push', function(event) {
   const payload = event.data.json();
 
@@ -17,10 +18,10 @@ self.addEventListener('push', function(event) {
     data: payload.data
   };
 
-
   event.waitUntil(self.registration.showNotification(title, options));
 });
 
+// push 알림 클릭시 실행
 self.addEventListener('notificationclick', function(event) {
 
   event.notification.close();
