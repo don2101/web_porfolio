@@ -125,9 +125,8 @@ export default {
       const response = AccountService.loginSubmit(loginForm);
       response.then(result => {
         if (result.isLoggedIn == true) {
-          this.$store.state.isLoggedIn = true;
-          this.$store.state.mid = result.id;
-          sessionStorage.setItem("mid", result.id);
+          this.$store.commit('setMid', result.id);
+          this.$store.commit('setLogin', true);
           sessionStorage.setItem("jwt", result.jwt);
           window.location.href='/'
         } else {

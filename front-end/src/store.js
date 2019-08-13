@@ -18,7 +18,15 @@ export default new Vuex.Store({
 
     setPageDirection(state, direction) {
       state.direction = direction
-    }
+    },
+
+    setMid(state, mid) {
+      state.mid = mid
+    },
+
+    setLogin(state, login) {
+      state.isLoggedIn = login
+    },
   }
 
 })

@@ -1,8 +1,9 @@
 import axios from 'axios'
 //back 서버를 켠 노트북의 ip로 넣을것
-const BASE_URL = "https://70.12.246.68:9090"
+const BASE_URL = "https://70.12.246.56:9090"
 
 export default {
+  // token regist
   async insertToken(tokenForm){
     axios.post(BASE_URL + '/token', tokenForm)
     .then(response=>{
@@ -12,6 +13,7 @@ export default {
     })
   },
 
+  // token delete
   async deleteToken(mid){
     axios.delete(BASE_URL + '/token/'+mid)
     .then(response=>{
@@ -21,6 +23,7 @@ export default {
     })
   },
 
+  // send push notification
   async notificationAll(what){
     axios.get(BASE_URL+'/token')
     .then(response=>{
@@ -45,12 +48,14 @@ export default {
     })
   },
 
+  // get push token
   async checkToken(){
     let result = {};
+
     const jwtForm = {
       jwt: window.sessionStorage.getItem("jwt")
     }
-    console.log("jwt: " + window.sessionStorage.getItem("jwt"))
+
     axios.post(BASE_URL + '/jwt/auth', jwtForm)
     .then(response=>{
       if(response.data.success==="true") {
@@ -66,6 +71,7 @@ export default {
         window.location.href='/'
       }
     })
+
     return result
   },
 

@@ -16,6 +16,7 @@
   </div>
 </template>
 
+
 <script>
 /*jslint devel: true */
 /* eslint-disable */
@@ -26,7 +27,7 @@ import ChatBot from './components/commons/ChatBot'
 import * as firebase from "firebase/app"
 import "firebase/messaging"
 import TokenService from './service/TokenService'
-// import axios from 'axios'
+
 
 export default {
   name: 'App',
@@ -36,7 +37,6 @@ export default {
     Header,
     ChatBot,
   },
-
 
   data() {
     return {
@@ -54,16 +54,19 @@ export default {
   },
 
   mounted() {
+    // jwt를 사용해서 mounted 될 때 마다 login되어 있는지를 확인하고 mid값을 저장
     if (sessionStorage.getItem("jwt") != null) {
       let result = TokenService.checkToken();
-      this.$store.state.mid = result.mid;
-      this.$store.state.isLoggedIn = true;
+      console.log(result)
+      this.$store.commit('setMid', result.mid);
+      this.$store.commit('setLogin', true);
+      console.log(this.$store.state.mid)
+      console.log(this.$store.state.isLoggedIn)
     }
 
-
     this.getGraphdata();
-
-    //push notification
+    
+    /* service worker regist */
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function() {
         navigator.serviceWorker.register('./firebase-messaging-sw.js').then(function(registration) {
@@ -74,8 +77,11 @@ export default {
           console.log('ServiceWorker registration failed: ', err);
         });
       });
+    } else {
+      console.log("can't find service worker")
     }
 
+    /* firebase initilization */
     var firebaseConfig = {
       apiKey: "AAAAzVOuSyc:APA91bHNGjZaC4bNmLvz5ZNK6QRK5S8zR0ZNp6FtQlGcm3k0HEibM_xq3xdjlJ8T8b-gBkFO20Yct9D0RxIXezP_b5hdFPGyFumpV-fbDDpv_WdCFQB5a6pbDfMkvgQaDUMR5c5OmeQ4",
       authDomain: "test-2a2a0.firebaseapp.com",
@@ -84,15 +90,18 @@ export default {
       storageBucket: "test-2a2a0.appspot.com",
       messagingSenderId: "881872227111",
     };
+
     firebase.initializeApp(firebaseConfig);
-  //
+
     this.messaging = firebase.messaging();
 
     this.messaging.usePublicVapidKey('BGMLkfJPmn8BAvRGwXlkEDq_XmqvIKLPxWWOK-sjSVMpi8nTh0KwFrDRvvdYZhiS3LtsD2GO-1mpEG3DRGrmXns');
 
-    if(sessionStorage.getItem("mid")!=null){
+    if(sessionStorage.getItem("mid") != null){
       this.requestPermission();
     }
+    /* firebase initilization */
+    
   },
 
   methods: {
@@ -100,53 +109,21 @@ export default {
       const graphData = await GitlabApiService.parseGraphData()
       this.$store.commit('setChartData', graphData)
     },
-    pushMessage(){
 
-      // this.messaging.onMessage(())
-      let config={
-        'headers':{
-          'Authorization': "key=AAAAzVOuSyc:APA91bHNGjZaC4bNmLvz5ZNK6QRK5S8zR0ZNp6FtQlGcm3k0HEibM_xq3xdjlJ8T8b-gBkFO20Yct9D0RxIXezP_b5hdFPGyFumpV-fbDDpv_WdCFQB5a6pbDfMkvgQaDUMR5c5OmeQ4",
-          'Content-Type':"application/json"
-        }
-      }
-
-      let content={
-        'registration_ids' : [
-            "cpZ8SyasN2M:APA91bEQn784n31NHzfVocgxM-JfcEZj2oORswva8A5RtplsF4FLMLQhDNn24WMDPpV595RpwDBoUWKQTAnIOaHb2fD5Y8SQqw0cSNdfRYWQ8rESaP5dZ868q7A0bV70FvrvneitcUQk",
-            "chfnOTEmKRY:APA91bGeM8jGuMoe38gD4E6fJPA1T4hMtcmMH7KJBlc8pfJuvgBVtAVYb66laWzFAUza1wyBh6s9NNSzyFoYp68cbaNJrnVMu3Noe_viAVxFfwyEi4RXGUUxgfa-UruG4CqyaXWyyWxe",
-            "eW8N7Cp7rDU:APA91bE8dUKsF8KqID7qtu375PTcWxM3yLQaOaUXTQokF531UDDWNgtkRhZEFbGmDGOrntZwW6lkXIRtwNd1sPHnt6O9X4sdKi_BMGqX5aohKzKaCySvLrNnr-k8UkMR8pw1adBWi48y"
-        ],
-        'priority' : "high",
-        'notification' : {
-          'body' : "Background Message",
-          'title' : "BG Title"
-        },
-        'data' : {
-          'title' : "FG Title",
-          'message' : "Foreground Message"
-        }
-      }
-      axios.post("https://fcm.googleapis.com/fcm/send",content,config)
-
-    },
-    async getToken() {
-
+    // token insert
+    getToken() {
       this.messaging.getToken().then((currentToken) => {
-        console.log("현재토큰")
-        console.log(currentToken)
-        const tokenForm={
+        const tokenForm = {
           'value':currentToken,
           'mid':sessionStorage.getItem("mid")
         }
         TokenService.insertToken(tokenForm)
       }).catch((err) => {
         console.log('An error occurred while retrieving token. ', err);
-
       });
     },
 
-
-
+    // token permission request
     requestPermission() {
       console.log('Requesting permission...');
 

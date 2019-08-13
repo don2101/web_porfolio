@@ -4,7 +4,7 @@
 
 import axios from 'axios'
 //back 서버를 켠 노트북의 ip로 넣을것
-const BASE_URL = "https://70.12.246.68:9090"
+const BASE_URL = "https://70.12.246.56:9090"
 
 export default {
   async getMemberList(){
@@ -31,15 +31,14 @@ export default {
 
   async getGrade(mid){
     let response=[];
-    response=await axios.get(BASE_URL+'/member/'+mid)
+    response = await axios.get(BASE_URL+'/member/'+mid)
 
-    // console.log(response)
     return response.data.grade
   },
 
   async deleteMemberList(mid){
     let response=[];
-    response=await axios.delete(BASE_URL+'/member/'+mid)
+    response = await axios.delete(BASE_URL+'/member/'+mid)
 
     return response
   }

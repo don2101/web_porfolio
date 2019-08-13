@@ -45,6 +45,7 @@ export default {
 
   methods: {
     buttonPick() { this.buttonPicked = !this.buttonPicked },
+    
     async checkGrade() {
       const grade = await AdminService.getGrade(sessionStorage.getItem("mid"));
     
