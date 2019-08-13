@@ -43,13 +43,13 @@
     <!-- Comment Group -->
     <div class="mt-5">
       <PortfolioCommentWrite
-        :postId=this.postId
-        :isPortfolio=isPortfolio>
+        :postId="pid"
+        :isPortfolio="isPortfolio">
       </PortfolioCommentWrite>
       <div class="mt-5">
         <PortfolioCommentsList
-          :postId=this.postId
-          :isPortfolio=isPortfolio>
+          :postId="pid"
+          :isPortfolio="isPortfolio">
         </PortfolioCommentsList>
       </div>
     </div>
@@ -84,8 +84,8 @@ export default {
       date: '',
       writer: '',
       content: '',
-      post:[],
-      postId: 0,
+      post: [],
+      postId: '0',
       editPicked: false,
       deletePicked: false,
       listPicked: false,
@@ -93,8 +93,9 @@ export default {
     }
   },
 
-  created() {
-    this.requestPost();
+  async created() {
+    await this.requestPost();
+    this.setPost();
   },
 
   methods: {
@@ -105,11 +106,13 @@ export default {
     // 상세 Post를 가져온다.
     async requestPost() {
       this.post = await PostService.getPost(this.pid);
+    },
+
+    setPost() {
       this.title = this.post.title;
       this.date = this.post.date;
       this.writer = this.post.mid;
       this.content = this.post.content;
-      this.postId = parseInt(this.post.postId);
     },
 
     // DELETE post

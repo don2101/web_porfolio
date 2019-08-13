@@ -55,13 +55,13 @@
     <!-- Comment Group -->
     <div class="mt-5">
       <PortfolioCommentWrite
-        :pfId=this.portId
+        :pfId="pfId"
         :isPortfolio="isPortfolio">
       </PortfolioCommentWrite>
       
       <div class="mt-5">
         <PortfolioCommentsList
-          :pfId=this.portId
+          :pfId="pfId"
           :isPortfolio="isPortfolio">
         </PortfolioCommentsList>
       </div>
@@ -126,9 +126,7 @@ export default {
       this.body = this.portfolio.content
       this.img = this.portfolio.img
       this.count = this.portfolio.count
-      this.date = this.portfolio.date
-      this.portId = parseInt(this.portfolio.pfId)
-      
+      this.date = this.portfolio.date      
     },
 
     listButtonPick() { this.listButtonPicked = !this.listButtonPicked },

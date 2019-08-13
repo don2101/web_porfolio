@@ -3,13 +3,13 @@
 
     <v-layout class="post-header">
       <v-flex xs2>
-        <p>작성자</p>
+        <p>Wrtier</p>
       </v-flex>
       <v-flex xs8>
-        <p>제목</p>
+        <p>Title</p>
       </v-flex>
       <v-flex xs2>
-        <p>작성일</p>
+        <p>Written date</p>
       </v-flex>
     </v-layout>
 
@@ -21,7 +21,7 @@
             <Post
               :title="post.title"
               :date="post.date"
-              :writer="post.mid">
+              :writer="post.name">
             </Post>
         </router-link>
       </div>

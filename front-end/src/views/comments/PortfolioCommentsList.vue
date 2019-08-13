@@ -6,13 +6,13 @@
       <PortfolioComment
         :pfcomId=comment.pfcomId
         :postcomId=comment.postcomId
-        :content=comment.content
-        :date=comment.date
-        :pfId=comment.pfId
-        :postId=comment.postId
+        :content="comment.content"
+        :date="comment.date"
+        :pfId="pfId"
+        :postId="postId"
         :mid=comment.mid
-        :name=comment.name
-        :isPortfolio=isPortfolio>
+        :name="comment.name"
+        :isPortfolio="isPortfolio">
       </PortfolioComment>
     </v-flex>
   </v-list>
@@ -33,10 +33,10 @@ export default {
 
   props: {
     pfId: {
-      type: Number
+      type: String
     },
     postId: {
-      type: Number
+      type: String
     },
     isPortfolio: {
       type: Boolean,
@@ -51,12 +51,10 @@ export default {
   methods: {
     async getPortfolioComments(pfId) {
       this.comments = await CommentService.getPortfolioComments(pfId)
-      console.log(comments)
     },
 
     async getPostComments(postId) {
       this.comments = await CommentService.getPostComments(postId)
-      console.log(this.comments)
     },
   },
 

@@ -87,10 +87,10 @@ export default {
       type: String
     },
     pfId: {
-      type: Number
+      type: String
     },
     postId: {
-      type: Number
+      type: String
     },
     isUpdated: {
       type: Boolean,
@@ -125,6 +125,8 @@ export default {
 
     async updatePortfolioComment() {
       let jsonData = [];
+      console.log(this.pfId)
+
       if (this.isPortfolio) {
         jsonData = {
           pfcomId: this.pfcomId,

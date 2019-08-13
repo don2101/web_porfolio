@@ -5,11 +5,11 @@
     <PortfolioCommentWrite
       :pfcomId=pfcomId
       :postcomId=postcomId
-      :content=content
-      :pfId=pfId
-      :postId=postId
-      :isUpdated=true
-      :isPortfolio=isPortfolio
+      :content="content"
+      :pfId="pfId"
+      :postId="postId"
+      :isUpdated="true"
+      :isPortfolio="isPortfolio"
       v-on:update="update()">
     </PortfolioCommentWrite>
   </div>
@@ -88,10 +88,10 @@ export default {
       type: String
     },
     pfId: {
-      type: Number
+      type: String
     },
     postId: {
-      type: Number
+      type: String
     },
     mid: {
       type: Number
