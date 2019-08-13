@@ -43,20 +43,20 @@
     <!-- Comment Group -->
     <div class="mt-5">
       <div v-if="isLogin">
-        <PortfolioCommentWrite
+        <CommentWrite
           :postId="pid"
           :isPortfolio="isPortfolio">
-        </PortfolioCommentWrite>
+        </CommentWrite>
       </div>
 
       <div class="mt-5">
-        <PortfolioCommentsList
+        <CommentsList
           :postId="pid"
           :isPortfolio="isPortfolio">
-        </PortfolioCommentsList>
+        </CommentsList>
       </div>
     </div>
-    
+
   </div>
 </template>
 
@@ -69,16 +69,16 @@
 import MarkdownItVue from 'markdown-it-vue'
 import 'markdown-it-vue/dist/markdown-it-vue.css'
 import PostService from '../../service/PostService'
-import PortfolioCommentWrite from '../comments/PortfolioCommentWrite'
-import PortfolioCommentsList from '../comments/PortfolioCommentsList'
+import CommentWrite from '../comments/CommentWrite'
+import CommentsList from '../comments/CommentsList'
 
 export default {
   name: "PostDetail",
 
   components: {
     MarkdownItVue,
-    PortfolioCommentWrite,
-    PortfolioCommentsList,
+    CommentWrite,
+    CommentsList,
   },
 
   data() {

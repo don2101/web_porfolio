@@ -8,7 +8,7 @@
     <v-layout justify-center>
       <v-img id="image" class="portfolio-image" v-bind:src="img" style="max-width: 70%"></v-img>
     </v-layout>
-    
+
     <!-- text view area -->
     <v-textarea
       dark readonly row-height="1" flat auto-grow solo
@@ -17,7 +17,7 @@
     </v-textarea>
 
     <hr class="mb-3"/>
-    
+
     <!-- button group -->
     <v-layout justify-end>
       <div>
@@ -50,21 +50,21 @@
 
       </div>
     </v-layout>
-    
+
 
     <!-- Comment Group -->
     <div class="mt-5">
       <div v-if="isLogin">
-        <PortfolioCommentWrite
+        <CommentWrite
           :pfId="pfId"
           :isPortfolio="isPortfolio">
-        </PortfolioCommentWrite>
+        </CommentWrite>
       </div>
       <div class="mt-5">
-        <PortfolioCommentsList
+        <CommentsList
           :pfId="pfId"
           :isPortfolio="isPortfolio">
-        </PortfolioCommentsList>
+        </CommentsList>
       </div>
     </div>
     <!-- <Disqus/> -->
@@ -77,15 +77,15 @@
  * portfolio의 상세 내용을 출력하는 component
  */
 import PortfolioService from '../../service/PortfolioService'
-import PortfolioCommentWrite from '../comments/PortfolioCommentWrite'
-import PortfolioCommentsList from '../comments/PortfolioCommentsList'
+import CommentWrite from '../comments/CommentWrite'
+import CommentsList from '../comments/CommentsList'
 
 export default {
 	name: 'PortfolioDetail',
 
   components: {
-    PortfolioCommentWrite,
-    PortfolioCommentsList,
+    CommentWrite,
+    CommentsList,
   },
 
   data() {
@@ -127,7 +127,7 @@ export default {
       this.body = this.portfolio.content
       this.img = this.portfolio.img
       this.count = this.portfolio.count
-      this.date = this.portfolio.date      
+      this.date = this.portfolio.date
     },
 
     listButtonPick() { this.listButtonPicked = !this.listButtonPicked },
