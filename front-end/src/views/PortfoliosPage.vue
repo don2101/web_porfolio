@@ -45,7 +45,7 @@ export default {
     buttonPick() { this.buttonPicked = !this.buttonPicked },
     
     async checkGrade() {
-      const grade = await AdminService.getGrade(sessionStorage.getItem("mid"));
+      const grade = await AdminService.getGrade(sessionStorage.getItem("jwt"));
       
       if(grade === '0' || grade === '1') this.isAdmin = true;
       else this.isAdmin = false;  
@@ -62,5 +62,11 @@ export default {
       isAdmin: false,
     }
   },
+
+  computed: {
+    mid() {
+      return this.$store.state.mid;
+    }
+  }
 }
 </script>

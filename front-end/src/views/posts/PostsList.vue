@@ -3,13 +3,13 @@
 
     <v-layout class="post-header">
       <v-flex xs2>
-        <p>Wrtier</p>
+        <p>Writer</p>
       </v-flex>
       <v-flex xs8>
         <p>Title</p>
       </v-flex>
       <v-flex xs2>
-        <p>Written date</p>
+        <p>Date</p>
       </v-flex>
     </v-layout>
 

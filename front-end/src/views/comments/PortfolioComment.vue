@@ -140,7 +140,7 @@ export default {
     },
 
     isUpdatable() {
-      return this.mid === this.$store.state.mid
+      return this.mid == this.$store.state.mid
     },
   },
 }

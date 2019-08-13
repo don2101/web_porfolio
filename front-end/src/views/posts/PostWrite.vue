@@ -76,9 +76,9 @@ export default {
   },
 
   async created() {
-    let grade = await AdminService.getGrade(sessionStorage.getItem("mid"));
+    let grade = await AdminService.getGrade(sessionStorage.getItem("jwt"));
     
-    if(grade !== '0' && grade !== '1'){
+    if(grade !== '0' && grade !== '1') {
       alert("권한이 없습니다.")
       window.location.href="/posts"
     }
@@ -91,7 +91,7 @@ export default {
     // POST post
     writePost() {
       const postBody = {
-        mid: sessionStorage.getItem("mid"),
+        mid: this.$store.state.mid,
         title: this.title,
         content: this.content
       }

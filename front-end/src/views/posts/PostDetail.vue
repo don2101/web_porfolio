@@ -144,6 +144,10 @@ export default {
     isWriter(){
       return this.post.mid === sessionStorage.getItem("mid")
     },
+
+    isLogin() {
+      return this.$store.state.isLoggedIn
+    }
   },
 }
 </script>

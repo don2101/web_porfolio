@@ -29,10 +29,15 @@ export default {
     return response
   },
 
-  async getGrade(mid){
-    let response=[];
-    response = await axios.get(BASE_URL+'/member/'+mid)
+  async getGrade(tokenBody) {
+    let response = {};
 
+    const jwtForm = {
+      jwt: tokenBody
+    }
+    
+    response = await axios.post(BASE_URL + '/member', jwtForm)
+    
     return response.data.grade
   },
 

@@ -95,7 +95,7 @@ export default {
         count: 0,
         date: Date.now().toString(),
         img: this.imageSource,
-        mid: this.getMemberId,
+        mid: this.$store.state.mid,
       };
       
       let response = [];
@@ -112,7 +112,7 @@ export default {
   },
   
   async created() {
-    let grade = await AdminService.getGrade(sessionStorage.getItem("mid"));
+    let grade = await AdminService.getGrade(sessionStorage.getItem("jwt"));
     
     if(grade !== '0' && grade !== '1'){
       alert("권한이 없습니다.")
@@ -120,11 +120,6 @@ export default {
     }
   },
 
-  computed: {
-    getMemberId(){
-      return sessionStorage.getItem('mid')
-    }
-  }
 }
 </script>
 

@@ -7,7 +7,7 @@
       <div v-if="isLoggedIn">
         <v-layout class="ml-5">
         <Logout></Logout>
-        <router-link v-if="isAdmin===true" :to="{ name: 'adminPage'}" :class="{'red-color': adminPagePicked}" class="small-menu-title mr-5">
+        <router-link v-if="isAdmin === true" :to="{ name: 'adminPage'}" :class="{'red-color': adminPagePicked}" class="small-menu-title mr-5">
           <div @mouseleave="adminPagePick" @mouseover="adminPagePick">
             AdminPage
           </div>
@@ -61,8 +61,8 @@ export default {
     adminPagePick(){this.adminPagePicked =! this.adminPagePicked},
 
     async checkGrade() {
-      const grade = await AdminService.getGrade(sessionStorage.getItem("mid"));
-      
+      const grade = await AdminService.getGrade(sessionStorage.getItem("jwt"));
+
       if(grade === '0') this.isAdmin = true;
       else this.isAdmin = false;
     }
@@ -77,6 +77,9 @@ export default {
       return this.$store.state.isLoggedIn;
     },
 
+    mid() {
+      return this.$store.state.mid;
+    }
   },
 
   
