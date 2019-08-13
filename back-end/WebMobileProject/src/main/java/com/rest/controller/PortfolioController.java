@@ -31,12 +31,9 @@ public class PortfolioController {
 	PfCommentService pfComService;
 	
 
-	@RequestMapping(value = "/portfolio", method = RequestMethod.GET, produces = { "application/json;charset=euc-kr" })
+	@RequestMapping(value = "/portfolio", method = RequestMethod.GET)
 	public List<Portfolio> getPortfolioList() {
 		List<Portfolio> list = pService.getPortfolioList();
-//		@RequestBody Jwt jwt
-//		logger.info(jwt.getJwt());
-//		logger.info(jwt1);
 		logger.info("포트폴리오 리스트 불러옴");
 		return list;
 	}
