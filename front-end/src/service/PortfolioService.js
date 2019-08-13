@@ -25,7 +25,6 @@ export default {
   },
   // GET portfolios
   async getPortfolios() {
-    TokenService.checkToken();
     let response = [];
     response =  await axios.get(BASE_URL + '/portfolio');
     return response.data;
@@ -36,7 +35,6 @@ export default {
 
   // GET portfolio
   async getPortfolio(pfId){
-    TokenService.checkToken();
     let response = [];
 
     response = await axios.get(BASE_URL + '/portfolio/'+pfId)

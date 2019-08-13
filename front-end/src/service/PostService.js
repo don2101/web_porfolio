@@ -7,7 +7,6 @@ export default {
   // GET Posts
   async getPostList() {
     try {
-      TokenService.checkToken();
       const response = await axios.get(BASE_URL);
 
       return response.data
@@ -38,7 +37,6 @@ export default {
   // GET post
   async getPost(postId) {
     try {
-      TokenService.checkToken();
       const response = await axios.get(BASE_URL + "/" + postId);
 
       return response.data
