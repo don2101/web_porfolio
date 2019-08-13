@@ -2,7 +2,7 @@
 <div>
   <div
     v-if="isUpdated">
-    <PortfolioCommentWrite
+    <CommentWrite
       :pfcomId=pfcomId
       :postcomId=postcomId
       :content="content"
@@ -11,7 +11,7 @@
       :isUpdated="true"
       :isPortfolio="isPortfolio"
       v-on:update="update()">
-    </PortfolioCommentWrite>
+    </CommentWrite>
   </div>
 
   <div v-else>
@@ -64,9 +64,9 @@
 
 <script>
 import CommentService from '../../service/CommentService.js'
-import PortfolioCommentWrite from './PortfolioCommentWrite'
+import CommentWrite from './CommentWrite'
 export default {
-  name: 'PortfolioComment',
+  name: 'Comment',
 
   data() {
     return {
@@ -106,7 +106,7 @@ export default {
   },
 
   components: {
-    PortfolioCommentWrite,
+    CommentWrite,
   },
 
   computed: {
@@ -129,7 +129,7 @@ export default {
           postId: this.postId,
         }
       }
-      
+
       let response = [];
       if (this.isPortfolio) response = await CommentService.deletePortfolioComment(jsonData)
       else response = await CommentService.deletePostComment(jsonData)

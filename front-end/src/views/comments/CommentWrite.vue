@@ -66,7 +66,7 @@
 <script>
 import CommentService from '../../service/CommentService.js'
 export default {
-  name: 'PortfolioCommentWrite',
+  name: 'CommentWrite',
 
   data() {
     return {
