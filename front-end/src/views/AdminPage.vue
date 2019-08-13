@@ -32,7 +32,7 @@ export default {
   async beforeCreate () {
   // 사용자를 확인
   // 페이지가 로드되기 전에(컨텐츠가 보이기 전에) 사용자 인지 확인
-    let grade = await AdminService.getGrade(sessionStorage.getItem("mid"));
+    let grade = await AdminService.getGrade(sessionStorage.getItem('jwt'));
     
     if(grade === '0'){
         const response = await AdminService.getMemberList()

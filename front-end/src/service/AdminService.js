@@ -35,8 +35,7 @@ export default {
     const jwtForm = {
       jwt: tokenBody
     }
-    
-    response = await axios.post(BASE_URL + '/member', jwtForm)
+    response = await axios.post(BASE_URL + '/grade', jwtForm)
     
     return response.data.grade
   },

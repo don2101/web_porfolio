@@ -61,10 +61,12 @@ export default {
     adminPagePick(){this.adminPagePicked =! this.adminPagePicked},
 
     async checkGrade() {
-      const grade = await AdminService.getGrade(sessionStorage.getItem("jwt"));
+      if(sessionStorage.getItem("jwt") != null) {
+        const grade = await AdminService.getGrade(sessionStorage.getItem("jwt"));
 
-      if(grade === '0') this.isAdmin = true;
-      else this.isAdmin = false;
+        if(grade === '0') this.isAdmin = true;
+        else this.isAdmin = false;
+      }
     }
   },
 

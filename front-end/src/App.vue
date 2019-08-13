@@ -56,8 +56,7 @@ export default {
   async mounted() {
     // jwt를 사용해서 mounted 될 때 마다 login되어 있는지를 확인하고 mid값을 저장
     if (sessionStorage.getItem("jwt") != null) {
-      let result = await TokenService.checkToken(sessionStorage.getItem("jwt"))
-
+      let result = await TokenService.checkToken()
       this.$store.commit('setMid', result.data.mid);
       this.$store.commit('setLogin', true);
     } else {

@@ -41,14 +41,15 @@ export default {
       buttonPicked: false,
       isAdmin: false,
     }
-  },
+  },  
 
   methods: {
     buttonPick() { this.buttonPicked = !this.buttonPicked },
     
     async checkGrade() {
+      console.log(sessionStorage.getItem('jwt'))
       const grade = await AdminService.getGrade(sessionStorage.getItem("jwt"));
-      
+      console.log(grade)
       if(grade === '0' || grade === '1') this.isAdmin = true;
       else this.isAdmin = false;
     }

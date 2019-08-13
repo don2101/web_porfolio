@@ -51,9 +51,9 @@ export default {
   // get push token
   async checkToken(token) {
     const jwtForm = {
-      jwt: token
+      jwt: window.sessionStorage.getItem("jwt")
     }
-
+    console.log(jwtForm)
     const response = await axios.post(BASE_URL + '/jwt/auth', jwtForm)
     
     if(response.data.success === "true") {
