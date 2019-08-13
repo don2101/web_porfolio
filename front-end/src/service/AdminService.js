@@ -3,11 +3,13 @@
  */
 
 import axios from 'axios'
+import TokenService from './TokenService'
 //back 서버를 켠 노트북의 ip로 넣을것
 const BASE_URL = "https://70.12.246.56:9090"
 
 export default {
   async getMemberList(){
+    TokenService.checkToken();
     let response=[];
     response = await axios.get(BASE_URL+"/member")
 
@@ -15,6 +17,7 @@ export default {
   },
 
   async updateMemberList(postData) {
+    TokenService.checkToken();
     let response = [];
 
     response = await axios.put(BASE_URL + '/member', postData)
@@ -37,6 +40,7 @@ export default {
   },
 
   async deleteMemberList(mid){
+    TokenService.checkToken();
     let response=[];
     response = await axios.delete(BASE_URL+'/member/'+mid)
 
