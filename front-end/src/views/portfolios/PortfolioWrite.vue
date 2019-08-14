@@ -1,57 +1,59 @@
 <template>
   <div>
-    <div class="my-5">
+      
+    <form @submit.prevent="postPortfolio">
+
       <!-- title -->
-      <form @submit.prevent="postPortfolio">
-        <v-layout>
-          <v-flex xs12>
-            <v-text-field
-            v-model="title"
-            dark
-            color="#FAFAFA"
-            outline single-line
-            height="50" style="font-size: 30px" name="title" required></v-text-field>
-          </v-flex>
-        </v-layout>
+      <v-layout class="write-title-input">
+        <v-flex xs12>
+          <v-text-field
+          v-model="title"
+          dark
+          color="#FAFAFA"
+          outline single-line
+          height="50" style="font-size: 30px" name="title" required></v-text-field>
+        </v-flex>
+      </v-layout>
 
-        <v-layout>
-          <!-- text view area -->
-          <v-flex xs6 class="mr-3">
-            <img id="image" v-bind:src="imageSource" style="max-width: 100%">
 
-            <div id="registedImages">
-              <v-textarea
-                background-color="transparent" color="#FAFAFA"
-                auto-grow dark solo readonly flat
-                v-bind:value="content">
-                {{ imageSource }}
-              </v-textarea>
-            </div>
-          </v-flex>
-
-          <!-- text area -->
-          <v-flex xs6>
+      <!-- text view area -->
+      <v-layout justify-center>
+        <div>
+          <v-img class="portfolio-image" id="image" v-bind:src="imageSource" style="max-width: 100%"></v-img>
+          
+          <div class="portfolio-image">
             <imageUploader @passUploadImage="setImageSource" />
+          </div>
+        </div>
+      </v-layout>
 
-            <v-textarea
-              class="my-3" color="#FAFAFA"
-              outline dark auto-grow flat
-              v-model="content" name="content" required>
+      <!-- text area -->
+      <v-textarea
+        color="#FAFAFA" class="portfolio-text" id="text-line"
+        rows="10"
+        outline dark auto-grow flat
+        v-model="content" name="content" required>
+      </v-textarea>
 
-            </v-textarea>
 
-            <!-- submit button -->
-            <v-btn
-              :class="{'red-color': this.buttonPicked}" color="#FAFAFA"
-              flat outline>
-              <input type="submit" value="WRITE" @mouseover="buttonPick" @mouseleave="buttonPick">
+      <!-- submit button -->
+      <v-layout justify-end>
+        <v-btn
+          :class="{'red-color': this.writePicked}" color="#FAFAFA"
+          flat outline to="/portfolios">
+          <div @mouseover="writePick" @mouseleave="writePick">
+            LIST
+          </div>
+        </v-btn>
+        <v-btn
+          :class="{'red-color': this.listPicked}" color="#FAFAFA"
+          flat outline>
+          <input type="submit" value="WRITE" @mouseover="listPick" @mouseleave="listPick">
+        </v-btn>
+      </v-layout>
 
-            </v-btn>
+    </form>
 
-          </v-flex>
-        </v-layout>
-      </form>
-    </div>
   </div>
 </template>
 
@@ -78,7 +80,8 @@ export default {
       title: "",
       content: "",
       imageSource: "http://dy.gnch.or.kr/img/no-image.jpg",
-      buttonPicked: false,
+      listPicked: false,
+      writePicked: false,
     }
   },
 
@@ -92,7 +95,7 @@ export default {
         count: 0,
         date: Date.now().toString(),
         img: this.imageSource,
-        mid: this.getMemberId,
+        mid: this.$store.state.mid,
       };
       
       let response = [];
@@ -104,11 +107,12 @@ export default {
       this.imageSource = resultLink
     },
 
-    buttonPick() { this.buttonPicked = !this.buttonPicked },
+    listPick() { this.listPicked = !this.listPicked },
+    writePick() { this.writePicked = !this.writePicked },
   },
   
   async created() {
-    let grade = await AdminService.getGrade(sessionStorage.getItem("mid"));
+    let grade = await AdminService.getGrade(sessionStorage.getItem("jwt"));
     
     if(grade !== '0' && grade !== '1'){
       alert("권한이 없습니다.")
@@ -116,10 +120,12 @@ export default {
     }
   },
 
-  computed: {
-    getMemberId(){
-      return sessionStorage.getItem('mid')
-    }
-  }
 }
 </script>
+
+
+<style>
+#text-line {
+  line-height: 3rem !important
+}
+</style>

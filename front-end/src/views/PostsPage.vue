@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="main-title my-5">Posts</h1>
+    <h1 class="main-title">Posts</h1>
 
     <!-- write post button -->
     <v-btn
@@ -41,19 +41,20 @@ export default {
       buttonPicked: false,
       isAdmin: false,
     }
-  },
+  },  
 
   methods: {
     buttonPick() { this.buttonPicked = !this.buttonPicked },
-    async checkGrade() {
-      const grade = await AdminService.getGrade(sessionStorage.getItem("mid"));
     
+    async checkGrade() {
+      const grade = await AdminService.getGrade(sessionStorage.getItem("jwt"));
+      
       if(grade === '0' || grade === '1') this.isAdmin = true;
       else this.isAdmin = false;
     }
   },
 
-  created(){
+  mounted(){
     this.checkGrade();
   },
 

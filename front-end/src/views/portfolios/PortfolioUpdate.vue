@@ -1,45 +1,44 @@
 <template>
   <div>
-    <div class="my-5">
-      <!-- title area -->
-      <v-layout>
-        <v-flex xs8>
+
+    <form @submit.prevent="postPortfolio">
+
+      <!-- title -->
+      <v-layout class="write-title-input">
+        <v-flex xs12>
           <v-text-field
-          :value="title"
+          v-model="title"
+          dark
           color="#FAFAFA"
-          dark outline single-line
-          height="50" style="font-size: 30px">
-          </v-text-field>
+          outline single-line
+          height="50" style="font-size: 30px" name="title" required></v-text-field>
         </v-flex>
       </v-layout>
 
-      <v-layout>
-        <!-- image view area -->
-        <v-flex xs6 class="mr-3">
-          <img id="image" v-bind:src="imageSource" style="max-width: 100%">
 
-          <div id="registedImages">
-            <v-textarea
-              background-color="transparent" color="#FAFAFA"
-              auto-grow dark solo readonly flat
-              v-bind:value="content">
-              {{ imageSource }}
-            </v-textarea>
+      <!-- text view area -->
+      <v-layout justify-center>
+        <div>
+          <v-img class="portfolio-image" id="image" v-bind:src="imageSource" style="max-width: 100%"></v-img>
+          
+          <div class="portfolio-image">
+            <imageUploader @passUploadImage="setImageSource" />
           </div>
-        </v-flex>
+        </div>
+      </v-layout>
 
-        <!-- text view area -->
-        <v-flex xs6>
-          <imageUploader @passUploadImage="setImageSource" />
+      <!-- text area -->
+      <v-textarea
+        color="#FAFAFA" class="portfolio-text" id="text-line"
+        rows="10"
+        outline dark auto-grow flat
+        v-model="content" name="content" required>
+      </v-textarea>
 
-          <v-textarea
-            class="my-3" color="#FAFAFA"
-            outline dark auto-grow flat
-            v-model="content" name="content" required>
 
-          </v-textarea>
-
-          <v-btn
+      <!-- submit button -->
+      <v-layout justify-end>
+        <v-btn
             :class="{'red-color': this.updateButtonPicked}" color="#FAFAFA"
             flat outline @click="updatePortfolio">
             <div @mouseover="updateButtonPick" @mouseleave="updateButtonPick">
@@ -55,11 +54,9 @@
               Cancel
             </div>
           </v-btn>
-
-        </v-flex>
       </v-layout>
 
-    </div>
+    </form>
   </div>
 </template>
 

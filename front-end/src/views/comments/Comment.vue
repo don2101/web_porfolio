@@ -2,24 +2,33 @@
 <div>
   <div
     v-if="isUpdated">
-    <PortfolioCommentWrite
-      :pfcomId="pfcomId"
+    <CommentWrite
+      :pfcomId=pfcomId
+      :postcomId=postcomId
       :content="content"
       :pfId="pfId"
+      :postId="postId"
       :isUpdated="true"
       :isPortfolio="isPortfolio"
       v-on:update="update()">
-    </PortfolioCommentWrite>
+    </CommentWrite>
   </div>
 
   <div v-else>
     <v-layout>
-      <v-flex xs10 offset-xs1>
+      <v-flex class="comment-style" text-xs-center text-xs-end xs1>
+        <!-- TODO: 이름으로 출력 -->
+        {{ name }}
+      </v-flex>
+
+      <v-flex xs10>
         <v-textarea
           v-model="content"
           readonly dark auto-grow rows="1" color="#FAFAFA">
         </v-textarea>
       </v-flex>
+
+      <!-- edit, delete button -->
       <v-flex
         v-if="isUpdatable()"
         xs1>
@@ -31,8 +40,9 @@
               <v-icon>more_vert</v-icon>
             </v-btn>
           </template>
-          <v-list>
-            <v-list-tile @click="update()">
+
+          <v-list >
+            <v-list-tile @click="update">
               <v-list-tile-title>
                 <v-icon left>create</v-icon>EDIT
               </v-list-tile-title>
@@ -44,8 +54,8 @@
             </v-list-tile>
           </v-list>
         </v-menu>
-
       </v-flex>
+
     </v-layout>
   </div>
 </div>
@@ -54,9 +64,9 @@
 
 <script>
 import CommentService from '../../service/CommentService.js'
-import PortfolioCommentWrite from './PortfolioCommentWrite'
+import CommentWrite from './CommentWrite'
 export default {
-  name: 'PortfolioComment',
+  name: 'Comment',
 
   data() {
     return {
@@ -66,10 +76,10 @@ export default {
 
   props: {
     pfcomId: {
-      type: String
+      type: Number
     },
-    postComId: {
-      type: String
+    postcomId: {
+      type: Number
     },
     content: {
       type: String
@@ -84,6 +94,9 @@ export default {
       type: String
     },
     mid: {
+      type: Number
+    },
+    name: {
       type: String
     },
     isPortfolio: {
@@ -93,7 +106,13 @@ export default {
   },
 
   components: {
-    PortfolioCommentWrite,
+    CommentWrite,
+  },
+
+  computed: {
+    writerId() {
+      return this.$store.state.mid
+    }
   },
 
   methods: {
@@ -106,10 +125,11 @@ export default {
         }
       } else {
         jsonData = {
-          postComId: this.postComId,
+          postcomId: this.postcomId,
           postId: this.postId,
         }
       }
+
       let response = [];
       if (this.isPortfolio) response = await CommentService.deletePortfolioComment(jsonData)
       else response = await CommentService.deletePostComment(jsonData)
@@ -120,7 +140,7 @@ export default {
     },
 
     isUpdatable() {
-      return this.mid == this.$store.state.memberId
+      return this.mid == this.$store.state.mid
     },
   },
 }

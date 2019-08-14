@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.mapper.PostCommentMapper">
+
+	<select id="selectOne" parameterType="String" resultType="PostComment">
+		select pc.postcomId, pc.content, pc.date, pc.postId, pc.mid, (select m.name from member m where pc.mid = mid) name
+		from postcomment pc where postId = #{param1};
+	</select>
+	
+ 	<insert id="insert" parameterType="PostComment">
+ 		insert into postcomment values (null, #{content}, sysdate(), #{postId}, #{mid})
+ 	</insert>
+
+	<insert id="delete" parameterType="int">
+ 		delete from postcomment where postcomId = #{param1}
+ 	</insert>
+ 	
+ 	<update id="update" parameterType="PostComment">
+ 		update postcomment
+ 		set content = #{content},
+ 		date = sysdate()
+ 		where postcomId = #{postcomId}
+ 	</update>
+
+</mapper>

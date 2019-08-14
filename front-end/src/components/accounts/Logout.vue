@@ -15,6 +15,8 @@
 
 
 <script>
+import TokenService from '../../service/TokenService'
+
 export default {
   name: 'logout',
 
@@ -25,11 +27,13 @@ export default {
   },
 
   methods: {
-    logout: function (event) {
-      sessionStorage.removeItem("isLoggedIn");
-      sessionStorage.removeItem("mid");
-
-      window.location.href = "/"
+    logout() {
+      alert('로그아웃 되었습니다.')
+      TokenService.deleteToken(sessionStorage.getItem("mid"));
+      sessionStorage.removeItem("jwt");
+      this.$store.commit("setMid", -1);
+      this.$store.commit("setLogin", false);
+      window.location.href = "/";
     },
 
     loginPick() {

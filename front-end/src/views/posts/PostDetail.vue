@@ -1,36 +1,61 @@
 <template>
   <div>
-    <!-- title view -->
-    <v-flex xs12>
-      <v-text-field 
-      :value="title"
-      color="#FAFAFA"
-      dark outline single-line readonly
-      height="50" style="font-size: 30px"></v-text-field>
-    </v-flex>
+    <!-- title area -->
+    <h1 class="main-title detail-title">{{ title }}</h1>
+    <hr/>
 
     <!-- content view -->
-    <v-flex class="markdown-view" xs6>
+    <v-flex class="markdown-view post-text" xs6>
       <MarkdownItVue class="md-body" :content="content"/>
     </v-flex>
 
-    <!-- edit button -->
-    <v-btn 
-      :class="{'red-color': this.editPicked}" color="#FAFAFA"
-      flat outline @click="editPost" v-if="isWriter">
-      <div @mouseover="editPick" @mouseleave="editPick">
-        edit
-      </div>
-    </v-btn>
+    <hr class="mb-3"/>
 
-    <!-- delete button -->
-    <v-btn 
-      :class="{'red-color': this.deletePicked}" color="#FAFAFA"
-      flat outline @click="deletePost" v-if="isWriter">
-      <div @mouseover="deletePick" @mouseleave="deletePick">
-        delete
+    <v-layout justify-end>
+      <!-- edit button -->
+      <v-btn
+        :class="{'red-color': this.editPicked}" color="#FAFAFA"
+        flat outline @click="editPost" v-if="isWriter">
+        <div @mouseover="editPick" @mouseleave="editPick">
+          update
+        </div>
+      </v-btn>
+
+      <!-- delete button -->
+      <v-btn
+        :class="{'red-color': this.deletePicked}" color="#FAFAFA"
+        flat outline @click="deletePost" v-if="isWriter">
+        <div @mouseover="deletePick" @mouseleave="deletePick">
+          delete
+        </div>
+      </v-btn>
+
+      <!-- list button -->
+      <v-btn
+        :class="{'red-color': this.listPicked}" color="#FAFAFA"
+        flat outline to="/posts">
+        <div @mouseover="listPick" @mouseleave="listPick">
+          list
+        </div>
+      </v-btn>
+    </v-layout>
+
+    <!-- Comment Group -->
+    <div class="mt-5">
+      <div v-if="isLogin">
+        <CommentWrite
+          :postId="pid"
+          :isPortfolio="isPortfolio">
+        </CommentWrite>
       </div>
-    </v-btn>
+
+      <div class="mt-5">
+        <CommentsList
+          :postId="pid"
+          :isPortfolio="isPortfolio">
+        </CommentsList>
+      </div>
+    </div>
 
   </div>
 </template>
@@ -44,13 +69,16 @@
 import MarkdownItVue from 'markdown-it-vue'
 import 'markdown-it-vue/dist/markdown-it-vue.css'
 import PostService from '../../service/PostService'
+import CommentWrite from '../comments/CommentWrite'
+import CommentsList from '../comments/CommentsList'
 
 export default {
   name: "PostDetail",
 
   components: {
     MarkdownItVue,
-    PostService,
+    CommentWrite,
+    CommentsList,
   },
 
   data() {
@@ -59,24 +87,31 @@ export default {
       date: '',
       writer: '',
       content: '',
-      post:[],
+      post: [],
+      postId: '0',
       editPicked: false,
       deletePicked: false,
+      listPicked: false,
+      isPortfolio: this.pid == "" ? true : false,
     }
   },
 
-  created() {
-    this.requestPost();
+  async created() {
+    await this.requestPost();
+    this.setPost();
   },
 
   methods: {
     editPick() { this.editPicked = !this.editPicked },
-
     deletePick() { this.deletePicked = !this.deletePicked },
+    listPick() { this.listPicked = !this.listPicked },
 
     // 상세 Post를 가져온다.
     async requestPost() {
       this.post = await PostService.getPost(this.pid);
+    },
+
+    setPost() {
       this.title = this.post.title;
       this.date = this.post.date;
       this.writer = this.post.mid;
@@ -86,7 +121,7 @@ export default {
     // DELETE post
     async deletePost() {
       const result = await PostService.deletePost(this.pid);
-      
+
       if(result.success == "true") {
         alert("삭제되었습니다.")
         window.location.href = "/posts"
@@ -104,11 +139,15 @@ export default {
   computed: {
     pid() {
       return this.$route.query.pid
-    }, 
-    
+    },
+
     isWriter(){
       return this.post.mid === sessionStorage.getItem("mid")
     },
+
+    isLogin() {
+      return this.$store.state.isLoggedIn
+    }
   },
 }
 </script>

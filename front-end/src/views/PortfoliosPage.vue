@@ -1,7 +1,7 @@
 <template>
   <div>
     
-    <h1 class="main-title my-5">Portfolios</h1>
+    <h1 class="main-title">Portfolios</h1>
     
     <!-- write portfolio button -->
     <v-btn
@@ -45,7 +45,7 @@ export default {
     buttonPick() { this.buttonPicked = !this.buttonPicked },
     
     async checkGrade() {
-      const grade = await AdminService.getGrade(sessionStorage.getItem("mid"));
+      const grade = await AdminService.getGrade(sessionStorage.getItem("jwt"));
       
       if(grade === '0' || grade === '1') this.isAdmin = true;
       else this.isAdmin = false;  
@@ -62,7 +62,11 @@ export default {
       isAdmin: false,
     }
   },
+
+  computed: {
+    mid() {
+      return this.$store.state.mid;
+    }
+  }
 }
-
-
 </script>

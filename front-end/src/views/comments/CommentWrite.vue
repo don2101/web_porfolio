@@ -1,42 +1,51 @@
 <template>
 <div>
+  <!-- comment update -->
   <div v-if="isUpdated">
     <form @submit.prevent="updatePortfolioComment">
+      <!-- input area -->
       <v-layout>
         <v-flex xs10 offset-xs1>
           <v-text-field
-            v-model="content"
-            dark>
+            v-model="updateInput"
+            dark color="#E53935">
           </v-text-field>
         </v-flex>
       </v-layout>
+
+      <!-- button group -->
       <v-layout justify-end>
         <v-btn
           color="#FAFAFA" flat
-          @click="update()">
-          수정취소
+          @click="cancel">
+          Cancel
         </v-btn>
         <v-btn
           :class="{'red-color': this.buttonPicked}"
           color="#FAFAFA" flat outline>
           <input
-            type="submit" value="SAVE" @mouseover="buttonPick" @mouseleave="buttonPick">
+            type="submit" value="Update" @mouseover="buttonPick" @mouseleave="buttonPick">
         </v-btn>
         <v-flex xs1>
         </v-flex>
       </v-layout>
     </form>
   </div>
+
+  <!-- comment add -->
   <div v-else>
     <form @submit.prevent="postPortfolioComment">
+      <!-- input area -->
       <v-text-field
         v-model="contentInput"
         dark placeholder="댓글 추가..."
         color="#E53935">
       </v-text-field>
+
+      <!-- button group -->
       <v-layout justify-end>
         <v-btn
-          color="#FAFAFA" flat @click="cancle()">
+          color="#FAFAFA" flat @click="cancel">
           <input
             type="reset" value="CANCEL">
         </v-btn>
@@ -57,21 +66,22 @@
 <script>
 import CommentService from '../../service/CommentService.js'
 export default {
-  name: 'PortfolioCommentWrite',
+  name: 'CommentWrite',
 
   data() {
     return {
       contentInput: "",
+      updateInput: this.$props.content,
       buttonPicked: false,
     }
   },
 
   props: {
     pfcomId: {
-      type: String
+      type: Number
     },
-    postComId: {
-      type: String
+    postcomId: {
+      type: Number
     },
     content: {
       type: String
@@ -99,13 +109,13 @@ export default {
         jsonData = {
           content: this.contentInput,
           pfId: this.pfId,
-          mid: this.$store.state.memberId,
+          mid: this.$store.state.mid,
         }
       } else {
         jsonData = {
           content: this.contentInput,
           postId: this.postId,
-          mid: this.$store.state.memberId,
+          mid: this.$store.state.mid,
         }
       }
       let response = [];
@@ -115,41 +125,36 @@ export default {
 
     async updatePortfolioComment() {
       let jsonData = [];
+
       if (this.isPortfolio) {
         jsonData = {
           pfcomId: this.pfcomId,
-          content: this.content,
+          content: this.updateInput,
           pfId: this.pfId,
         }
       } else {
         jsonData = {
-          postComId: this.postComId,
-          content: this.content,
+          postcomId: this.postcomId,
+          content: this.updateInput,
           postId: this.postId,
         }
       }
+
       let response = [];
       if (this.isPortfolio)  response = await CommentService.updatePortfolioComment(jsonData)
       else  response = await CommentService.updatePostComment(jsonData)
-      // this.$router.push({
-      //   path: 'detail',
-      //   query: {
-      //     pfId: this.pfId
-      //   }
-      // })
+
     },
 
     buttonPick() {
       this.buttonPicked = !this.buttonPicked
     },
 
-    update() {
+    cancel() {
       this.$emit('update')
     },
 
-    // cancel() {
-    //   this.contentInput = ""
-    // },
+
   },
 }
 </script>

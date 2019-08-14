@@ -4,7 +4,8 @@
 
 import axios from 'axios'
 
-const BASE_URL = "http://localhost:9090"
+//back 서버를 켠 노트북의 ip로 넣을것
+const BASE_URL = "https://70.12.246.56:9090"
 
 export default {
   async signUpSubmit(signupForm) {
@@ -32,10 +33,12 @@ export default {
         result = {
           isLoggedIn: true,
           id: Number(response.data.mid),
+          jwt: response.data.jwt,
         }
       }
     })
 
     return result
   },
+
 }

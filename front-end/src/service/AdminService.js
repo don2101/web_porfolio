@@ -3,22 +3,25 @@
  */
 
 import axios from 'axios'
-
-const BASE_URL = "http://localhost:9090"
+import TokenService from './TokenService'
+//back 서버를 켠 노트북의 ip로 넣을것
+const BASE_URL = "https://70.12.246.56:9090"
 
 export default {
   async getMemberList(){
+    TokenService.checkToken();
     let response=[];
     response = await axios.get(BASE_URL+"/member")
-    
+
     return response.data;
   },
 
   async updateMemberList(postData) {
+    TokenService.checkToken();
     let response = [];
 
     response = await axios.put(BASE_URL + '/member', postData)
-    
+
     if(response.data.success==='true'){
       alert("정상적으로 수정 되었습니다.")
       window.location.href='/admin'
@@ -29,17 +32,21 @@ export default {
     return response
   },
 
-  async getGrade(mid){
-    let response=[];
-    response=await axios.get(BASE_URL+'/member/'+mid)
+  async getGrade(tokenBody) {
+    let response = {};
 
-    // console.log(response)
+    const jwtForm = {
+      jwt: tokenBody
+    }
+    response = await axios.post(BASE_URL + '/grade', jwtForm)
+    
     return response.data.grade
   },
 
   async deleteMemberList(mid){
+    TokenService.checkToken();
     let response=[];
-    response=await axios.delete(BASE_URL+'/member/'+mid)
+    response = await axios.delete(BASE_URL+'/member/'+mid)
 
     return response
   }

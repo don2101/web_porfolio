@@ -1,26 +1,29 @@
 <template>
-<v-list>
-  <v-flex
-    v-for="i in comments.length"
-    class="list">
-    <PortfolioComment
-      :pfcomId="comments[i - 1].pfcomId"
-      :content="comments[i - 1].content"
-      :date="comments[i - 1].date"
-      :pfId="comments[i - 1].pfId"
-      :mid="comments[i - 1].mid"
-      :isPortfolio="isPortfolio">
-    </PortfolioComment>
-  </v-flex>
-</v-list>
+  <v-list style="padding: 3px 0px">
+    <v-flex
+      v-for="(comment, i) in comments" :key="i"
+      class="list">
+      <Comment
+        :pfcomId=comment.pfcomId
+        :postcomId=comment.postcomId
+        :content="comment.content"
+        :date="comment.date"
+        :pfId="pfId"
+        :postId="postId"
+        :mid=comment.mid
+        :name="comment.name"
+        :isPortfolio="isPortfolio">
+      </Comment>
+    </v-flex>
+  </v-list>
 </template>
 
 <script>
 import CommentService from '../../service/CommentService.js'
-import PortfolioComment from './PortfolioComment'
+import Comment from './Comment'
 
 export default {
-  name: 'PortfolioCommentsList',
+  name: 'CommentsList',
 
   data() {
     return {
@@ -42,7 +45,7 @@ export default {
   },
 
   components: {
-    PortfolioComment,
+    Comment,
   },
 
   methods: {
@@ -57,7 +60,7 @@ export default {
 
   mounted() {
     if (this.isPortfolio) this.getPortfolioComments(this.pfId)
-    else  this.getPostComments(this.postId)
+    else this.getPostComments(this.postId)
   },
 }
 </script>

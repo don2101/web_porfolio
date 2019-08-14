@@ -43,10 +43,10 @@
           </v-card-text>
 
           <!-- sns login components -->
-          <div class="text-xs-center">
+          <!-- <div class="text-xs-center">
             <KakaoLogin/>
             <FacebookLogin/>
-          </div>
+          </div> -->
 
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -105,6 +105,7 @@ export default {
       savePicked: false,
       canclePicked: false,
 
+      // email, pw 입력에 대한 제한 적용
       emailRules: [
         v => !!v || 'E-mail is required',
         v => /.+@.+/.test(v) || 'E-mail must be valid'
@@ -116,6 +117,7 @@ export default {
   },
 
   methods:{
+    // login 처리 로직
     loginSubmit(){
       const loginForm = {
         email: this.uid,
@@ -125,9 +127,10 @@ export default {
       const response = AccountService.loginSubmit(loginForm);
       response.then(result => {
         if (result.isLoggedIn == true) {
-          this.$store.state.isLoggedIn = true;
-          sessionStorage.setItem("isLoggedIn", this.uid);
-          sessionStorage.setItem("mid", result.id);
+          this.$store.commit('setMid', result.id);
+          this.$store.commit('setLogin', true);
+          sessionStorage.setItem("jwt", result.jwt);
+          alert('로그인 되었습니다.')
           window.location.href='/'
         } else {
           alert(`등록되지 않은 아이디이거나, 아이디 또는 비밀번호를 잘못입력하셨습니다.`)
@@ -135,25 +138,6 @@ export default {
       })
     },
 
-    notification(){
-      console.log('로그인 완성');
-      Notification.requestPermission(result=>{
-        if(result === 'denied') {
-          console.log('Permission denied');
-          return;
-        }else if(result ==='defalut'){
-          console.log('the permission request was dismissed');
-          return;
-        }else if(result ==='granted'){
-          console.log('Permission was granted');
-          cookieService.addCookie(sessionStorage.getItem("mid"));
-          var info = cookieService.getCookie('alarm_granted');
-
-          console.log(info + "정보");
-
-        }
-      });
-    },
     loginPick() {
       document.body.style.cursor = 'pointer';
       this.loginPicked = !this.loginPicked
